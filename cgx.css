@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@400;700&display=swap');
+
 /* CGx Design Language Base Styles */
 
 /* 
@@ -6,15 +8,42 @@
 */
 
 :root {
-  /* CSS Variables will be defined here */
+  /* Base Colors */
+  --cgx-bg: #000000;
+  --cgx-fg: #ecf0f1;
+  --cgx-element-bg: rgba(24, 24, 24, 0.7);
+  /* #181818 at 70% opacity */
+
+  /* Terminal Colors */
+  --cgx-color-black: #2c3e50;
+  --cgx-color-black-bright: #34495e;
+  --cgx-color-red: #c0392b;
+  --cgx-color-red-bright: #e74c3c;
+  --cgx-color-green: #27ae60;
+  --cgx-color-green-bright: #2ecc71;
+  --cgx-color-yellow: #f39c12;
+  --cgx-color-yellow-bright: #f1c40f;
+  --cgx-color-blue: #2980b9;
+  --cgx-color-blue-bright: #3498db;
+  --cgx-color-magenta: #8e44ad;
+  --cgx-color-magenta-bright: #9b59b6;
+  --cgx-color-cyan: #7aa085;
+  --cgx-color-cyan-bright: #1abc9c;
+  --cgx-color-white: #bdc3c7;
+  --cgx-color-white-bright: #ecf0f1;
+
+  /* Typography */
+  --cgx-font-mono: 'Noto Sans Mono', monospace;
+  --cgx-font-default: var(--cgx-font-mono);
 }
 
 /* Reset / Base */
 .cgx-body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
-  /* Placeholder */
+  font-family: var(--cgx-font-default);
+  background-color: var(--cgx-bg);
+  color: var(--cgx-fg);
 }
 
 /* Typography */

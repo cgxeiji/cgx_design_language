@@ -18,14 +18,46 @@
         }
 
         h2 {
-            border-bottom: 1px solid #ccc;
+            border-bottom: 1px solid var(--cgx-color-white-bright);
             padding-bottom: 8px;
         }
 
         .preview-box {
-            border: 1px dashed #aaa;
+            border: 1px dashed var(--cgx-color-white-bright);
             padding: 20px;
             margin-top: 10px;
+        }
+
+        /* Swatch Styles for Preview */
+        .color-group {
+            margin-bottom: 2rem;
+        }
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1rem;
+        }
+        .swatch-card {
+            border: 1px solid var(--cgx-color-white-bright);
+            border-radius: 4px;
+            overflow: hidden;
+            background: var(--cgx-element-bg);
+        }
+        .swatch-color {
+            height: 80px;
+            width: 100%;
+        }
+        .swatch-info {
+            padding: 8px;
+            font-size: 0.85em;
+        }
+        .swatch-name {
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+        .swatch-var {
+            opacity: 0.7;
+            font-size: 0.8em;
         }
     </style>
 </head>
@@ -37,16 +69,76 @@
     <section>
         <h2>Typography</h2>
         <div class="preview-box">
-            <!-- Typography elements will go here -->
-            <p>Content to be defined.</p>
+            <h1>Heading 1 (H1)</h1>
+            <h2>Heading 2 (H2)</h2>
+            <h3>Heading 3 (H3)</h3>
+            <h4>Heading 4 (H4)</h4>
+            <h5>Heading 5 (H5)</h5>
+            <h6>Heading 6 (H6)</h6>
+            <p>This is standard paragraph text. The quick brown fox jumps over the lazy dog. 1234567890</p>
+            <p><strong>Bold Text</strong> | <em>Italic Text</em> | <u>Underlined Text</u> | <s>Strikethrough</s></p>
         </div>
     </section>
 
     <section>
         <h2>Colors</h2>
         <div class="preview-box">
-            <!-- Color swatches will go here -->
-            <p>Content to be defined.</p>
+            
+            <div class="color-group">
+                <h3>Base Colors</h3>
+                <div class="color-grid">
+                    <div class="swatch-card">
+                        <div class="swatch-color" style="background-color: var(--cgx-bg);"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Background</div>
+                            <div class="swatch-var">--cgx-bg</div>
+                        </div>
+                    </div>
+                    <div class="swatch-card">
+                        <div class="swatch-color" style="background-color: var(--cgx-fg);"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Foreground</div>
+                            <div class="swatch-var">--cgx-fg</div>
+                        </div>
+                    </div>
+                    <div class="swatch-card">
+                        <div class="swatch-color" style="background-color: var(--cgx-element-bg);"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Element BG</div>
+                            <div class="swatch-var">--cgx-element-bg</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="color-group">
+                <h3>Terminal Colors (Normal)</h3>
+                <div class="color-grid">
+                    <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-black);"></div><div class="swatch-info"><div class="swatch-name">Black</div><div class="swatch-var">--cgx-color-black</div></div></div>
+                    <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-red);"></div><div class="swatch-info"><div class="swatch-name">Red</div><div class="swatch-var">--cgx-color-red</div></div></div>
+                    <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-green);"></div><div class="swatch-info"><div class="swatch-name">Green</div><div class="swatch-var">--cgx-color-green</div></div></div>
+                    <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-yellow);"></div><div class="swatch-info"><div class="swatch-name">Yellow</div><div class="swatch-var">--cgx-color-yellow</div></div></div>
+                    <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-blue);"></div><div class="swatch-info"><div class="swatch-name">Blue</div><div class="swatch-var">--cgx-color-blue</div></div></div>
+                    <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-magenta);"></div><div class="swatch-info"><div class="swatch-name">Magenta</div><div class="swatch-var">--cgx-color-magenta</div></div></div>
+                    <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-cyan);"></div><div class="swatch-info"><div class="swatch-name">Cyan</div><div class="swatch-var">--cgx-color-cyan</div></div></div>
+                    <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-white);"></div><div class="swatch-info"><div class="swatch-name">White</div><div class="swatch-var">--cgx-color-white</div></div></div>
+                </div>
+            </div>
+
+            <div class="color-group">
+                <h3>Terminal Colors (Bright)</h3>
+                <div class="color-grid">
+                    <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-black-bright);"></div><div class="swatch-info"><div class="swatch-name">Bright Black</div><div class="swatch-var">--cgx-color-black-bright</div></div></div>
+                    <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-red-bright);"></div><div class="swatch-info"><div class="swatch-name">Bright Red</div><div class="swatch-var">--cgx-color-red-bright</div></div></div>
+                    <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-green-bright);"></div><div class="swatch-info"><div class="swatch-name">Bright Green</div><div class="swatch-var">--cgx-color-green-bright</div></div></div>
+                    <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-yellow-bright);"></div><div class="swatch-info"><div class="swatch-name">Bright Yellow</div><div class="swatch-var">--cgx-color-yellow-bright</div></div></div>
+                    <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-blue-bright);"></div><div class="swatch-info"><div class="swatch-name">Bright Blue</div><div class="swatch-var">--cgx-color-blue-bright</div></div></div>
+                    <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-magenta-bright);"></div><div class="swatch-info"><div class="swatch-name">Bright Magenta</div><div class="swatch-var">--cgx-color-magenta-bright</div></div></div>
+                    <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-cyan-bright);"></div><div class="swatch-info"><div class="swatch-name">Bright Cyan</div><div class="swatch-var">--cgx-color-cyan-bright</div></div></div>
+                    <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-white-bright);"></div><div class="swatch-info"><div class="swatch-name">Bright White</div><div class="swatch-var">--cgx-color-white-bright</div></div></div>
+                </div>
+            </div>
+
         </div>
     </section>
 
