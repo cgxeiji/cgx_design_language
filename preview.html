@@ -163,6 +163,7 @@
                     <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-red);"></div><div class="swatch-info"><div class="swatch-name">Red</div><div class="swatch-var">--cgx-color-red</div></div></div>
                     <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-green);"></div><div class="swatch-info"><div class="swatch-name">Green</div><div class="swatch-var">--cgx-color-green</div></div></div>
                     <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-yellow);"></div><div class="swatch-info"><div class="swatch-name">Yellow</div><div class="swatch-var">--cgx-color-yellow</div></div></div>
+                    <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-orange);"></div><div class="swatch-info"><div class="swatch-name">Orange</div><div class="swatch-var">--cgx-color-orange</div></div></div>
                     <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-blue);"></div><div class="swatch-info"><div class="swatch-name">Blue</div><div class="swatch-var">--cgx-color-blue</div></div></div>
                     <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-magenta);"></div><div class="swatch-info"><div class="swatch-name">Magenta</div><div class="swatch-var">--cgx-color-magenta</div></div></div>
                     <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-cyan);"></div><div class="swatch-info"><div class="swatch-name">Cyan</div><div class="swatch-var">--cgx-color-cyan</div></div></div>
@@ -177,6 +178,7 @@
                     <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-red-bright);"></div><div class="swatch-info"><div class="swatch-name">Bright Red</div><div class="swatch-var">--cgx-color-red-bright</div></div></div>
                     <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-green-bright);"></div><div class="swatch-info"><div class="swatch-name">Bright Green</div><div class="swatch-var">--cgx-color-green-bright</div></div></div>
                     <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-yellow-bright);"></div><div class="swatch-info"><div class="swatch-name">Bright Yellow</div><div class="swatch-var">--cgx-color-yellow-bright</div></div></div>
+                    <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-orange-bright);"></div><div class="swatch-info"><div class="swatch-name">Bright Orange</div><div class="swatch-var">--cgx-color-orange-bright</div></div></div>
                     <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-blue-bright);"></div><div class="swatch-info"><div class="swatch-name">Bright Blue</div><div class="swatch-var">--cgx-color-blue-bright</div></div></div>
                     <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-magenta-bright);"></div><div class="swatch-info"><div class="swatch-name">Bright Magenta</div><div class="swatch-var">--cgx-color-magenta-bright</div></div></div>
                     <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-cyan-bright);"></div><div class="swatch-info"><div class="swatch-name">Bright Cyan</div><div class="swatch-var">--cgx-color-cyan-bright</div></div></div>
@@ -190,8 +192,25 @@
     <section>
         <h2>Buttons</h2>
         <div class="preview-box">
-            <!-- Button elements will go here -->
-            <p>Content to be defined.</p>
+            <p>Buttons share a base <code>.cgx-button</code> class with specific variant classes for purpose.</p>
+            
+            <div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: center; margin-bottom: 20px;">
+                <button class="cgx-button">Normal Button</button>
+                <button class="cgx-button cgx-button-primary">Primary (Important)</button>
+                <button class="cgx-button cgx-button-secondary">Secondary</button>
+            </div>
+
+            <div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: center; margin-bottom: 20px;">
+                <button class="cgx-button cgx-button-success">Accept / Success</button>
+                <button class="cgx-button cgx-button-warning">Warning</button>
+                <button class="cgx-button cgx-button-danger">Stop / Danger</button>
+            </div>
+
+            <div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: center; margin-bottom: 20px;">
+                <button class="cgx-button cgx-button-ghost">Ghost Button</button>
+                <button class="cgx-button" disabled>Disabled Normal</button>
+                <button class="cgx-button cgx-button-primary" disabled>Disabled Primary</button>
+            </div>
         </div>
     </section>
 

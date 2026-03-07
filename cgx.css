@@ -15,28 +15,30 @@
   /* #181818 at 70% opacity */
 
   /* Terminal Colors */
-  --cgx-color-black: #2c3e50;
-  --cgx-color-black-bright: #34495e;
-  --cgx-color-red: #c0392b;
-  --cgx-color-red-bright: #e74c3c;
-  --cgx-color-green: #27ae60;
-  --cgx-color-green-bright: #2ecc71;
-  --cgx-color-yellow: #f39c12;
-  --cgx-color-yellow-bright: #f1c40f;
-  --cgx-color-blue: #2980b9;
-  --cgx-color-blue-bright: #3498db;
-  --cgx-color-magenta: #8e44ad;
-  --cgx-color-magenta-bright: #9b59b6;
-  --cgx-color-cyan: #7aa085;
-  --cgx-color-cyan-bright: #1abc9c;
-  --cgx-color-white: #bdc3c7;
-  --cgx-color-white-bright: #ecf0f1;
+  --cgx-color-black: #34495e;
+  --cgx-color-black-bright: #2c3e50;
+  --cgx-color-red: #e74c3c;
+  --cgx-color-red-bright: #c0392b;
+  --cgx-color-green: #2ecc71;
+  --cgx-color-green-bright: #27ae60;
+  --cgx-color-yellow: #f1c40f;
+  --cgx-color-yellow-bright: #f39c12;
+  --cgx-color-orange: #e67e22;
+  --cgx-color-orange-bright: #d35400;
+  --cgx-color-blue: #3498db;
+  --cgx-color-blue-bright: #2980b9;
+  --cgx-color-magenta: #9b59b6;
+  --cgx-color-magenta-bright: #8e44ad;
+  --cgx-color-cyan: #1abc9c;
+  --cgx-color-cyan-bright: #7aa085;
+  --cgx-color-white: #ecf0f1;
+  --cgx-color-white-bright: #bdc3c7;
 
   /* Semantic Colors */
-  --cgx-primary: var(--cgx-color-yellow);
-  --cgx-primary-bright: var(--cgx-color-yellow-bright);
-  --cgx-secondary: var(--cgx-color-black);
-  --cgx-secondary-bright: var(--cgx-color-black-bright);
+  --cgx-primary: var(--cgx-color-orange);
+  --cgx-primary-bright: var(--cgx-color-orange-bright);
+  --cgx-secondary: var(--cgx-color-blue);
+  --cgx-secondary-bright: var(--cgx-color-blue-bright);
 
   /* Typography */
   --cgx-font-mono: 'Noto Sans Mono', monospace;
@@ -60,3 +62,102 @@
 /* Layout */
 
 /* Components */
+
+/* Buttons */
+.cgx-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  font-family: var(--cgx-font-default);
+  font-size: 14px;
+  font-weight: normal;
+  border-radius: var(--cgx-radius);
+  border: 1px solid var(--cgx-color-white);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+  background-color: var(--cgx-element-bg);
+  color: var(--cgx-color-white);
+}
+
+.cgx-button:hover, .cgx-button:focus {
+  background-color: var(--cgx-color-white-bright);
+  color: var(--cgx-bg);
+  border-color: var(--cgx-color-white-bright);
+  outline: none;
+}
+
+.cgx-button:active {
+  filter: brightness(0.9);
+  transform: translateY(1px);
+}
+
+.cgx-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Button Variants */
+.cgx-button-primary {
+  border-color: var(--cgx-primary);
+  color: var(--cgx-primary);
+}
+.cgx-button-primary:hover, .cgx-button-primary:focus {
+  background-color: var(--cgx-primary-bright);
+  border-color: var(--cgx-primary-bright);
+  color: var(--cgx-bg);
+}
+
+.cgx-button-secondary {
+  border-color: var(--cgx-secondary);
+  color: var(--cgx-secondary);
+}
+.cgx-button-secondary:hover, .cgx-button-secondary:focus {
+  background-color: var(--cgx-secondary-bright);
+  border-color: var(--cgx-secondary-bright);
+  color: var(--cgx-fg); /* Bright black needs light text */
+}
+
+.cgx-button-danger {
+  border-color: var(--cgx-color-red);
+  color: var(--cgx-color-red);
+}
+.cgx-button-danger:hover, .cgx-button-danger:focus {
+  background-color: var(--cgx-color-red-bright);
+  border-color: var(--cgx-color-red-bright);
+  color: var(--cgx-fg);
+}
+
+.cgx-button-success {
+  border-color: var(--cgx-color-green);
+  color: var(--cgx-color-green);
+}
+.cgx-button-success:hover, .cgx-button-success:focus {
+  background-color: var(--cgx-color-green-bright);
+  border-color: var(--cgx-color-green-bright);
+  color: var(--cgx-bg);
+}
+
+.cgx-button-warning {
+  border-color: var(--cgx-color-yellow);
+  color: var(--cgx-color-yellow);
+}
+.cgx-button-warning:hover, .cgx-button-warning:focus {
+  background-color: var(--cgx-color-yellow-bright);
+  border-color: var(--cgx-color-yellow-bright);
+  color: var(--cgx-bg);
+}
+
+.cgx-button-ghost {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--cgx-color-white);
+}
+
+.cgx-button-ghost:hover, .cgx-button-ghost:focus {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: transparent;
+  color: var(--cgx-color-white-bright);
+}
