@@ -32,6 +32,12 @@
   --cgx-color-white: #bdc3c7;
   --cgx-color-white-bright: #ecf0f1;
 
+  /* Semantic Colors */
+  --cgx-primary: var(--cgx-color-yellow);
+  --cgx-primary-bright: var(--cgx-color-yellow-bright);
+  --cgx-secondary: var(--cgx-color-black);
+  --cgx-secondary-bright: var(--cgx-color-black-bright);
+
   /* Typography */
   --cgx-font-mono: 'Noto Sans Mono', monospace;
   --cgx-font-default: var(--cgx-font-mono);

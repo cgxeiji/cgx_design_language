@@ -24,6 +24,10 @@ The color palette is built on a dark theme foundation, utilizing standard termin
 *   **Cyan**: `#7aa085` (`--cgx-color-cyan`) / `#1abc9c` (`--cgx-color-cyan-bright`)
 *   **White**: `#bdc3c7` (`--cgx-color-white`) / `#ecf0f1` (`--cgx-color-white-bright`)
 
+### Semantic Colors
+*   **Primary (`--cgx-primary`)**: Mapped to **Yellow** (`--cgx-color-yellow`). Used for primary actions, highlights, and emphasis.
+*   **Secondary (`--cgx-secondary`)**: Mapped to **Black** (`--cgx-color-black`). Used for secondary actions, subtle backgrounds, and grouping.
+
 ## Typography
 
 The design language uses a monospaced font as its base to pair with the terminal-inspired aesthetic.
