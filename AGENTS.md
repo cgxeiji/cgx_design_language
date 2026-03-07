@@ -1,0 +1,11 @@
+# Agent Directives for CGx Design Language
+
+Welcome. If you are an AI assistant or agent working on this repository, please adhere to the following guidelines:
+
+1.  **Prefix Requirement**: All custom CSS classes MUST be prefixed with `cgx-` (e.g., `.cgx-button`, `.cgx-card`).
+2.  **CSS Exclusivity**: Use vanilla CSS in `cgx.css`. Do not add Tailwind, Bootstrap, or other CSS frameworks unless explicitly requested by the user.
+3.  **Documentation Synchronization**: When adding new design elements, utility classes, or components to `cgx.css`, you MUST:
+    *   Update `design.md` with the new element's description, purpose, and intended usage.
+    *   Add a visual code example showcasing the new element in `preview.html`.
+4.  **Step-by-Step Evolution**: This design language is to be built iteratively step-by-step. Do not introduce sweeping design decisions (such as full color palettes, typography systems, or complex layouts) unless specifically instructed by the user. Maintain a barebones, foundational approach until directed otherwise.
+5.  **LLM Readability**: `design.md` is specifically intended for LLM ingestion to understand the design system context. Ensure it remains well-structured, precise, and easily parsable.
