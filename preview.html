@@ -253,16 +253,75 @@
     <section>
         <h2>Inputs</h2>
         <div class="preview-box">
-            <!-- Input elements will go here -->
-            <p>Content to be defined.</p>
+            <p>Text inputs for user data entry. Below are three potential base styles for the design language.</p>
+            
+            <div style="display: flex; flex-direction: column; gap: 24px; max-width: 400px;">
+                
+                <!-- Option 1: Base (Outlined) -->
+                <div>
+                    <label style="display: block; margin-bottom: 8px; font-size: 0.9em; color: var(--cgx-color-white-bright);">Option 1: Base (Outlined)</label>
+                    <input type="text" class="cgx-input" placeholder="Standard input with subtle border...">
+                </div>
+
+                <!-- Option 2: Underlined -->
+                <div>
+                    <label style="display: block; margin-bottom: 8px; font-size: 0.9em; color: var(--cgx-color-white-bright);">Option 2: Underlined</label>
+                    <input type="text" class="cgx-input cgx-input-underlined" placeholder="Minimalist underlined input...">
+                </div>
+
+                <!-- Option 3: Filled -->
+                <div>
+                    <label style="display: block; margin-bottom: 8px; font-size: 0.9em; color: var(--cgx-color-white-bright);">Option 3: Filled</label>
+                    <input type="text" class="cgx-input cgx-input-filled" placeholder="Solid filled background, brightens on focus...">
+                </div>
+
+            </div>
         </div>
     </section>
 
     <section>
         <h2>Cards</h2>
         <div class="preview-box">
-            <!-- Card elements will go here -->
-            <p>Content to be defined.</p>
+            <p>Cards are flexible containers used to group related content and actions.</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                
+                <!-- Base Card -->
+                <div class="cgx-card">
+                    <h3 class="cgx-card-header">Base Card</h3>
+                    <div class="cgx-card-body">
+                        The default card uses the <code>--cgx-element-bg</code> and has no visible border. It sits flat on the background.
+                    </div>
+                </div>
+
+                <!-- Outlined Card -->
+                <div class="cgx-card cgx-card-outlined">
+                    <h3 class="cgx-card-header">Outlined Card</h3>
+                    <div class="cgx-card-body">
+                        Uses Bright White at 10% opacity for a sharp, modern edge against dark backgrounds.
+                    </div>
+                </div>
+
+                <!-- Interactive Card -->
+                <div class="cgx-card cgx-card-interactive" tabindex="0">
+                    <h3 class="cgx-card-header">Interactive Card</h3>
+                    <div class="cgx-card-body">
+                        Hover or focus me! Moves up 2px and gets a solid white border to indicate it is clickable.
+                    </div>
+                </div>
+
+                <!-- CTA Card (Animated Border) -->
+                <div class="cgx-card cgx-card-cta" tabindex="0">
+                    <h3 class="cgx-card-header">CTA Card</h3>
+                    <div class="cgx-card-body">
+                        The ultimate Call-to-Action. Features a slow-rotating, multi-colored border gradient (orange to yellow).
+                    </div>
+                    <div class="cgx-card-footer">
+                        <button class="cgx-button cgx-button-primary">Get Started Now</button>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </section>
 

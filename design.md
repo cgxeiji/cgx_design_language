@@ -12,7 +12,7 @@ The color palette is built on a dark theme foundation, utilizing standard termin
 ### Base Colors
 *   **Background (`--cgx-bg`)**: `#000000`
 *   **Foreground Text (`--cgx-fg`)**: `#ecf0f1`
-*   **Element Background (`--cgx-element-bg`)**: `rgba(24, 24, 24, 0.7)` - Intended for components like buttons, cards, and inputs.
+*   **Element Background (`--cgx-element-bg`)**: `#181818` - Intended for components like buttons, cards, and inputs.
 
 ### Terminal Palette
 *   **Black**: `#34495e` (`--cgx-color-black`) / `#2c3e50` (`--cgx-color-black-bright`)
@@ -60,6 +60,19 @@ Buttons trigger actions within the application. All buttons share the `.cgx-butt
 *   **`.cgx-button-success`**: Uses Green for border and text. Fills with Bright Green on hover.
 *   **`.cgx-button-warning`**: Uses Yellow for border and text. Fills with Bright Yellow on hover.
 *   **`.cgx-button-ghost`**: Transparent border and background. Subtle hover effect.
+
+### Cards
+Cards are flexible containers used to group related content, actions, or data. All cards use the `.cgx-card` base class.
+
+**Base Class:** `.cgx-card`
+*   Uses `--cgx-element-bg` for background and `--cgx-radius` for corners.
+*   Includes a default `20px` padding and sets up a `flex` column layout.
+*   Child elements like `.cgx-card-header`, `.cgx-card-body`, and `.cgx-card-footer` provide consistent spacing.
+
+**Variants:**
+*   **`.cgx-card-outlined`**: Adds a subtle `rgba(189, 195, 199, 0.1)` (Bright White at 10% opacity) border. Provides a sharp, modern edge for distinct grouping on dark backgrounds.
+*   **`.cgx-card-interactive`**: Adds hover states (lifts up 2px and gets a solid white border) indicating the entire card is clickable.
+*   **`.cgx-card-cta`**: Used for high-emphasis actions. Built using a solid foundation and a 1px masked `conic-gradient` background. This creates a slowly rotating colorful border (transitioning between Primary Orange and Yellow) running on a continuous 24-second cycle.
 
 ### Inputs
 (To be defined)
