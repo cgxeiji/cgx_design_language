@@ -35,6 +35,9 @@
   /* Typography */
   --cgx-font-mono: 'Noto Sans Mono', monospace;
   --cgx-font-default: var(--cgx-font-mono);
+
+  /* Layout & Shapes */
+  --cgx-radius: 12px;
 }
 
 /* Reset / Base */

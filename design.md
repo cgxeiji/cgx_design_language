@@ -32,8 +32,9 @@ The design language uses a monospaced font as its base to pair with the terminal
     *   This font is imported from Google Fonts.
     *   It is applied globally to the `.cgx-body` class.
 
-## Spacing & Layout
-(To be defined)
+## Spacing, Layout & Shapes
+
+*   **Border Radius (`--cgx-radius`)**: `12px` - The default rounded corner size for all standard elements like buttons, inputs, and cards.
 
 ## Components
 

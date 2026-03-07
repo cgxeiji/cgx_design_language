@@ -24,6 +24,7 @@
 
         .preview-box {
             border: 1px dashed var(--cgx-color-white-bright);
+            border-radius: var(--cgx-radius);
             padding: 20px;
             margin-top: 10px;
         }
@@ -39,7 +40,7 @@
         }
         .swatch-card {
             border: 1px solid var(--cgx-color-white-bright);
-            border-radius: 4px;
+            border-radius: var(--cgx-radius);
             overflow: hidden;
             background: var(--cgx-element-bg);
         }
@@ -59,6 +60,20 @@
             opacity: 0.7;
             font-size: 0.8em;
         }
+
+        /* Border Radius Demo */
+        .radius-demo {
+            width: 150px;
+            height: 100px;
+            background: var(--cgx-element-bg);
+            border: 1px solid var(--cgx-color-white-bright);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 8px;
+            border-radius: var(--cgx-radius);
+        }
     </style>
 </head>
 
@@ -77,6 +92,16 @@
             <h6>Heading 6 (H6)</h6>
             <p>This is standard paragraph text. The quick brown fox jumps over the lazy dog. 1234567890</p>
             <p><strong>Bold Text</strong> | <em>Italic Text</em> | <u>Underlined Text</u> | <s>Strikethrough</s></p>
+        </div>
+    </section>
+
+    <section>
+        <h2>Shapes & Layout</h2>
+        <div class="preview-box">
+            <p style="margin-top: 0;">Default Border Radius (<code>--cgx-radius: 12px</code>)</p>
+            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                <div class="radius-demo"><strong>12px</strong><span>Default</span></div>
+            </div>
         </div>
     </section>
 
