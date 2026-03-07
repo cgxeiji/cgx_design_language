@@ -46,15 +46,17 @@
 
   /* Layout & Shapes */
   --cgx-radius: 12px;
+  --cgx-spacing: 12px;
 }
 
 /* Reset / Base */
 .cgx-body {
   margin: 0;
-  padding: 0;
+  padding: var(--cgx-spacing);
   font-family: var(--cgx-font-default);
   background-color: var(--cgx-bg);
   color: var(--cgx-fg);
+  box-sizing: border-box; /* Ensure padding doesn't add to 100% width if applied */
 }
 
 /* Typography */

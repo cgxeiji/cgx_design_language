@@ -39,6 +39,7 @@ The design language uses a monospaced font as its base to pair with the terminal
 
 ## Spacing, Layout & Shapes
 
+*   **Page Spacing (`--cgx-spacing`)**: `12px` - The default outer padding applied to the `.cgx-body` to keep content from touching the edges of the viewport while maximizing screen real estate.
 *   **Border Radius (`--cgx-radius`)**: `12px` - The default rounded corner size for all standard elements like buttons, inputs, and cards.
 
 ## Components
