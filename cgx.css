@@ -263,3 +263,17 @@
 .cgx-card-cta:focus {
   outline: none;
 }
+
+/* Panels */
+.cgx-panel {
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--cgx-radius);
+  color: var(--cgx-fg);
+  padding: 16px;
+}
+
+/* Panel Variations */
+.cgx-panel-ghost {
+  border: 1px dashed rgba(255, 255, 255, 0.3);
+}

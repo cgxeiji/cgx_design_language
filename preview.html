@@ -22,13 +22,6 @@
             padding-bottom: 8px;
         }
 
-        .preview-box {
-            border: 1px dashed var(--cgx-color-white-bright);
-            border-radius: var(--cgx-radius);
-            padding: 20px;
-            margin-top: 10px;
-        }
-
         /* Swatch Styles for Preview */
         .color-group {
             margin-bottom: 2rem;
@@ -106,7 +99,7 @@
 
     <section>
         <h2>Typography</h2>
-        <div class="preview-box">
+        <div class="cgx-panel">
             <h1>Heading 1 (H1)</h1>
             <h2>Heading 2 (H2)</h2>
             <h3>Heading 3 (H3)</h3>
@@ -120,7 +113,7 @@
 
     <section>
         <h2>Shapes & Layout</h2>
-        <div class="preview-box">
+        <div class="cgx-panel">
             <p style="margin-top: 0;">Default Border Radius (<code>--cgx-radius: 12px</code>)</p>
             <div style="display: flex; gap: 20px; flex-wrap: wrap;">
                 <div class="radius-demo"><strong>12px</strong><span>Default</span></div>
@@ -130,7 +123,7 @@
 
     <section>
         <h2>Page Spacing</h2>
-        <div class="preview-box">
+        <div class="cgx-panel">
             <p style="margin-top: 0;">Default Page Padding (<code>--cgx-spacing: 12px</code>)</p>
             
             <div class="spacing-demo-container">
@@ -143,7 +136,7 @@
 
     <section>
         <h2>Colors</h2>
-        <div class="preview-box">
+        <div class="cgx-panel">
             
             <div class="color-group">
                 <h3>Base Colors</h3>
@@ -227,7 +220,7 @@
 
     <section>
         <h2>Buttons</h2>
-        <div class="preview-box">
+        <div class="cgx-panel">
             <p>Buttons share a base <code>.cgx-button</code> class with specific variant classes for purpose.</p>
             
             <div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: center; margin-bottom: 20px;">
@@ -252,7 +245,7 @@
 
     <section>
         <h2>Inputs</h2>
-        <div class="preview-box">
+        <div class="cgx-panel">
             <!-- Input elements will go here -->
             <p>Content to be defined.</p>
         </div>
@@ -260,7 +253,7 @@
 
     <section>
         <h2>Cards</h2>
-        <div class="preview-box">
+        <div class="cgx-panel">
             <p>Cards are flexible containers used to group related content and actions.</p>
             
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
@@ -298,6 +291,29 @@
                     <div class="cgx-card-footer">
                         <button class="cgx-button cgx-button-primary">Get Started Now</button>
                     </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Panels</h2>
+        <div class="cgx-panel">
+            <p>Panels are simple, nestable containers used to group UI elements or layout sections without imposing rigid internal structures.</p>
+            
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+                
+                <!-- Base Panel -->
+                <div class="cgx-panel">
+                    <h3>Base Panel (Outlined)</h3>
+                    <p>Uses a 30% transparent white border with 16px padding. A simple, flexible container for grouping content.</p>
+                </div>
+
+                <!-- Ghost Panel -->
+                <div class="cgx-panel cgx-panel-ghost">
+                    <h3>Ghost Panel</h3>
+                    <p>Uses a 30% transparent dashed white border. Excellent for empty states or drop zones.</p>
                 </div>
 
             </div>

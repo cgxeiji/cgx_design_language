@@ -74,8 +74,13 @@ Cards are flexible containers used to group related content, actions, or data. A
 *   **`.cgx-card-interactive`**: Adds hover states (lifts up 2px and gets a solid white border) indicating the entire card is clickable.
 *   **`.cgx-card-cta`**: Used for high-emphasis actions. Built using a solid foundation and a 1px masked `conic-gradient` background. This creates a slowly rotating colorful border (transitioning between Primary Orange and Yellow) running on a continuous 24-second cycle.
 
-### Inputs
-(To be defined)
+### Panels
+Panels are simple, nestable containers used to group UI elements, layout sections, or form controls. Unlike Cards (which suggest distinct physical objects or interactive items like the CTA), Panels are structural building blocks.
 
-### Cards
-(To be defined)
+**Base Class:** `.cgx-panel`
+*   Features an outlined border `1px solid rgba(255, 255, 255, 0.3)` (30% transparency) with a transparent background by default.
+*   Applies a standard `16px` internal padding and `--cgx-radius` corners.
+*   Designed to be a flexible, nestable block.
+
+**Variants:**
+*   **`.cgx-panel-ghost`**: Uses a dashed border at 30% transparency `1px dashed rgba(255, 255, 255, 0.3)`. Ideal for empty states or drop zones.
