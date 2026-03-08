@@ -185,14 +185,14 @@ code {
 .cgx-button-ghost {
   background-color: transparent;
   border-color: transparent;
-  color: var(--cgx-color-white);
+  color: var(--cgx-primary);
 }
 
 .cgx-button-ghost:hover,
 .cgx-button-ghost:focus {
-  background-color: var(--cgx-color-white-trans-10);
+  background-color: color-mix(in srgb, var(--cgx-primary) 10%, transparent);
   border-color: transparent;
-  color: var(--cgx-color-white-bright);
+  color: var(--cgx-primary-bright);
 }
 
 /* Inputs */

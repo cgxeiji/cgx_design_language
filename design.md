@@ -62,7 +62,7 @@ Buttons trigger actions within the application. All buttons share the `.cgx-butt
 *   **`.cgx-button-danger`**: Uses Red for border and text. Fills with Bright Red on hover.
 *   **`.cgx-button-success`**: Uses Green for border and text. Fills with Bright Green on hover.
 *   **`.cgx-button-warning`**: Uses Yellow for border and text. Fills with Bright Yellow on hover.
-*   **`.cgx-button-ghost`**: Transparent border and background. Subtle hover effect.
+*   **`.cgx-button-ghost`**: Transparent border and background. Subtle hover effect using the primary color.
 
 ### Cards
 Cards are flexible containers used to group related content, actions, or data. All cards use the `.cgx-card` base class.
