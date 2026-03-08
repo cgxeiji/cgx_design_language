@@ -254,23 +254,24 @@
     </section>
 
     <section>
-        <h2>Shapes & Layout</h2>
-        <div class="cgx-panel">
-            <p style="margin-top: 0;">Default Border Radius (<code>--cgx-radius: 12px</code>)</p>
-            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-                <div class="radius-demo"><strong>12px</strong><span>Default</span></div>
+        <h2>Shapes, Layout & Spacing</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: var(--cgx-spacing);">
+            <div class="cgx-panel">
+                <h3 style="margin-top: 0;">Shapes & Layout</h3>
+                <p style="margin-top: 0;">Default Border Radius (<code>--cgx-radius: 12px</code>)</p>
+                <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                    <div class="radius-demo"><strong>12px</strong><span>Default</span></div>
+                </div>
             </div>
-        </div>
-    </section>
 
-    <section>
-        <h2>Page Spacing</h2>
-        <div class="cgx-panel">
-            <p style="margin-top: 0;">Default Page Padding (<code>--cgx-spacing: 12px</code>)</p>
+            <div class="cgx-panel">
+                <h3 style="margin-top: 0;">Page Spacing</h3>
+                <p style="margin-top: 0;">Default Page Padding (<code>--cgx-spacing: 12px</code>)</p>
 
-            <div class="spacing-demo-container">
-                <div class="spacing-demo-content">
-                    Inner Content Area
+                <div class="spacing-demo-container">
+                    <div class="spacing-demo-content">
+                        Inner Content Area
+                    </div>
                 </div>
             </div>
         </div>
