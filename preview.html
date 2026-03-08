@@ -96,8 +96,8 @@
 <body class="cgx-body">
     <!-- Heads Up Display (HUD) Examples (All 8 Placements) -->
     
-    <!-- Top Left (Main Example) -->
-    <details class="cgx-hud cgx-hud-top-left" style="--cgx-hud-icon-closed: '↖'; --cgx-hud-icon-open: '✖';">
+    <!-- Main Control Panel Example -->
+    <details id="main-hud" class="cgx-hud cgx-hud-top-left" style="--cgx-hud-icon-closed: '↖'; --cgx-hud-icon-open: '✖';">
         <summary title="Toggle Control Panel"><span class="cgx-hud-title">Control Panel</span></summary>
         <div>
             <div style="display: flex; gap: 8px; margin-bottom: 20px;">
@@ -144,53 +144,27 @@
                         <input class="cgx-radio" type="radio" name="hud-engine" value="v2"> v2
                     </label>
                 </div>
+                <label class="cgx-label" style="margin-top: 4px;">Placement</label>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-top: 4px;">
+                    <button class="cgx-button cgx-button-primary placement-btn" data-placement="top-left" style="padding: 4px;">↖</button>
+                    <button class="cgx-button cgx-button-ghost placement-btn" data-placement="top" style="padding: 4px;">↑</button>
+                    <button class="cgx-button cgx-button-ghost placement-btn" data-placement="top-right" style="padding: 4px;">↗</button>
+
+                    <button class="cgx-button cgx-button-ghost placement-btn" data-placement="left" style="padding: 4px;">←</button>
+                    <div></div> <!-- Empty Center -->
+                    <button class="cgx-button cgx-button-ghost placement-btn" data-placement="right" style="padding: 4px;">→</button>
+
+                    <button class="cgx-button cgx-button-ghost placement-btn" data-placement="bottom-left" style="padding: 4px;">↙</button>
+                    <button class="cgx-button cgx-button-ghost placement-btn" data-placement="bottom" style="padding: 4px;">↓</button>
+                    <button class="cgx-button cgx-button-ghost placement-btn" data-placement="bottom-right" style="padding: 4px;">↘</button>
+                </div>
             </div>
 
             <button class="cgx-button cgx-button-primary" style="width: 100%; justify-content: center; padding: 6px 12px; font-size: 0.9em;">Apply Changes</button>
         </div>
     </details>
 
-    <!-- Top -->
-    <details class="cgx-hud cgx-hud-top" style="--cgx-hud-icon-closed: '↑'; --cgx-hud-icon-open: '✖';">
-        <summary title="Top"><span class="cgx-hud-title">Top HUD</span></summary>
-        <div><p style="margin-top: 0;">Docked to the top center.</p><button class="cgx-button">Action</button></div>
-    </details>
 
-    <!-- Top Right -->
-    <details class="cgx-hud cgx-hud-top-right" style="--cgx-hud-icon-closed: '↗'; --cgx-hud-icon-open: '✖';">
-        <summary title="Top Right"><span class="cgx-hud-title">Top Right HUD</span></summary>
-        <div><p style="margin-top: 0;">This HUD uses custom inline CSS variables for the hamburger and close icons.</p><button class="cgx-button cgx-button-secondary">Save Settings</button></div>
-    </details>
-
-    <!-- Left -->
-    <details class="cgx-hud cgx-hud-left" style="--cgx-hud-icon-closed: '←'; --cgx-hud-icon-open: '✖';">
-        <summary title="Left"><span class="cgx-hud-title">Left HUD</span></summary>
-        <div><p style="margin-top: 0;">Docked to the left edge.</p><button class="cgx-button cgx-button-success">Success</button></div>
-    </details>
-
-    <!-- Right -->
-    <details class="cgx-hud cgx-hud-right" style="--cgx-hud-icon-closed: '→'; --cgx-hud-icon-open: '✖';">
-        <summary title="Right"><span class="cgx-hud-title">Right HUD</span></summary>
-        <div><p style="margin-top: 0;">Docked to the right edge.</p><button class="cgx-button cgx-button-warning">Warning</button></div>
-    </details>
-
-    <!-- Bottom Left -->
-    <details class="cgx-hud cgx-hud-bottom-left" style="--cgx-hud-icon-closed: '↙'; --cgx-hud-icon-open: '✖';">
-        <summary title="Bottom Left"><span class="cgx-hud-title">Bottom Left HUD</span></summary>
-        <div><p style="margin-top: 0;">Docked to the bottom left corner.</p><button class="cgx-button cgx-button-danger">Danger</button></div>
-    </details>
-
-    <!-- Bottom -->
-    <details class="cgx-hud cgx-hud-bottom" style="--cgx-hud-icon-closed: '↓'; --cgx-hud-icon-open: '✖';">
-        <summary title="Bottom"><span class="cgx-hud-title">Bottom HUD</span></summary>
-        <div><p style="margin-top: 0;">Docked to the bottom center.</p><button class="cgx-button">Normal</button></div>
-    </details>
-
-    <!-- Bottom Right -->
-    <details class="cgx-hud cgx-hud-bottom-right" style="--cgx-hud-icon-closed: '↘'; --cgx-hud-icon-open: '✖';">
-        <summary title="Bottom Right"><span class="cgx-hud-title">Bottom Right HUD</span></summary>
-        <div><p style="margin-top: 0;">Docked to the bottom right edge.</p><button class="cgx-button cgx-button-primary">Primary Action</button></div>
-    </details>
 
     <h1>CGx Design Language Preview</h1>
     <p>This page serves as a visual guide and testbed for the <code>cgx.css</code> design language.</p>
@@ -566,6 +540,9 @@
 
     <!-- CGx Interactive Component Behaviors -->
     <script src="cgx.js"></script>
+    
+    <!-- Preview Demo Logic -->
+    <script src="preview.js"></script>
 </body>
 
 </html>
