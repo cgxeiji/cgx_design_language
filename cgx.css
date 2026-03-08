@@ -274,6 +274,27 @@
 }
 
 /* Collapsible Panel (Details/Summary) */
+@keyframes cgx-particles {
+  0% {
+    box-shadow: 
+      0 0 0 0 var(--cgx-primary), /* Center */
+      0 0 0 0 var(--cgx-primary-bright), /* Top Right */
+      0 0 0 0 var(--cgx-primary), /* Bottom Right */
+      0 0 0 0 var(--cgx-primary-bright), /* Bottom Left */
+      0 0 0 0 var(--cgx-primary); /* Top Left */
+    opacity: 1;
+  }
+  100% {
+    box-shadow: 
+      0 -15px 0 -2px var(--cgx-primary), /* Up */
+      10px -10px 0 -2px var(--cgx-primary-bright), /* Up Right */
+      15px 10px 0 -2px var(--cgx-primary), /* Down Right */
+      -10px 15px 0 -2px var(--cgx-primary-bright), /* Down Left */
+      -15px -10px 0 -2px var(--cgx-primary); /* Up Left */
+    opacity: 0;
+  }
+}
+
 details.cgx-panel {
   padding: 0; /* Remove base padding, let summary and inner div handle it */
   overflow: hidden;
@@ -297,13 +318,31 @@ details.cgx-panel > summary::-webkit-details-marker {
   display: none; /* Hide default triangle in WebKit/Blink */
 }
 
-/* Custom Marker */
+/* Custom Marker Container */
 details.cgx-panel > summary::after {
   content: '+';
   font-family: var(--cgx-font-mono);
   font-size: 1.2em;
   color: var(--cgx-color-white-bright);
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+/* Particle Emitter (Attached to summary relative to the marker) */
+details.cgx-panel > summary {
+    position: relative;
+}
+
+details.cgx-panel > summary::before {
+  content: '';
+  position: absolute;
+  right: 21px; /* Align slightly behind the + marker */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  pointer-events: none; /* Prevent interfering with clicks */
+  opacity: 0;
 }
 
 details.cgx-panel[open] > summary {
@@ -319,6 +358,18 @@ details.cgx-panel[open] > summary::after {
 details.cgx-panel > summary:hover,
 details.cgx-panel > summary:focus {
   background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Trigger particles and slight glow on the plus sign when hovered/closed */
+details.cgx-panel:not([open]) > summary:hover::after,
+details.cgx-panel:not([open]) > summary:focus::after {
+  filter: drop-shadow(0 0 3px var(--cgx-primary-bright));
+  color: var(--cgx-color-white);
+}
+
+details.cgx-panel:not([open]) > summary:hover::before,
+details.cgx-panel:not([open]) > summary:focus::before {
+  animation: cgx-particles 0.6s ease-out;
 }
 
 /* Inner content area wrapper required for proper padding after summary */

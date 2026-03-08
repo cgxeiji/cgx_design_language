@@ -85,6 +85,7 @@ Panels are simple, nestable containers used to group UI elements, layout section
 **Collapsible Panels:**
 Panels can be made collapsible by applying the `.cgx-panel` class to a native HTML `<details>` element instead of a `<div>`.
 *   The `<summary>` element acts as the clickable header and automatically receives padding, cursor styling, hover states, and a custom `+`/`-` animated marker.
+*   Hovering over the collapsed summary header triggers a single, one-time CSS particle eruption effect behind the `+` icon, built using animated box-shadows reflecting the primary theme colors.
 *   Wrap the inner content in a standard `<div>` immediately following the `<summary>` to ensure proper structural padding.
 
 **Variants:**
