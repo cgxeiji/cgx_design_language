@@ -121,12 +121,16 @@ You can seamlessly customize the open and closed icons for each specific HUD ins
 *   Add inline styles to the `<details>` element to override the CSS properties: `style="--cgx-hud-icon-closed: '⚙️'; --cgx-hud-icon-open: '✖';"`.
 *   This relies purely on CSS variables and native content substitution.
 
-### Inputs & Forms
+### Inputs
 Forms dictate the rhythm of user data entry. The design language provides distinct structural classes for aligning text inputs.
 
 **Base Classes:**
-*   **`.cgx-input`**: The foundational text input element designed for a minimal aesthetic. Features a fully transparent background, no border radius, and relies entirely on a single subtle bottom border (`1px solid var(--cgx-color-white-trans-30)`). On focus, the bottom border brightens solidly to `--cgx-primary` with a slight glowing box-shadow to indicate active state without cluttering the form.
 *   **`.cgx-label`**: Subtly bright white label text (`0.9em`) to pair with inputs.
+*   **`.cgx-input` / `.cgx-textarea`**: The foundational text input elements designed for a minimal aesthetic. Features a fully transparent background, no border radius, and relies entirely on a single subtle bottom border (`1px solid var(--cgx-color-white-trans-30)`). On focus, the bottom border brightens solidly to `--cgx-primary` with a slight glowing box-shadow to indicate active state without cluttering the form.
+*   **`.cgx-select`**: A custom-styled dropdown menu using `appearance: none` and relying on a custom inline SVG chevron via CSS `background-image`. Shares the default bottom-border aesthetic of text inputs.
+*   **`.cgx-checkbox`**: A custom, CSS-only checkbox implementation utilizing `appearance: none`. It defines a minimal outlined box. When checked, it transforms a dynamic SVG path clipped via `clip-path` into view, colored entirely by `--cgx-bg`, against the filled `--cgx-primary` background. Requires no JavaScript.
+*   **`.cgx-radio`**: A custom, CSS-only radio button utilizing `appearance: none`. Instead of a checkmark, it employs a `::before` pseudo-element expanding a solid `--cgx-bg` circle within the `--cgx-primary` background upon selection.
+*   **`.cgx-range`**: An overarching reset class for standard `<input type="range">`. Customizes both the webkit slider track (`::-webkit-slider-runnable-track`) with `--cgx-color-white-trans-10` and the interactive webkit slider thumb (`::-webkit-slider-thumb`) with an expanding `--cgx-primary` circular node that shrinks dynamically on click.
 
 **Form Layouts:**
 To ensure inputs align seamlessly, standard layout containers must be used:

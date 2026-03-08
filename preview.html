@@ -308,51 +308,7 @@
         </div>
     </section>
 
-    <section>
-        <h2>Inputs</h2>
-        <div class="cgx-panel">
-            <p>Inputs provide the basic building blocks for forms. They can be stacked vertically or aligned horizontally using specific container classes to ensure clean label alignment.</p>
-            
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 20px;">
-                
-                <!-- Vertical Layout -->
-                <div class="cgx-panel cgx-panel-ghost">
-                    <h3>Vertical Form (Stacked)</h3>
-                    <p style="font-size: 0.85em; margin-bottom: 20px;">Uses <code>.cgx-form-vertical</code> and <code>.cgx-form-group</code> for standard top-aligned labels.</p>
-                    
-                    <div class="cgx-form-vertical">
-                        <div class="cgx-form-group">
-                            <label class="cgx-label" for="username">Username</label>
-                            <input type="text" id="username" class="cgx-input" placeholder="johndoe123">
-                        </div>
-                        <div class="cgx-form-group">
-                            <label class="cgx-label" for="email1">Email Address</label>
-                            <input type="text" id="email1" class="cgx-input" placeholder="john@example.com">
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Horizontal Layout -->
-                <div class="cgx-panel cgx-panel-ghost">
-                    <h3>Horizontal Form (Aligned)</h3>
-                    <p style="font-size: 0.85em; margin-bottom: 20px;">Uses <code>.cgx-form-horizontal</code> to perfectly align multiple labels and inputs using CSS Grid.</p>
-                    
-                    <div class="cgx-form-horizontal">
-                        <label class="cgx-label" for="fname">First Name</label>
-                        <input type="text" id="fname" class="cgx-input" placeholder="John">
-
-                        <label class="cgx-label" for="lname">Last Name</label>
-                        <input type="text" id="lname" class="cgx-input" placeholder="Doe">
-
-                        <label class="cgx-label" for="website">Website</label>
-                        <input type="text" id="website" class="cgx-input" placeholder="https://">
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-    </section>
 
     <section>
         <h2>Cards</h2>
@@ -433,6 +389,133 @@
         </div>
     </section>
 
+    <section>
+        <h2>Inputs</h2>
+        <div class="cgx-panel">
+            <p>Inputs provide the basic building blocks for forms. They can be stacked vertically or aligned horizontally using specific container classes to ensure clean label alignment.</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 20px;">
+                
+                <!-- Vertical Layout -->
+                <div class="cgx-panel cgx-panel-ghost">
+                    <h3>Vertical Form</h3>
+                    <p style="font-size: 0.85em; margin-bottom: 20px;">Uses <code>.cgx-form-vertical</code> for top-aligned stacked inputs.</p>
+                    
+                    <div class="cgx-form-vertical">
+                        <div class="cgx-form-group">
+                            <label class="cgx-label" for="v-username">Username</label>
+                            <input class="cgx-input" type="text" id="v-username" placeholder="Enter your username">
+                        </div>
+                        
+                        <div class="cgx-form-group">
+                            <label class="cgx-label" for="v-password">Password</label>
+                            <input class="cgx-input" type="password" id="v-password" placeholder="Enter your password">
+                        </div>
+
+                        <div class="cgx-form-group">
+                            <label class="cgx-label" for="v-bio">Biography</label>
+                            <textarea class="cgx-textarea" id="v-bio" placeholder="Tell us about yourself..."></textarea>
+                        </div>
+
+                        <div class="cgx-form-group">
+                            <label class="cgx-label" for="v-country">Country</label>
+                            <select class="cgx-select" id="v-country">
+                                <option value="us">United States</option>
+                                <option value="ca">Canada</option>
+                                <option value="uk">United Kingdom</option>
+                            </select>
+                        </div>
+
+                        <div class="cgx-form-group">
+                            <label class="cgx-label" for="v-volume">Volume / Value</label>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <input type="range" class="cgx-range" id="v-volume" min="0" max="100" value="50" style="flex: 1;">
+                                <span style="font-family: var(--cgx-font-mono); font-size: 0.9em; min-width: 3ch; text-align: right;">50</span>
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                            <div class="cgx-form-group">
+                                <label class="cgx-label">Preferences</label>
+                                <div style="display: flex; flex-direction: column; gap: 10px;">
+                                    <label style="display: flex; align-items: center; gap: 8px;">
+                                        <input class="cgx-checkbox" type="checkbox" name="v-pref" checked> Emails
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 8px;">
+                                        <input class="cgx-checkbox" type="checkbox" name="v-pref"> SMS Alerts
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="cgx-form-group">
+                                <label class="cgx-label">Subscription</label>
+                                <div style="display: flex; flex-direction: column; gap: 10px;">
+                                    <label style="display: flex; align-items: center; gap: 8px;">
+                                        <input class="cgx-radio" type="radio" name="v-plan" value="basic" checked> Basic
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 8px;">
+                                        <input class="cgx-radio" type="radio" name="v-plan" value="pro"> Pro Tier
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="cgx-button cgx-button-primary" style="margin-top: 20px;">Submit Form</button>
+                    </div>
+                </div>
+
+                <!-- Horizontal Layout -->
+                <div class="cgx-panel cgx-panel-ghost">
+                    <h3>Horizontal Form</h3>
+                    <p style="font-size: 0.85em; margin-bottom: 20px;">Uses <code>.cgx-form-horizontal</code> to perfectly align multiple labels and inputs using CSS Grid.</p>
+                    
+                    <div class="cgx-form-horizontal">
+                        <label class="cgx-label" for="h-api">API Key</label>
+                        <input class="cgx-input" type="text" id="h-api" placeholder="sk_test_123456789">
+
+                        <label class="cgx-label" for="h-url">Endpoint URL</label>
+                        <input class="cgx-input" type="url" id="h-url" placeholder="https://api.example.com/v1/">
+
+                        <label class="cgx-label" for="h-bio">Biography</label>
+                        <textarea class="cgx-textarea" id="h-bio" placeholder="System prompt..."></textarea>
+
+                        <label class="cgx-label" for="h-country">Country</label>
+                        <select class="cgx-select" id="h-country">
+                            <option value="us">United States</option>
+                            <option value="ca">Canada</option>
+                            <option value="uk">United Kingdom</option>
+                        </select>
+
+                        <label class="cgx-label" for="h-volume">Volume</label>
+                        <div style="display: flex; align-items: center; gap: 12px; margin-top: 4px;">
+                            <input type="range" class="cgx-range" id="h-volume" min="0" max="100" value="50" style="flex: 1;">
+                            <span style="font-family: var(--cgx-font-mono); font-size: 0.9em; min-width: 3ch; text-align: right;">50</span>
+                        </div>
+
+                        <label class="cgx-label" style="margin-top: 4px;">Preferences</label>
+                        <div style="display: flex; gap: 16px; margin-top: 4px;">
+                            <label style="display: flex; align-items: center; gap: 8px;">
+                                <input class="cgx-checkbox" type="checkbox" name="h-pref" checked> Emails
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px;">
+                                <input class="cgx-checkbox" type="checkbox" name="h-pref"> SMS
+                            </label>
+                        </div>
+
+                        <label class="cgx-label" style="margin-top: 4px;">Subscription</label>
+                        <div style="display: flex; gap: 16px; margin-top: 4px;">
+                            <label style="display: flex; align-items: center; gap: 8px;">
+                                <input class="cgx-radio" type="radio" name="h-plan" value="basic" checked> Basic
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px;">
+                                <input class="cgx-radio" type="radio" name="h-plan" value="pro"> Pro Tier
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
 </body>
 
 </html>
