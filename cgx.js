@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Intercepts the click on the summary to allow CSS closing animations to play
     // before the `open` attribute is removed by the browser.
     
-    const huds = document.querySelectorAll('details.cgx-hud');
+    const huds = document.querySelectorAll('details.cgx-hud, details.cgx-panel');
 
     huds.forEach(hud => {
         const summary = hud.querySelector('summary');
