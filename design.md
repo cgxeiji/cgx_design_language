@@ -170,3 +170,7 @@ Combine with `.cgx-log` to apply visually distinct colors and background tones b
 *   `.cgx-log-warning`: Orange coloring (`--cgx-color-orange`) with a subtle 10% tinted background and solid left border.
 *   `.cgx-log-error`: Red coloring (`--cgx-color-red`) with a subtle 10% tinted background and solid left border.
 *   `.cgx-log-user`: Green color (`--cgx-color-green`), reserved for highlighting user-submitted commands or inputs.
+
+### Charts & Plots
+**Base Class:** `.cgx-plot`
+A `<canvas>` element that renders smooth bezier line charts using the CGx color palette. Data is supplied via the `data-series` attribute as a JSON array. A single array (e.g. `[10, 40, 25]`) draws one series; a nested array (e.g. `[[...], [...]]`) renders multiple overlapping series. Colors are automatically assigned by cycling through the CGx palette in this order: `--cgx-primary`, `--cgx-color-green`, `--cgx-color-blue`, `--cgx-color-cyan`, `--cgx-color-magenta`, `--cgx-color-yellow`, `--cgx-color-red`. The chart includes Y-axis grid lines with value labels, X-axis tick labels, smooth bezier curves, a subtle fill under each line, and dot markers at data points. It is fully responsive via `ResizeObserver`. Requires `cgx.js`.

@@ -254,6 +254,15 @@ code {
   50% { opacity: 0.5; transform: scale(0.75); }
 }
 
+/* Line Chart Plot (Canvas) */
+.cgx-plot {
+  display: block;
+  width: 100%;
+  height: 160px;
+  border-radius: var(--cgx-radius);
+  /* Canvas draws its own background; this keeps the element inline */
+}
+
 /* Inputs */
 .cgx-label {
   display: block;
