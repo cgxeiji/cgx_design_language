@@ -105,59 +105,84 @@
                 <button class="cgx-button cgx-button-danger" style="flex: 1; padding: 6px 12px; font-size: 0.9em;">Reset</button>
             </div>
 
-            <div class="cgx-form-horizontal" style="gap: 8px 12px; margin-bottom: 16px;">
-                <label class="cgx-label" for="hud-x">Position X</label>
-                <input type="text" id="hud-x" class="cgx-input" placeholder="0px" style="font-size: 0.9em;">
-                
-                <label class="cgx-label" for="hud-y">Position Y</label>
-                <input type="text" id="hud-y" class="cgx-input" placeholder="0px" style="font-size: 0.9em;">
+            <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px;">
+                <!-- Layout Controls Panel -->
+                <details class="cgx-panel" open>
+                    <summary style="font-size: 0.9em; padding: 10px 16px;">Layout controls</summary>
+                    <div>
+                        <div class="cgx-form-horizontal" style="gap: 8px 12px;">
+                            <label class="cgx-label" for="hud-x">Position X</label>
+                            <input type="text" id="hud-x" class="cgx-input" placeholder="0px" style="font-size: 0.9em;">
+                            
+                            <label class="cgx-label" for="hud-y">Position Y</label>
+                            <input type="text" id="hud-y" class="cgx-input" placeholder="0px" style="font-size: 0.9em;">
 
-                <label class="cgx-label" for="hud-quality">Quality</label>
-                <select class="cgx-select" id="hud-quality" style="font-size: 0.9em; padding-top: 4px; padding-bottom: 4px;">
-                    <option value="high">High</option>
-                    <option value="medium">Medium</option>
-                    <option value="low">Low</option>
-                </select>
+                            <label class="cgx-label" style="margin-top: 4px;">Placement</label>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-top: 4px;">
+                                <button class="cgx-button cgx-button-primary placement-btn" data-placement="top-left" style="padding: 4px;">↖</button>
+                                <button class="cgx-button cgx-button-ghost placement-btn" data-placement="top" style="padding: 4px;">↑</button>
+                                <button class="cgx-button cgx-button-ghost placement-btn" data-placement="top-right" style="padding: 4px;">↗</button>
 
-                <label class="cgx-label" for="hud-scale">Scale</label>
-                <div style="display: flex; align-items: center; gap: 8px; margin-top: 2px;">
-                    <input type="range" class="cgx-range" id="hud-scale" min="50" max="200" value="100" style="flex: 1;">
-                    <input type="number" class="cgx-input" id="hud-scale-num" value="100" style="width: 45px; text-align: right; padding: 0; font-size: 0.9em;">
-                </div>
+                                <button class="cgx-button cgx-button-ghost placement-btn" data-placement="left" style="padding: 4px;">←</button>
+                                <div></div> <!-- Empty Center -->
+                                <button class="cgx-button cgx-button-ghost placement-btn" data-placement="right" style="padding: 4px;">→</button>
 
-                <label class="cgx-label" style="margin-top: 4px;">Debug</label>
-                <div style="display: flex; gap: 12px; margin-top: 4px;">
-                    <label style="display: flex; align-items: center; gap: 6px; font-size: 0.9em;">
-                        <input class="cgx-checkbox" type="checkbox" name="hud-debug" checked> Grid
-                    </label>
-                    <label style="display: flex; align-items: center; gap: 6px; font-size: 0.9em;">
-                        <input class="cgx-checkbox" type="checkbox" name="hud-wire"> Wire
-                    </label>
-                </div>
+                                <button class="cgx-button cgx-button-ghost placement-btn" data-placement="bottom-left" style="padding: 4px;">↙</button>
+                                <button class="cgx-button cgx-button-ghost placement-btn" data-placement="bottom" style="padding: 4px;">↓</button>
+                                <button class="cgx-button cgx-button-ghost placement-btn" data-placement="bottom-right" style="padding: 4px;">↘</button>
+                            </div>
+                        </div>
+                    </div>
+                </details>
 
-                <label class="cgx-label" style="margin-top: 4px;">Engine</label>
-                <div style="display: flex; gap: 12px; margin-top: 4px;">
-                    <label style="display: flex; align-items: center; gap: 6px; font-size: 0.9em;">
-                        <input class="cgx-radio" type="radio" name="hud-engine" value="v1" checked> v1
-                    </label>
-                    <label style="display: flex; align-items: center; gap: 6px; font-size: 0.9em;">
-                        <input class="cgx-radio" type="radio" name="hud-engine" value="v2"> v2
-                    </label>
-                </div>
-                <label class="cgx-label" style="margin-top: 4px;">Placement</label>
-                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-top: 4px;">
-                    <button class="cgx-button cgx-button-primary placement-btn" data-placement="top-left" style="padding: 4px;">↖</button>
-                    <button class="cgx-button cgx-button-ghost placement-btn" data-placement="top" style="padding: 4px;">↑</button>
-                    <button class="cgx-button cgx-button-ghost placement-btn" data-placement="top-right" style="padding: 4px;">↗</button>
+                <!-- Appearance Panel -->
+                <details class="cgx-panel">
+                    <summary style="font-size: 0.9em; padding: 10px 16px;">Appearance Settings</summary>
+                    <div>
+                        <div class="cgx-form-horizontal" style="gap: 8px 12px;">
+                            <label class="cgx-label" for="hud-quality">Quality</label>
+                            <select class="cgx-select" id="hud-quality" style="font-size: 0.9em; padding-top: 4px; padding-bottom: 4px;">
+                                <option value="high">High</option>
+                                <option value="medium">Medium</option>
+                                <option value="low">Low</option>
+                            </select>
 
-                    <button class="cgx-button cgx-button-ghost placement-btn" data-placement="left" style="padding: 4px;">←</button>
-                    <div></div> <!-- Empty Center -->
-                    <button class="cgx-button cgx-button-ghost placement-btn" data-placement="right" style="padding: 4px;">→</button>
+                            <label class="cgx-label" for="hud-scale">Scale</label>
+                            <div style="display: flex; align-items: center; gap: 8px; margin-top: 2px;">
+                                <input type="range" class="cgx-range" id="hud-scale" min="50" max="200" value="100" style="flex: 1;">
+                                <input type="number" class="cgx-input" id="hud-scale-num" value="100" style="width: 45px; text-align: right; padding: 0; font-size: 0.9em;">
+                            </div>
+                        </div>
+                    </div>
+                </details>
 
-                    <button class="cgx-button cgx-button-ghost placement-btn" data-placement="bottom-left" style="padding: 4px;">↙</button>
-                    <button class="cgx-button cgx-button-ghost placement-btn" data-placement="bottom" style="padding: 4px;">↓</button>
-                    <button class="cgx-button cgx-button-ghost placement-btn" data-placement="bottom-right" style="padding: 4px;">↘</button>
-                </div>
+                <!-- Advanced Panel -->
+                <details class="cgx-panel">
+                    <summary style="font-size: 0.9em; padding: 10px 16px;">Advanced Mode</summary>
+                    <div>
+                        <div class="cgx-form-horizontal" style="gap: 8px 12px;">
+                            <label class="cgx-label" style="margin-top: 4px;">Debug</label>
+                            <div style="display: flex; gap: 12px; margin-top: 4px;">
+                                <label style="display: flex; align-items: center; gap: 6px; font-size: 0.9em;">
+                                    <input class="cgx-checkbox" type="checkbox" name="hud-debug" checked> Grid
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 6px; font-size: 0.9em;">
+                                    <input class="cgx-checkbox" type="checkbox" name="hud-wire"> Wire
+                                </label>
+                            </div>
+
+                            <label class="cgx-label" style="margin-top: 4px;">Engine</label>
+                            <div style="display: flex; gap: 12px; margin-top: 4px;">
+                                <label style="display: flex; align-items: center; gap: 6px; font-size: 0.9em;">
+                                    <input class="cgx-radio" type="radio" name="hud-engine" value="v1" checked> v1
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 6px; font-size: 0.9em;">
+                                    <input class="cgx-radio" type="radio" name="hud-engine" value="v2"> v2
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </details>
             </div>
 
             <button class="cgx-button cgx-button-primary" style="width: 100%; justify-content: center; padding: 6px 12px; font-size: 0.9em;">Apply Changes</button>
