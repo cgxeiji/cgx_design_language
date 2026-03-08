@@ -63,6 +63,7 @@ Buttons trigger actions within the application. All buttons share the `.cgx-butt
 *   **`.cgx-button-success`**: Uses Green for border and text. Fills with Bright Green on hover.
 *   **`.cgx-button-warning`**: Uses Yellow for border and text. Fills with Bright Yellow on hover.
 *   **`.cgx-button-ghost`**: Transparent border and background. Subtle hover effect using the primary color.
+*   **`.cgx-button-toggle`**: A special stateful button for Start/Stop style controls. State is driven by the `[data-active]` attribute (toggled automatically by `cgx.js`). When `data-active="false"` (default), the button appears dimmed with a neutral dot indicator. When `data-active="true"`, it activates a green border, background tint, and a small pulsing green dot to communicate a running/active process. Label text automatically swaps between `data-label-inactive` (e.g., "Start Simulation") and `data-label-active` (e.g., "Stop Simulation") on every click. Requires `cgx.js`.
 
 ### Cards
 Cards are flexible containers used to group related content, actions, or data. All cards use the `.cgx-card` base class.

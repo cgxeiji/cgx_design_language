@@ -127,4 +127,36 @@ document.addEventListener('DOMContentLoaded', () => {
         // Run once on load to set initial state
         updateWidth();
     });
+
+    // 3. Toggle Buttons (.cgx-button-toggle)
+    // Toggles the [data-active] attribute and swaps the button label text
+    // between [data-label-active] and [data-label-inactive] on click.
+    document.querySelectorAll('.cgx-button-toggle').forEach(btn => {
+        const labelActive   = btn.dataset.labelActive   || 'Stop';
+        const labelInactive = btn.dataset.labelInactive || 'Start';
+        const iconActive    = btn.dataset.iconActive    || '';
+        const iconInactive  = btn.dataset.iconInactive  || '';
+
+        const fullActive   = iconActive   ? `${iconActive} ${labelActive}`   : labelActive;
+        const fullInactive = iconInactive ? `${iconInactive} ${labelInactive}` : labelInactive;
+
+        const isInitiallyActive = btn.dataset.active === 'true';
+
+        // Measure both label widths to lock min-width and prevent layout shift
+        btn.style.minWidth = '';
+        btn.textContent = fullActive;
+        const wActive = btn.offsetWidth;
+        btn.textContent = fullInactive;
+        const wInactive = btn.offsetWidth;
+        btn.style.minWidth = Math.max(wActive, wInactive) + 'px';
+
+        // Restore initial state
+        btn.textContent = isInitiallyActive ? fullActive : fullInactive;
+
+        btn.addEventListener('click', () => {
+            const isActive = btn.dataset.active === 'true';
+            btn.dataset.active = (!isActive).toString();
+            btn.textContent = !isActive ? fullActive : fullInactive;
+        });
+    });
 });

@@ -195,6 +195,65 @@ code {
   color: var(--cgx-primary-bright);
 }
 
+/* Toggle Button — a button with two visual states (e.g. Start / Stop) */
+/* Driven by [data-active] attribute, toggled via cgx.js */
+.cgx-button-toggle {
+  position: relative;
+  border-color: var(--cgx-color-green);
+  color: var(--cgx-color-green);
+  background-color: color-mix(in srgb, var(--cgx-color-green) 10%, transparent);
+  gap: 8px;
+  transition: all 0.25s ease;
+}
+
+/* Play icon in inactive (start) state */
+.cgx-button-toggle::before {
+  content: '\25B6'; /* ▶ Unicode play triangle */
+  display: inline-block;
+  font-size: 0.65em;
+  color: var(--cgx-color-green);
+  flex-shrink: 0;
+  line-height: 1;
+  transition: color 0.25s ease;
+}
+
+.cgx-button-toggle:hover,
+.cgx-button-toggle:focus {
+  background-color: color-mix(in srgb, var(--cgx-color-green) 20%, transparent);
+  border-color: var(--cgx-color-green-bright);
+  color: var(--cgx-color-green-bright);
+}
+
+/* Active (running) state — red */
+.cgx-button-toggle[data-active="true"] {
+  border-color: var(--cgx-color-red);
+  color: var(--cgx-color-red);
+  background-color: color-mix(in srgb, var(--cgx-color-red) 10%, transparent);
+}
+
+.cgx-button-toggle[data-active="true"]::before {
+  content: ''; /* Remove the play triangle */
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--cgx-color-red);
+  opacity: 1;
+  font-size: 1em; /* Reset font-size so width/height applies cleanly */
+  animation: cgx-pulse 1.8s ease-in-out infinite;
+}
+
+.cgx-button-toggle[data-active="true"]:hover,
+.cgx-button-toggle[data-active="true"]:focus {
+  background-color: color-mix(in srgb, var(--cgx-color-red) 20%, transparent);
+  border-color: var(--cgx-color-red-bright);
+  color: var(--cgx-color-red-bright);
+}
+
+@keyframes cgx-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.75); }
+}
+
 /* Inputs */
 .cgx-label {
   display: block;
