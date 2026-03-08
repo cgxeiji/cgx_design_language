@@ -333,6 +333,75 @@ code {
   transform: scale(1);
 }
 
+/* Toggle Switch */
+/* Usage: <label class="cgx-toggle"><input type="checkbox"><span class="cgx-toggle-label">Label</span></label> */
+.cgx-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Hide the real checkbox */
+.cgx-toggle > input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+/* The Track (pill background) */
+.cgx-toggle > input[type="checkbox"] + .cgx-toggle-track {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+  flex-shrink: 0;
+  background-color: var(--cgx-color-white-trans-20);
+  border: 1px solid var(--cgx-color-white-trans-30);
+  border-radius: 999px;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* The Thumb (sliding circle) */
+.cgx-toggle > input[type="checkbox"] + .cgx-toggle-track::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--cgx-color-white-trans-50);
+  transform: translateY(-50%);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+/* Hover state on the track */
+.cgx-toggle:hover > input[type="checkbox"] + .cgx-toggle-track {
+  border-color: var(--cgx-color-white-trans-50);
+}
+
+/* Checked state — activate track */
+.cgx-toggle > input[type="checkbox"]:checked + .cgx-toggle-track {
+  background-color: var(--cgx-primary);
+  border-color: var(--cgx-primary);
+}
+
+/* Checked state — slide the thumb right */
+.cgx-toggle > input[type="checkbox"]:checked + .cgx-toggle-track::after {
+  transform: translateX(16px) translateY(-50%);
+  background-color: var(--cgx-bg);
+}
+
+/* Focus ring */
+.cgx-toggle > input[type="checkbox"]:focus-visible + .cgx-toggle-track {
+  outline: 2px solid var(--cgx-color-white-trans-30);
+  outline-offset: 2px;
+}
+
 /* Range Slider */
 .cgx-range {
   -webkit-appearance: none;
