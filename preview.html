@@ -827,6 +827,10 @@
                 be styled and automatically scrolled to the bottom based on real-time events.</p>
 
             <div class="cgx-console-wrapper" style="margin-bottom: 16px;">
+                <div class="cgx-console-status cgx-status-connected">
+                    Connected
+                    <span class="cgx-console-status-info">ws://localhost:8080/log</span>
+                </div>
                 <div class="cgx-console" id="preview-console" style="--cgx-console-height: 200px;">
                     <div class="cgx-log cgx-log-info">[22:04:15] System initialized.</div>
                     <div class="cgx-log cgx-log-debug">[22:04:16] Rendering layout grid.</div>
@@ -837,6 +841,28 @@
                     <input type="text" id="console-cmd-input" class="cgx-console-input-field"
                         placeholder="Enter command..." autocomplete="off">
                     <button id="console-cmd-send" class="cgx-button cgx-button-primary">Send</button>
+                </div>
+            </div>
+
+            <!-- Status bar state variants -->
+            <div class="cgx-grid" style="margin-bottom: 16px;">
+                <div class="cgx-console-wrapper">
+                    <div class="cgx-console-status cgx-status-connecting">
+                        Connecting...
+                        <span class="cgx-console-status-info">Retry 3/5</span>
+                    </div>
+                    <div class="cgx-console" style="--cgx-console-height: 60px;">
+                        <div class="cgx-log cgx-log-trace">[SYS] Attempting to reconnect...</div>
+                    </div>
+                </div>
+                <div class="cgx-console-wrapper">
+                    <div class="cgx-console-status cgx-status-disconnected">
+                        Disconnected
+                        <span class="cgx-console-status-info">Last seen 12s ago</span>
+                    </div>
+                    <div class="cgx-console" style="--cgx-console-height: 60px;">
+                        <div class="cgx-log cgx-log-error">[ERR] Connection lost.</div>
+                    </div>
                 </div>
             </div>
 

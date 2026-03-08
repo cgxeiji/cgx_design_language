@@ -1190,6 +1190,63 @@ details.cgx-hud[open].cgx-is-closing>div {
   border-radius: 0;
 }
 
+/* Console Status Bar — optional, place above the console log inside .cgx-console-wrapper */
+.cgx-console-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  font-family: var(--cgx-font-mono);
+  font-size: 0.78em;
+  color: var(--cgx-color-white-trans-50);
+  border-bottom: 1px solid var(--cgx-color-white-trans-10);
+  background-color: var(--cgx-color-white-trans-05);
+  user-select: none;
+}
+
+/* Status dot */
+.cgx-console-status::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background-color: var(--cgx-color-white-trans-30);
+}
+
+/* Right-side slot (e.g. timestamp, endpoint URL) */
+.cgx-console-status-info {
+  margin-left: auto;
+  opacity: 0.6;
+  font-size: 0.9em;
+}
+
+/* State: Connected */
+.cgx-console-status.cgx-status-connected {
+  color: var(--cgx-color-green);
+}
+.cgx-console-status.cgx-status-connected::before {
+  background-color: var(--cgx-color-green);
+}
+
+/* State: Connecting (pulsing dot) */
+.cgx-console-status.cgx-status-connecting {
+  color: var(--cgx-color-yellow);
+}
+.cgx-console-status.cgx-status-connecting::before {
+  background-color: var(--cgx-color-yellow);
+  animation: cgx-pulse 1.2s ease-in-out infinite;
+}
+
+/* State: Disconnected */
+.cgx-console-status.cgx-status-disconnected {
+  color: var(--cgx-color-red);
+}
+.cgx-console-status.cgx-status-disconnected::before {
+  background-color: var(--cgx-color-red);
+}
+
 /* Console Input Bar */
 .cgx-console-input-bar {
   display: flex;
