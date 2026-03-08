@@ -96,10 +96,58 @@
 <body class="cgx-body">
     <!-- Heads Up Display (HUD) Examples (All 8 Placements) -->
     
-    <!-- Top Left -->
-    <details class="cgx-hud cgx-hud-top-left" style="--cgx-hud-icon-closed: '↖'; --cgx-hud-icon-open: '✖';">
-        <summary title="Top Left"><span class="cgx-hud-title">Top Left HUD</span></summary>
-        <div><p style="margin-top: 0;">Docked to the top left corner.</p><button class="cgx-button cgx-button-primary">Primary Action</button></div>
+    <!-- Top Left (Main Example) -->
+    <details class="cgx-hud cgx-hud-top-left" style="--cgx-hud-icon-closed: '↖'; --cgx-hud-icon-open: '✖';" open>
+        <summary title="Toggle Control Panel"><span class="cgx-hud-title">Control Panel</span></summary>
+        <div>
+            <div style="display: flex; gap: 8px; margin-bottom: 20px;">
+                <button class="cgx-button cgx-button-warning" style="flex: 1; padding: 6px 12px; font-size: 0.9em;">Refresh</button>
+                <button class="cgx-button cgx-button-danger" style="flex: 1; padding: 6px 12px; font-size: 0.9em;">Reset</button>
+            </div>
+
+            <div class="cgx-form-horizontal" style="gap: 8px 12px; margin-bottom: 16px;">
+                <label class="cgx-label" for="hud-x">Position X</label>
+                <input type="text" id="hud-x" class="cgx-input" placeholder="0px" style="font-size: 0.9em;">
+                
+                <label class="cgx-label" for="hud-y">Position Y</label>
+                <input type="text" id="hud-y" class="cgx-input" placeholder="0px" style="font-size: 0.9em;">
+
+                <label class="cgx-label" for="hud-quality">Quality</label>
+                <select class="cgx-select" id="hud-quality" style="font-size: 0.9em; padding-top: 4px; padding-bottom: 4px;">
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                </select>
+
+                <label class="cgx-label" for="hud-scale">Scale</label>
+                <div style="display: flex; align-items: center; gap: 8px; margin-top: 2px;">
+                    <input type="range" class="cgx-range" id="hud-scale" min="50" max="200" value="100" style="flex: 1;">
+                    <input type="number" class="cgx-input" id="hud-scale-num" value="100" style="width: 45px; text-align: right; padding: 0; font-size: 0.9em;">
+                </div>
+
+                <label class="cgx-label" style="margin-top: 4px;">Debug</label>
+                <div style="display: flex; gap: 12px; margin-top: 4px;">
+                    <label style="display: flex; align-items: center; gap: 6px; font-size: 0.9em;">
+                        <input class="cgx-checkbox" type="checkbox" name="hud-debug" checked> Grid
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 6px; font-size: 0.9em;">
+                        <input class="cgx-checkbox" type="checkbox" name="hud-wire"> Wire
+                    </label>
+                </div>
+
+                <label class="cgx-label" style="margin-top: 4px;">Engine</label>
+                <div style="display: flex; gap: 12px; margin-top: 4px;">
+                    <label style="display: flex; align-items: center; gap: 6px; font-size: 0.9em;">
+                        <input class="cgx-radio" type="radio" name="hud-engine" value="v1" checked> v1
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 6px; font-size: 0.9em;">
+                        <input class="cgx-radio" type="radio" name="hud-engine" value="v2"> v2
+                    </label>
+                </div>
+            </div>
+
+            <button class="cgx-button cgx-button-primary" style="width: 100%; justify-content: center; padding: 6px 12px; font-size: 0.9em;">Apply Changes</button>
+        </div>
     </details>
 
     <!-- Top -->
@@ -138,25 +186,10 @@
         <div><p style="margin-top: 0;">Docked to the bottom center.</p><button class="cgx-button">Normal</button></div>
     </details>
 
-    <!-- Bottom Right (Main Example) -->
-    <details class="cgx-hud cgx-hud-bottom-right" style="--cgx-hud-icon-closed: '↘'; --cgx-hud-icon-open: '✖';" open>
-        <summary title="Toggle Control Panel"><span class="cgx-hud-title">Control Panel</span></summary>
-        <div>
-            <div style="display: flex; gap: 8px; margin-bottom: 20px;">
-                <button class="cgx-button cgx-button-warning" style="flex: 1; padding: 6px 12px; font-size: 0.9em;">Refresh</button>
-                <button class="cgx-button cgx-button-danger" style="flex: 1; padding: 6px 12px; font-size: 0.9em;">Reset</button>
-            </div>
-
-            <div class="cgx-form-horizontal" style="gap: 8px 12px; margin-bottom: 16px;">
-                <label class="cgx-label" for="hud-x">Position X</label>
-                <input type="text" id="hud-x" class="cgx-input" placeholder="0px" style="font-size: 0.9em;">
-                
-                <label class="cgx-label" for="hud-y">Position Y</label>
-                <input type="text" id="hud-y" class="cgx-input" placeholder="0px" style="font-size: 0.9em;">
-            </div>
-
-            <button class="cgx-button cgx-button-primary" style="width: 100%; justify-content: center; padding: 6px 12px; font-size: 0.9em;">Apply Changes</button>
-        </div>
+    <!-- Bottom Right -->
+    <details class="cgx-hud cgx-hud-bottom-right" style="--cgx-hud-icon-closed: '↘'; --cgx-hud-icon-open: '✖';">
+        <summary title="Bottom Right"><span class="cgx-hud-title">Bottom Right HUD</span></summary>
+        <div><p style="margin-top: 0;">Docked to the bottom right edge.</p><button class="cgx-button cgx-button-primary">Primary Action</button></div>
     </details>
 
     <h1>CGx Design Language Preview</h1>
