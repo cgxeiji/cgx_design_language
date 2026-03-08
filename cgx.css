@@ -943,11 +943,29 @@ details.cgx-hud>div {
 details.cgx-hud[open]>div {
   padding: 16px;
   /* Add vertical padding when open */
-  max-height: 2000px;
-  /* Arbitrary large number to allow content to dictate height */
+  max-height: calc(100vh - 120px);
+  /* Leaves room for the top summary bar and margins */
+  overflow-y: auto;
   opacity: 1;
   visibility: visible;
   transition: max-height 0.4s ease-in-out, opacity 0.3s ease 0.1s, padding 0.3s ease;
+  
+  /* Scrollbar Styling for webkit (HUD contents) */
+  scrollbar-width: thin;
+  scrollbar-color: var(--cgx-color-white-trans-30) transparent;
+}
+
+details.cgx-hud[open]>div::-webkit-scrollbar {
+  width: 6px;
+}
+
+details.cgx-hud[open]>div::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+details.cgx-hud[open]>div::-webkit-scrollbar-thumb {
+  background-color: var(--cgx-color-white-trans-30);
+  border-radius: 10px;
 }
 
 /* Closing State (Intercepted by JS, animating out before [open] is removed) */
