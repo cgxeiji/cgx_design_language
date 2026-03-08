@@ -60,6 +60,14 @@
 }
 
 /* Typography */
+code {
+  font-family: var(--cgx-font-mono);
+  background-color: var(--cgx-element-bg);
+  color: var(--cgx-primary);
+  padding: 0.2em 0.4em;
+  border-radius: 12px;
+  font-size: 0.9em;
+}
 
 /* Layout */
 
@@ -276,36 +284,49 @@
 /* Collapsible Panel (Details/Summary) */
 @keyframes cgx-particles {
   0% {
-    box-shadow: 
-      0 0 0 0 var(--cgx-primary), /* Center */
-      0 0 0 0 var(--cgx-primary-bright), /* Top Right */
-      0 0 0 0 var(--cgx-primary), /* Bottom Right */
-      0 0 0 0 var(--cgx-primary-bright), /* Bottom Left */
-      0 0 0 0 var(--cgx-primary); /* Top Left */
+    box-shadow:
+      0 0 0 0 var(--cgx-primary),
+      /* Center */
+      0 0 0 0 var(--cgx-primary-bright),
+      /* Top Right */
+      0 0 0 0 var(--cgx-primary),
+      /* Bottom Right */
+      0 0 0 0 var(--cgx-primary-bright),
+      /* Bottom Left */
+      0 0 0 0 var(--cgx-primary);
+    /* Top Left */
     opacity: 1;
   }
+
   100% {
-    box-shadow: 
-      0 -15px 0 -2px var(--cgx-primary), /* Up */
-      10px -10px 0 -2px var(--cgx-primary-bright), /* Up Right */
-      15px 10px 0 -2px var(--cgx-primary), /* Down Right */
-      -10px 15px 0 -2px var(--cgx-primary-bright), /* Down Left */
-      -15px -10px 0 -2px var(--cgx-primary); /* Up Left */
+    box-shadow:
+      0 -15px 0 -2px var(--cgx-primary),
+      /* Up */
+      10px -10px 0 -2px var(--cgx-primary-bright),
+      /* Up Right */
+      15px 10px 0 -2px var(--cgx-primary),
+      /* Down Right */
+      -10px 15px 0 -2px var(--cgx-primary-bright),
+      /* Down Left */
+      -15px -10px 0 -2px var(--cgx-primary);
+    /* Up Left */
     opacity: 0;
   }
 }
 
 details.cgx-panel {
-  padding: 0; /* Remove base padding, let summary and inner div handle it */
+  padding: 0;
+  /* Remove base padding, let summary and inner div handle it */
   overflow: hidden;
   transition: all 0.2s ease;
 }
 
-details.cgx-panel > summary {
+details.cgx-panel>summary {
   padding: 16px;
   cursor: pointer;
   font-weight: bold;
-  list-style: none; /* Hide default triangle */
+  list-style: none;
+  /* Hide default triangle */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -314,12 +335,13 @@ details.cgx-panel > summary {
   transition: background-color 0.2s ease;
 }
 
-details.cgx-panel > summary::-webkit-details-marker {
-  display: none; /* Hide default triangle in WebKit/Blink */
+details.cgx-panel>summary::-webkit-details-marker {
+  display: none;
+  /* Hide default triangle in WebKit/Blink */
 }
 
 /* Custom Marker Container */
-details.cgx-panel > summary::after {
+details.cgx-panel>summary::after {
   content: '+';
   font-family: var(--cgx-font-mono);
   font-size: 1.2em;
@@ -328,52 +350,54 @@ details.cgx-panel > summary::after {
 }
 
 /* Particle Emitter (Attached to summary relative to the marker) */
-details.cgx-panel > summary {
-    position: relative;
+details.cgx-panel>summary {
+  position: relative;
 }
 
-details.cgx-panel > summary::before {
+details.cgx-panel>summary::before {
   content: '';
   position: absolute;
-  right: 21px; /* Align slightly behind the + marker */
+  right: 21px;
+  /* Align slightly behind the + marker */
   top: 50%;
   transform: translateY(-50%);
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  pointer-events: none; /* Prevent interfering with clicks */
+  pointer-events: none;
+  /* Prevent interfering with clicks */
   opacity: 0;
 }
 
-details.cgx-panel[open] > summary {
+details.cgx-panel[open]>summary {
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   background-color: rgba(255, 255, 255, 0.02);
 }
 
-details.cgx-panel[open] > summary::after {
+details.cgx-panel[open]>summary::after {
   content: '-';
   transform: rotate(180deg);
 }
 
-details.cgx-panel > summary:hover,
-details.cgx-panel > summary:focus {
+details.cgx-panel>summary:hover,
+details.cgx-panel>summary:focus {
   background-color: rgba(255, 255, 255, 0.05);
 }
 
 /* Trigger particles and slight glow on the plus sign when hovered/closed */
-details.cgx-panel:not([open]) > summary:hover::after,
-details.cgx-panel:not([open]) > summary:focus::after {
+details.cgx-panel:not([open])>summary:hover::after,
+details.cgx-panel:not([open])>summary:focus::after {
   filter: drop-shadow(0 0 3px var(--cgx-primary-bright));
   color: var(--cgx-color-white);
 }
 
-details.cgx-panel:not([open]) > summary:hover::before,
-details.cgx-panel:not([open]) > summary:focus::before {
+details.cgx-panel:not([open])>summary:hover::before,
+details.cgx-panel:not([open])>summary:focus::before {
   animation: cgx-particles 0.6s ease-out;
 }
 
 /* Inner content area wrapper required for proper padding after summary */
-details.cgx-panel > div {
+details.cgx-panel>div {
   padding: 16px;
 }
 

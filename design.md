@@ -36,6 +36,9 @@ The design language uses a monospaced font as its base to pair with the terminal
 *   **Base Font (`--cgx-font-mono`)**: `'Noto Sans Mono', monospace`
     *   This font is imported from Google Fonts.
     *   It is applied globally to the `.cgx-body` class.
+*   **Inline Code (`<code>`)**:
+    *   Uses `--cgx-element-bg` for a slight pill background.
+    *   Text is explicitly colored using `--cgx-primary` to pop against standard paragraphs.
 
 ## Spacing, Layout & Shapes
 
