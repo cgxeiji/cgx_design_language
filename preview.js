@@ -184,4 +184,59 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
+
+    // Live Plot Demo — Sine Wave Streaming
+    const liveCanvas = document.getElementById('live-plot');
+    const liveToggle = document.getElementById('live-plot-toggle');
+
+    if (liveCanvas && liveToggle) {
+        const BUFFER = 60;          // number of visible samples
+        const CHANNELS = [
+            { freq: 1.0, phase: 0,              amp: 1.0  },
+            { freq: 1.7, phase: Math.PI / 3,    amp: 0.7  },
+            { freq: 0.6, phase: Math.PI * 1.1,  amp: 0.5  },
+        ];
+
+        // Initialise ring buffers with zeros + time values
+        const buffers = CHANNELS.map(() => Array(BUFFER).fill(0));
+        let times = Array(BUFFER).fill(0);  // parallel x-values for data-x
+        let t = 0;
+        let rafId = null;
+        let running = false;
+
+        function tick() {
+            if (!running) return;
+
+            t = parseFloat((t + 0.08).toFixed(3)); // advance real time, 3dp
+
+            // Push new sample + time value into ring buffers
+            CHANNELS.forEach((ch, i) => {
+                const val = ch.amp * Math.sin(ch.freq * t + ch.phase);
+                buffers[i].push(val);
+                if (buffers[i].length > BUFFER) buffers[i].shift();
+            });
+            times.push(t);
+            if (times.length > BUFFER) times.shift();
+
+            // Update the canvas data and redraw
+            liveCanvas.dataset.x      = JSON.stringify(times);
+            liveCanvas.dataset.series = JSON.stringify(buffers);
+            liveCanvas._cgxRedraw?.();
+
+            rafId = requestAnimationFrame(tick);
+        }
+
+        liveToggle.addEventListener('click', () => {
+            running = liveToggle.dataset.active === 'true';
+            if (running) {
+                tick();
+            } else {
+                cancelAnimationFrame(rafId);
+            }
+        });
+
+        // Draw the initial flat state once cgx.js has set up the canvas
+        // (small delay to ensure _cgxRedraw is ready)
+        setTimeout(() => liveCanvas._cgxRedraw?.(), 0);
+    }
 });

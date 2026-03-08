@@ -197,6 +197,20 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!Array.isArray(seriesData[0])) seriesData = [seriesData];
         if (!seriesData.length || !seriesData[0].length) return;
 
+        // Parse X values — if absent, fall back to 0-based index
+        const maxLen = Math.max(...seriesData.map(s => s.length));
+        let xValues = [];
+        try { xValues = JSON.parse(canvas.dataset.x || 'null'); } catch (_) {}
+        if (!Array.isArray(xValues) || xValues.length !== maxLen) {
+            xValues = Array.from({ length: maxLen }, (_, i) => i);
+        }
+        const xMin   = xValues[0];
+        const xMax   = xValues[xValues.length - 1];
+        const xRange = xMax - xMin || 1;
+
+        // Map an x-value to a canvas pixel x coordinate
+        const xToCanvas = xv => PAD.left + ((xv - xMin) / xRange) * innerW;
+
         let labels = [];
         try { labels = JSON.parse(canvas.dataset.labels || '[]'); } catch (_) {}
 
@@ -222,7 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Clear
         ctx.clearRect(0, 0, W, H);
 
-        // Global min/max
+        // Global Y min/max
         const allVals = seriesData.flat();
         const dataMin = Math.min(...allVals);
         const dataMax = Math.max(...allVals);
@@ -251,14 +265,16 @@ document.addEventListener('DOMContentLoaded', () => {
             ctx.fillText(val.toFixed(1), PAD.left - 4, y + 3.5);
         }
 
-        // X-axis tick labels
+        // X-axis tick labels from xValues
         ctx.textAlign = 'center';
         ctx.fillStyle = labelColor;
-        const maxLen = Math.max(...seriesData.map(s => s.length));
-        const step = Math.ceil(maxLen / 6);
-        for (let i = 0; i < maxLen; i += step) {
-            const x = PAD.left + (i / (maxLen - 1)) * innerW;
-            ctx.fillText(i, x, PAD.top + innerH + 14);
+        const tickStep = Math.ceil(maxLen / 6);
+        for (let i = 0; i < maxLen; i += tickStep) {
+            const xv  = xValues[i];
+            const cx  = xToCanvas(xv);
+            // Format: if floats detected show 1 decimal, otherwise integer
+            const lbl = Number.isInteger(xv) ? xv : xv.toFixed(2);
+            ctx.fillText(lbl, cx, PAD.top + innerH + 14);
         }
 
         // X-axis title
@@ -285,11 +301,10 @@ document.addEventListener('DOMContentLoaded', () => {
         seriesData.forEach((series, si) => {
             const cssVar = CGX_PLOT_PALETTE[si % CGX_PLOT_PALETTE.length];
             const color = style.getPropertyValue(cssVar).trim();
-            const n = series.length;
 
             const points = series.map((v, i) => ({
-                x: PAD.left + (n > 1 ? i / (n - 1) : 0.5) * innerW,
-                y: PAD.top  + innerH * (1 - (v - dataMin) / dataRange),
+                x: xToCanvas(xValues[i] ?? i),
+                y: PAD.top + innerH * (1 - (v - dataMin) / dataRange),
             }));
 
             // Filled area (linear)
@@ -357,6 +372,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('canvas.cgx-plot').forEach(canvas => {
         cgxDrawPlot(canvas);
+
+        // Expose redraw for external use (e.g. live data updates)
+        canvas._cgxRedraw = () => cgxDrawPlot(canvas);
 
         // Redraw on resize
         if (typeof ResizeObserver !== 'undefined') {
