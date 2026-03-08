@@ -208,12 +208,14 @@ code {
 
 /* Play icon in inactive (start) state */
 .cgx-button-toggle::before {
-  content: '\25B6'; /* ▶ Unicode play triangle */
+  content: '\25B6';
+  /* ▶ Unicode play triangle */
   display: inline-block;
   font-size: 0.65em;
   color: var(--cgx-color-green);
   flex-shrink: 0;
   line-height: 1;
+  transform: translateY(-1px);
   transition: color 0.25s ease;
 }
 
@@ -232,13 +234,15 @@ code {
 }
 
 .cgx-button-toggle[data-active="true"]::before {
-  content: ''; /* Remove the play triangle */
+  content: '';
+  /* Remove the play triangle */
   width: 6px;
   height: 6px;
   border-radius: 50%;
   background-color: var(--cgx-color-red);
   opacity: 1;
-  font-size: 1em; /* Reset font-size so width/height applies cleanly */
+  font-size: 1em;
+  /* Reset font-size so width/height applies cleanly */
   animation: cgx-pulse 1.8s ease-in-out infinite;
 }
 
@@ -250,8 +254,17 @@ code {
 }
 
 @keyframes cgx-pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(0.75); }
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.5;
+    transform: scale(0.75);
+  }
 }
 
 /* Line Chart Plot (Canvas) */
@@ -412,7 +425,7 @@ code {
 }
 
 /* Hide the real checkbox */
-.cgx-toggle > input[type="checkbox"] {
+.cgx-toggle>input[type="checkbox"] {
   position: absolute;
   opacity: 0;
   width: 0;
@@ -421,7 +434,7 @@ code {
 }
 
 /* The Track (pill background) */
-.cgx-toggle > input[type="checkbox"] + .cgx-toggle-track {
+.cgx-toggle>input[type="checkbox"]+.cgx-toggle-track {
   position: relative;
   display: inline-block;
   width: 36px;
@@ -434,7 +447,7 @@ code {
 }
 
 /* The Thumb (sliding circle) */
-.cgx-toggle > input[type="checkbox"] + .cgx-toggle-track::after {
+.cgx-toggle>input[type="checkbox"]+.cgx-toggle-track::after {
   content: '';
   position: absolute;
   top: 50%;
@@ -448,24 +461,24 @@ code {
 }
 
 /* Hover state on the track */
-.cgx-toggle:hover > input[type="checkbox"] + .cgx-toggle-track {
+.cgx-toggle:hover>input[type="checkbox"]+.cgx-toggle-track {
   border-color: var(--cgx-color-white-trans-50);
 }
 
 /* Checked state — activate track */
-.cgx-toggle > input[type="checkbox"]:checked + .cgx-toggle-track {
+.cgx-toggle>input[type="checkbox"]:checked+.cgx-toggle-track {
   background-color: var(--cgx-primary);
   border-color: var(--cgx-primary);
 }
 
 /* Checked state — slide the thumb right */
-.cgx-toggle > input[type="checkbox"]:checked + .cgx-toggle-track::after {
+.cgx-toggle>input[type="checkbox"]:checked+.cgx-toggle-track::after {
   transform: translateX(16px) translateY(-50%);
   background-color: var(--cgx-bg);
 }
 
 /* Focus ring */
-.cgx-toggle > input[type="checkbox"]:focus-visible + .cgx-toggle-track {
+.cgx-toggle>input[type="checkbox"]:focus-visible+.cgx-toggle-track {
   outline: 2px solid var(--cgx-color-white-trans-30);
   outline-offset: 2px;
 }
@@ -1093,7 +1106,7 @@ details.cgx-hud[open]>div {
   opacity: 1;
   visibility: visible;
   transition: max-height 0.4s ease-in-out, opacity 0.3s ease 0.1s, padding 0.3s ease;
-  
+
   /* Scrollbar Styling for webkit (HUD contents) */
   scrollbar-width: thin;
   scrollbar-color: var(--cgx-color-white-trans-30) transparent;
@@ -1131,7 +1144,8 @@ details.cgx-hud[open].cgx-is-closing>div {
   border-radius: var(--cgx-radius);
   display: flex;
   flex-direction: column;
-  overflow: hidden; /* Keep child elements inside rounded corners */
+  overflow: hidden;
+  /* Keep child elements inside rounded corners */
 }
 
 /* Base Console styles. Support standalone usage. */
@@ -1170,7 +1184,7 @@ details.cgx-hud[open].cgx-is-closing>div {
 }
 
 /* If the console is inside a wrapper, strip its standalone borders so the wrapper handles it */
-.cgx-console-wrapper > .cgx-console {
+.cgx-console-wrapper>.cgx-console {
   background-color: transparent;
   border: none;
   border-radius: 0;
@@ -1180,9 +1194,11 @@ details.cgx-hud[open].cgx-is-closing>div {
 .cgx-console-input-bar {
   display: flex;
   align-items: center;
-  border-top: 1px solid var(--cgx-color-white-trans-50); /* Distinct boundary matching the outer wrapper border */
+  border-top: 1px solid var(--cgx-color-white-trans-50);
+  /* Distinct boundary matching the outer wrapper border */
   background-color: var(--cgx-color-white-trans-05);
-  padding: 0; /* Tight fit, button handles right edge if needed */
+  padding: 0;
+  /* Tight fit, button handles right edge if needed */
 }
 
 .cgx-console-input-field {
@@ -1201,12 +1217,13 @@ details.cgx-hud[open].cgx-is-closing>div {
   color: var(--cgx-color-white-trans-30);
 }
 
-.cgx-console-input-bar > .cgx-button {
+.cgx-console-input-bar>.cgx-button {
   margin: 4px;
   padding: 4px 12px;
   font-family: var(--cgx-font-mono);
   font-size: 0.85em;
-  border-radius: calc(var(--cgx-radius) - 2px); /* Fit snugly inside wrapper */
+  border-radius: calc(var(--cgx-radius) - 2px);
+  /* Fit snugly inside wrapper */
 }
 
 /* Base Log Line */
