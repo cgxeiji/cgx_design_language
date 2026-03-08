@@ -273,6 +273,59 @@
   padding: 16px;
 }
 
+/* Collapsible Panel (Details/Summary) */
+details.cgx-panel {
+  padding: 0; /* Remove base padding, let summary and inner div handle it */
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+details.cgx-panel > summary {
+  padding: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  list-style: none; /* Hide default triangle */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  outline: none;
+  background-color: transparent;
+  transition: background-color 0.2s ease;
+}
+
+details.cgx-panel > summary::-webkit-details-marker {
+  display: none; /* Hide default triangle in WebKit/Blink */
+}
+
+/* Custom Marker */
+details.cgx-panel > summary::after {
+  content: '+';
+  font-family: var(--cgx-font-mono);
+  font-size: 1.2em;
+  color: var(--cgx-color-white-bright);
+  transition: transform 0.2s ease;
+}
+
+details.cgx-panel[open] > summary {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+details.cgx-panel[open] > summary::after {
+  content: '-';
+  transform: rotate(180deg);
+}
+
+details.cgx-panel > summary:hover,
+details.cgx-panel > summary:focus {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Inner content area wrapper required for proper padding after summary */
+details.cgx-panel > div {
+  padding: 16px;
+}
+
 /* Panel Variations */
 .cgx-panel-ghost {
   border: 1px dashed rgba(255, 255, 255, 0.3);
