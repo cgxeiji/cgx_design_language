@@ -563,6 +563,28 @@
         </div>
     </section>
 
+    <section>
+        <h2>Console & Logs</h2>
+        <div class="cgx-panel">
+            <p style="font-size: 0.85em; margin-bottom: 20px;">The <code>.cgx-console</code> container provides a fixed-height, scrollable area for displaying log output in various severities. Using JavaScript, it can be styled and automatically scrolled to the bottom based on real-time events.</p>
+            
+            <div class="cgx-console" id="preview-console" style="--cgx-console-height: 200px; margin-bottom: 16px;">
+                <div class="cgx-log cgx-log-info">[22:04:15] System initialized.</div>
+                <div class="cgx-log cgx-log-debug">[22:04:16] Rendering layout grid.</div>
+                <div class="cgx-log cgx-log-trace">[22:04:16] HUD positioned at {x: 0, y: 0}.</div>
+                <div class="cgx-log cgx-log-warning">[22:04:20] Connection fluctuating...</div>
+            </div>
+
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <button class="cgx-button log-btn" data-type="info">Log Info</button>
+                <button class="cgx-button log-btn" data-type="debug">Log Debug</button>
+                <button class="cgx-button log-btn" data-type="warning">Log Warning</button>
+                <button class="cgx-button cgx-button-danger log-btn" data-type="error">Log Error</button>
+                <button class="cgx-button cgx-button-ghost" id="clear-console-btn" style="margin-left: auto;">Clear Console</button>
+            </div>
+        </div>
+    </section>
+
     <!-- CGx Interactive Component Behaviors -->
     <script src="cgx.js"></script>
     

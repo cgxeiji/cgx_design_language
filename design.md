@@ -141,3 +141,22 @@ Forms dictate the rhythm of user data entry. The design language provides distin
 To ensure inputs align seamlessly, standard layout containers must be used:
 1.  **Vertical Layout (`.cgx-form-vertical`)**: A standard flex-column wrapper. Group individual label and input pairs inside a `div.cgx-form-group` which tightly couples them visually.
 2.  **Horizontal Layout (`.cgx-form-horizontal`)**: A grid-based layout container (`display: grid; grid-template-columns: minmax(120px, max-content) 1fr;`). Place `.cgx-label` and `.cgx-input` elements directly inside as children. The grid naturally aligns the labels to the right and stretches the inputs to the left, guaranteeing multiple horizontal inputs stay perfectly aligned regardless of label width. It automatically stacks vertically on screens below 480px.
+
+### Console
+The Console provides a dedicated container for displaying logs, events, or terminal-like output. It features a configurable fixed height and custom scrollbar styling.
+
+**Base Class:** `.cgx-console`
+*   Features an internal `overflow-y: auto` with custom slim scrollbar styles.
+*   **Height Config:** The container uses the `--cgx-console-height` CSS variable to allow inline customization (e.g., `style="--cgx-console-height: 120px;"`), defaulting to `150px`.
+*   Uses a highly transparent, dark background (`--cgx-color-bg-trans-90`) and a visible border (`--cgx-color-white-trans-50`) to ensure contrast against page backgrounds.
+
+**Log Lines:** `.cgx-log`
+A base class applied to individual `<div>` log elements inside the console. It applies mono-spaced fonts, breaking words where necessary, and reserves space for an indicator border.
+
+**Severity Modifiers:**
+Combine with `.cgx-log` to apply visually distinct colors and background tones based on severity:
+*   `.cgx-log-trace`: Dimmed output (`--cgx-color-white-trans-50`).
+*   `.cgx-log-debug`: Black/slate gray output (`--cgx-color-black`).
+*   `.cgx-log-info`: White output (`--cgx-color-white`).
+*   `.cgx-log-warning`: Orange coloring (`--cgx-color-orange`) with a subtle 10% tinted background and solid left border.
+*   `.cgx-log-error`: Red coloring (`--cgx-color-red`) with a subtle 10% tinted background and solid left border.

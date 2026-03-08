@@ -79,5 +79,48 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
-});
 
+    // Console Demo Interactivity
+    const consoleContainer = document.getElementById('preview-console');
+    const logBtns = document.querySelectorAll('.log-btn');
+    const clearBtn = document.getElementById('clear-console-btn');
+
+    if (consoleContainer) {
+        // Auto-scroll function
+        const scrollToBottom = () => {
+            consoleContainer.scrollTop = consoleContainer.scrollHeight;
+        };
+
+        // Format current time as HH:MM:SS
+        const getTimeString = () => {
+            const now = new Date();
+            return `[${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}]`;
+        };
+
+        // Handle adding new logs
+        logBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const type = btn.dataset.type;
+                const logEntry = document.createElement('div');
+                logEntry.className = `cgx-log cgx-log-${type}`;
+                
+                let message = 'New system event recorded.';
+                if (type === 'debug') message = 'Inspecting object bounds...';
+                if (type === 'warning') message = 'High latency detected.';
+                if (type === 'error') message = 'Connection failed (ERR_TIMEOUT).';
+
+                logEntry.textContent = `${getTimeString()} ${message}`;
+                
+                consoleContainer.appendChild(logEntry);
+                scrollToBottom();
+            });
+        });
+
+        // Handle clear console
+        if (clearBtn) {
+            clearBtn.addEventListener('click', () => {
+                consoleContainer.innerHTML = '';
+            });
+        }
+    }
+});
