@@ -723,10 +723,13 @@ details.cgx-panel>div {
 
 /* Minimized HUD State (Using <details>) */
 /* Same logic as collapsible panels, but styled to look like a floating icon button when closed */
+/* To animate `<details>`, we transition the inner container's max-height and opacity */
 details.cgx-hud {
   padding: 0;
   overflow: hidden;
   transition: all 0.2s ease;
+  /* Prevent horizontal scroll jumps during animation */
+  max-width: 90vw;
 }
 
 details.cgx-hud > summary {
@@ -797,6 +800,29 @@ details.cgx-hud > summary:focus {
   background-color: var(--cgx-color-white-trans-05);
 }
 
+/* Inner HUD Content Animation */
 details.cgx-hud > div {
-  padding: 16px;
+  padding: 0 16px; /* Horizontal padding constant */
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0, 1, 0, 1), opacity 0.3s ease, padding 0.3s ease;
+  visibility: hidden;
+}
+
+/* Open State (Content is visible) */
+details.cgx-hud[open] > div {
+  padding: 16px; /* Add vertical padding when open */
+  max-height: 2000px; /* Arbitrary large number to allow content to dictate height */
+  opacity: 1;
+  visibility: visible;
+  transition: max-height 0.4s ease-in-out, opacity 0.3s ease 0.1s, padding 0.3s ease;
+}
+
+/* Closing State (Intercepted by JS, animating out before [open] is removed) */
+details.cgx-hud[open].cgx-is-closing > div {
+  padding: 0 16px;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.4s cubic-bezier(0, 1, 0, 1), opacity 0.2s ease, padding 0.3s ease;
 }

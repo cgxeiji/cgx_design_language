@@ -109,12 +109,16 @@ The HUD requires explicit anchor classes to position it correctly on the screen,
 *   **Edges (Centered)**: `.cgx-hud-top`, `.cgx-hud-bottom`, `.cgx-hud-left`, `.cgx-hud-right`
 
 **Minimized State:**
-The HUD can natively minimize into a floating icon button using the `<details>` pattern (similar to Collapsible Panels) without requiring any JavaScript.
+The HUD can natively minimize into a floating icon button using the `<details>` pattern (similar to Collapsible Panels).
 *   Apply the `.cgx-hud` and placement modifier classes to a native `<details>` element.
 *   The `<summary>` acts as the toggle. It natively supports a `.cgx-hud-title` span.
 *   When closed, only a Hamburger icon (`≡`) is visible.
 *   When open, the header expands to show the Hamburger icon on the left, the `.cgx-hud-title` text in the middle, and a Close icon (`×`) on the right.
 *   Wrap the inner control panel content in a standard `<div>` immediately following the `<summary>`.
+
+**Animation & Interactivity (`cgx.js`):**
+*   While the HUD opens natively, the closing animation requires the inclusion of `cgx.js`.
+*   This lightweight script intercepts the `<summary>` click event on open HUDs, adds a `.cgx-is-closing` class to trigger the CSS shrinking animation, and removes the `open` attribute only after the animation completes. Without `cgx.js`, the HUD will snap closed instantly.
 
 **Customizing Icons:**
 You can seamlessly customize the open and closed icons for each specific HUD instance directly in your HTML without needing new CSS classes.
