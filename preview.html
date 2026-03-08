@@ -246,8 +246,46 @@
     <section>
         <h2>Inputs</h2>
         <div class="cgx-panel">
-            <!-- Input elements will go here -->
-            <p>Content to be defined.</p>
+            <p>Inputs provide the basic building blocks for forms. They can be stacked vertically or aligned horizontally using specific container classes to ensure clean label alignment.</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 20px;">
+                
+                <!-- Vertical Layout -->
+                <div class="cgx-panel cgx-panel-ghost">
+                    <h3>Vertical Form (Stacked)</h3>
+                    <p style="font-size: 0.85em; margin-bottom: 20px;">Uses <code>.cgx-form-vertical</code> and <code>.cgx-form-group</code> for standard top-aligned labels.</p>
+                    
+                    <div class="cgx-form-vertical">
+                        <div class="cgx-form-group">
+                            <label class="cgx-label" for="username">Username</label>
+                            <input type="text" id="username" class="cgx-input" placeholder="johndoe123">
+                        </div>
+                        <div class="cgx-form-group">
+                            <label class="cgx-label" for="email1">Email Address</label>
+                            <input type="text" id="email1" class="cgx-input" placeholder="john@example.com">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Horizontal Layout -->
+                <div class="cgx-panel cgx-panel-ghost">
+                    <h3>Horizontal Form (Aligned)</h3>
+                    <p style="font-size: 0.85em; margin-bottom: 20px;">Uses <code>.cgx-form-horizontal</code> to perfectly align multiple labels and inputs using CSS Grid.</p>
+                    
+                    <div class="cgx-form-horizontal">
+                        <label class="cgx-label" for="fname">First Name</label>
+                        <input type="text" id="fname" class="cgx-input" placeholder="John">
+
+                        <label class="cgx-label" for="lname">Last Name</label>
+                        <input type="text" id="lname" class="cgx-input" placeholder="Doe">
+
+                        <label class="cgx-label" for="website">Website</label>
+                        <input type="text" id="website" class="cgx-input" placeholder="https://">
+                    </div>
+                </div>
+
+            </div>
+
         </div>
     </section>
 

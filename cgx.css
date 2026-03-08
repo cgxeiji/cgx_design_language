@@ -39,6 +39,14 @@
   --cgx-secondary: var(--cgx-color-blue);
   --cgx-secondary-bright: var(--cgx-color-blue-bright);
 
+  /* Transparent Utility Variables */
+  /* Used for borders, backgrounds, and hover glows where variables must be used instead of hardcoded RGBA */
+  --cgx-color-white-trans-02: color-mix(in srgb, var(--cgx-color-white) 2%, transparent);
+  --cgx-color-white-trans-05: color-mix(in srgb, var(--cgx-color-white) 5%, transparent);
+  --cgx-color-white-trans-10: color-mix(in srgb, var(--cgx-color-white) 10%, transparent);
+  --cgx-color-white-trans-30: color-mix(in srgb, var(--cgx-color-white) 30%, transparent);
+  --cgx-color-white-trans-50: color-mix(in srgb, var(--cgx-color-white) 50%, transparent);
+
   /* Typography */
   --cgx-font-mono: 'Noto Sans Mono', monospace;
   --cgx-font-default: var(--cgx-font-mono);
@@ -180,9 +188,92 @@ code {
 
 .cgx-button-ghost:hover,
 .cgx-button-ghost:focus {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--cgx-color-white-trans-10);
   border-color: transparent;
   color: var(--cgx-color-white-bright);
+}
+
+/* Form Inputs */
+.cgx-label {
+  display: block;
+  font-family: var(--cgx-font-default);
+  font-size: 0.9em;
+  color: var(--cgx-color-white-bright);
+  margin-bottom: 4px; /* Default for loose usage */
+}
+
+.cgx-input {
+  width: 100%;
+  box-sizing: border-box; /* Include padding in width */
+  font-family: var(--cgx-font-default);
+  font-size: 1rem;
+  background-color: transparent;
+  color: var(--cgx-fg);
+  border: none;
+  border-bottom: 1px solid var(--cgx-color-white-trans-30);
+  border-radius: 0;
+  padding: 8px 4px; /* Minimal padding */
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cgx-input:hover {
+  border-bottom-color: var(--cgx-color-white-trans-50);
+}
+
+.cgx-input:focus {
+  border-bottom-color: var(--cgx-primary);
+  box-shadow: 0 1px 0 0 var(--cgx-primary); /* Focus indicator on bottom edge */
+}
+
+.cgx-input::placeholder {
+  color: var(--cgx-color-white-trans-30);
+}
+
+/* Form Layouts */
+.cgx-form-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cgx-form-vertical > .cgx-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px; /* Tight gap between label and input */
+}
+
+.cgx-form-vertical > .cgx-form-group > .cgx-label {
+  margin-bottom: 0; /* Reset margin inside flex */
+}
+
+.cgx-form-horizontal {
+  display: grid;
+  /* Min 120px label, input takes rest */
+  grid-template-columns: minmax(120px, max-content) 1fr;
+  align-items: center; /* Align items vertically in the grid row */
+  gap: 16px 20px; /* row, column gap */
+}
+
+.cgx-form-horizontal > .cgx-label {
+  margin-bottom: 0;
+  text-align: right; /* Standard for horizontal forms */
+  color: var(--cgx-color-white-bright);
+}
+
+/* Stack horizontally on very small screens automatically */
+@media (max-width: 480px) {
+  .cgx-form-horizontal {
+    grid-template-columns: 1fr; /* Stack */
+    gap: 4px 0;
+  }
+  .cgx-form-horizontal > .cgx-label {
+    text-align: left;
+    margin-top: 12px;
+  }
+  .cgx-form-horizontal > .cgx-label:first-child {
+    margin-top: 0;
+  }
 }
 
 /* Cards */
@@ -220,14 +311,14 @@ code {
 /* Card Variations */
 .cgx-card-outlined {
   /* Bright White (#bdc3c7) at 10% opacity */
-  border-color: rgba(189, 195, 199, 0.1);
+  border-color: var(--cgx-color-white-trans-10);
 }
 
 /* Interactive Card */
 .cgx-card-interactive {
   cursor: pointer;
   transition: all 0.2s ease;
-  border-color: rgba(189, 195, 199, 0.1);
+  border-color: var(--cgx-color-white-trans-10);
 }
 
 .cgx-card-interactive:hover,
@@ -275,7 +366,7 @@ code {
 /* Panels */
 .cgx-panel {
   background-color: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid var(--cgx-color-white-trans-30);
   border-radius: var(--cgx-radius);
   color: var(--cgx-fg);
   padding: 16px;
@@ -370,8 +461,8 @@ details.cgx-panel>summary::before {
 }
 
 details.cgx-panel[open]>summary {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  background-color: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid var(--cgx-color-white-trans-10);
+  background-color: var(--cgx-color-white-trans-02);
 }
 
 details.cgx-panel[open]>summary::after {
@@ -381,7 +472,7 @@ details.cgx-panel[open]>summary::after {
 
 details.cgx-panel>summary:hover,
 details.cgx-panel>summary:focus {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: var(--cgx-color-white-trans-05);
 }
 
 /* Trigger particles and slight glow on the plus sign when hovered/closed */
@@ -403,5 +494,5 @@ details.cgx-panel>div {
 
 /* Panel Variations */
 .cgx-panel-ghost {
-  border: 1px dashed rgba(255, 255, 255, 0.3);
+  border: 1px dashed var(--cgx-color-white-trans-30);
 }

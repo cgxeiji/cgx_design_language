@@ -73,7 +73,7 @@ Cards are flexible containers used to group related content, actions, or data. A
 *   Child elements like `.cgx-card-header`, `.cgx-card-body`, and `.cgx-card-footer` provide consistent spacing.
 
 **Variants:**
-*   **`.cgx-card-outlined`**: Adds a subtle `rgba(189, 195, 199, 0.1)` (Bright White at 10% opacity) border. Provides a sharp, modern edge for distinct grouping on dark backgrounds.
+*   **`.cgx-card-outlined`**: Adds a subtle `var(--cgx-color-white-trans-10)` border. Provides a sharp, modern edge for distinct grouping on dark backgrounds.
 *   **`.cgx-card-interactive`**: Adds hover states (lifts up 2px and gets a solid white border) indicating the entire card is clickable.
 *   **`.cgx-card-cta`**: Used for high-emphasis actions. Built using a solid foundation and a 1px masked `conic-gradient` background. This creates a slowly rotating colorful border (transitioning between Primary Orange and Yellow) running on a continuous 24-second cycle.
 
@@ -81,7 +81,7 @@ Cards are flexible containers used to group related content, actions, or data. A
 Panels are simple, nestable containers used to group UI elements, layout sections, or form controls. Unlike Cards (which suggest distinct physical objects or interactive items like the CTA), Panels are structural building blocks.
 
 **Base Class:** `.cgx-panel`
-*   Features an outlined border `1px solid rgba(255, 255, 255, 0.3)` (30% transparency) with a transparent background by default.
+*   Features an outlined border `1px solid var(--cgx-color-white-trans-30)` (30% transparency) with a transparent background by default.
 *   Applies a standard `16px` internal padding and `--cgx-radius` corners.
 *   Designed to be a flexible, nestable block.
 
@@ -92,4 +92,16 @@ Panels can be made collapsible by applying the `.cgx-panel` class to a native HT
 *   Wrap the inner content in a standard `<div>` immediately following the `<summary>` to ensure proper structural padding.
 
 **Variants:**
-*   **`.cgx-panel-ghost`**: Uses a dashed border at 30% transparency `1px dashed rgba(255, 255, 255, 0.3)`. Ideal for empty states or drop zones.
+*   **`.cgx-panel-ghost`**: Uses a dashed border at 30% transparency `1px dashed var(--cgx-color-white-trans-30)`. Ideal for empty states or drop zones.
+
+### Inputs & Forms
+Forms dictate the rhythm of user data entry. The design language provides distinct structural classes for aligning text inputs.
+
+**Base Classes:**
+*   **`.cgx-input`**: The foundational text input element designed for a minimal aesthetic. Features a fully transparent background, no border radius, and relies entirely on a single subtle bottom border (`1px solid var(--cgx-color-white-trans-30)`). On focus, the bottom border brightens solidly to `--cgx-primary` with a slight glowing box-shadow to indicate active state without cluttering the form.
+*   **`.cgx-label`**: Subtly bright white label text (`0.9em`) to pair with inputs.
+
+**Form Layouts:**
+To ensure inputs align seamlessly, standard layout containers must be used:
+1.  **Vertical Layout (`.cgx-form-vertical`)**: A standard flex-column wrapper. Group individual label and input pairs inside a `div.cgx-form-group` which tightly couples them visually.
+2.  **Horizontal Layout (`.cgx-form-horizontal`)**: A grid-based layout container (`display: grid; grid-template-columns: minmax(120px, max-content) 1fr;`). Place `.cgx-label` and `.cgx-input` elements directly inside as children. The grid naturally aligns the labels to the right and stretches the inputs to the left, guaranteeing multiple horizontal inputs stay perfectly aligned regardless of label width. It automatically stacks vertically on screens below 480px.
