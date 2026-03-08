@@ -48,4 +48,36 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.classList.add('cgx-button-primary');
         });
     });
+
+    // Slider Synchronization
+    const sliders = document.querySelectorAll('input[type="range"].cgx-range');
+    
+    sliders.forEach(slider => {
+        // Find corresponding numeric input if it exists (by ID convention: sliderId + '-num')
+        const numInput = document.getElementById(`${slider.id}-num`);
+        
+        // If no explicit number input, look for a directly adjacent span
+        let displaySpan = null;
+        if (!numInput && slider.nextElementSibling && slider.nextElementSibling.tagName.toLowerCase() === 'span') {
+            displaySpan = slider.nextElementSibling;
+        }
+
+        // Two-way binding for <input type="number">
+        if (numInput) {
+            slider.addEventListener('input', () => {
+                numInput.value = slider.value;
+            });
+            numInput.addEventListener('input', () => {
+                slider.value = numInput.value;
+            });
+        }
+
+        // One-way binding for display <span>
+        if (displaySpan) {
+            slider.addEventListener('input', () => {
+                displaySpan.textContent = slider.value;
+            });
+        }
+    });
 });
+
