@@ -46,7 +46,7 @@
   --cgx-color-white-trans-10: color-mix(in srgb, var(--cgx-color-white) 10%, transparent);
   --cgx-color-white-trans-30: color-mix(in srgb, var(--cgx-color-white) 30%, transparent);
   --cgx-color-white-trans-50: color-mix(in srgb, var(--cgx-color-white) 50%, transparent);
-  
+
   --cgx-color-bg-trans-70: color-mix(in srgb, var(--cgx-bg) 70%, transparent);
 
   /* Typography */
@@ -201,14 +201,16 @@ code {
   font-family: var(--cgx-font-default);
   font-size: 0.9em;
   color: var(--cgx-color-white-bright);
-  margin-bottom: 4px; /* Default for loose usage */
+  margin-bottom: 4px;
+  /* Default for loose usage */
 }
 
 .cgx-input,
 .cgx-textarea,
 .cgx-select {
   width: 100%;
-  box-sizing: border-box; /* Include padding in width */
+  box-sizing: border-box;
+  /* Include padding in width */
   font-family: var(--cgx-font-default);
   font-size: 1rem;
   background-color: transparent;
@@ -216,7 +218,8 @@ code {
   border: none;
   border-bottom: 1px solid var(--cgx-color-white-trans-30);
   border-radius: 0;
-  padding: 8px 4px; /* Minimal padding */
+  padding: 8px 4px;
+  /* Minimal padding */
   outline: none;
   transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
@@ -231,7 +234,8 @@ code {
 .cgx-textarea:focus,
 .cgx-select:focus {
   border-bottom-color: var(--cgx-primary);
-  box-shadow: 0 1px 0 0 var(--cgx-primary); /* Focus indicator on bottom edge */
+  box-shadow: 0 1px 0 0 var(--cgx-primary);
+  /* Focus indicator on bottom edge */
 }
 
 .cgx-input::placeholder,
@@ -252,12 +256,14 @@ code {
   background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2212%22%20height%3D%228%22%20viewBox%3D%220%200%2012%208%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M1%201.5L6%206.5L11%201.5%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E');
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-right: 32px; /* Make room for the chevron */
+  padding-right: 32px;
+  /* Make room for the chevron */
   cursor: pointer;
 }
 
 .cgx-select option {
-  background-color: var(--cgx-bg); /* Dropdown inherits base bg */
+  background-color: var(--cgx-bg);
+  /* Dropdown inherits base bg */
   color: var(--cgx-fg);
 }
 
@@ -362,7 +368,8 @@ code {
   width: 16px;
   border-radius: 50%;
   background: var(--cgx-primary);
-  margin-top: -6px; /* Centering the thumb on the track */
+  margin-top: -6px;
+  /* Centering the thumb on the track */
   transition: transform 0.1s ease, background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -387,6 +394,90 @@ code {
   transform: scale(0.9);
 }
 
+/* Draggable Number Inputs */
+.cgx-drag-group {
+  display: flex;
+  gap: 4px;
+  /* Slight gap between components */
+}
+
+.cgx-drag-input {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--cgx-color-bg-trans-70);
+  border: 1px solid var(--cgx-color-white-trans-20);
+  border-radius: var(--cgx-radius);
+  padding: 0 6px 0 8px;
+  /* Slightly more space on the left for the label */
+  cursor: ew-resize;
+  /* Horizontal drag cursor */
+  user-select: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  position: relative;
+  flex: 1;
+  /* Allow spreading evenly inside a group */
+}
+
+.cgx-drag-input:hover {
+  background-color: var(--cgx-color-white-trans-10);
+  border-color: var(--cgx-color-white-trans-30);
+}
+
+/* Elevate and distinct when focused */
+.cgx-drag-input:focus-within {
+  border-color: var(--cgx-primary);
+  background-color: var(--cgx-element-bg);
+}
+
+.cgx-drag-label {
+  font-family: var(--cgx-font-default);
+  font-size: 0.8em;
+  color: inherit;
+  opacity: 0.5;
+  margin-right: 8px;
+  pointer-events: none;
+  /* Let drag events pass through to the container */
+}
+
+.cgx-drag-unit {
+  font-family: var(--cgx-font-default);
+  font-size: 0.75em;
+  color: var(--cgx-color-white-trans-30);
+  margin-left: 2px;
+  pointer-events: none;
+}
+
+.cgx-drag-field {
+  appearance: none;
+  -moz-appearance: textfield;
+  background: transparent;
+  border: none;
+  color: var(--cgx-color-white-bright);
+  font-family: var(--cgx-font-mono);
+  font-size: 0.9em;
+  width: 3ch;
+  /* Default to 3 characters wide */
+  min-width: 3ch;
+  /* Prevent from disappearing completely */
+  padding: 4px 0;
+  outline: none;
+  cursor: ew-resize;
+  /* Match container */
+}
+
+/* Hide native number spinners */
+.cgx-drag-field::-webkit-inner-spin-button,
+.cgx-drag-field::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Revert cursor when specifically clicking to edit */
+.cgx-drag-field:focus {
+  cursor: text;
+  color: var(--cgx-fg);
+}
+
 /* Form Layouts */
 .cgx-form-vertical {
   display: flex;
@@ -394,41 +485,49 @@ code {
   gap: 16px;
 }
 
-.cgx-form-vertical > .cgx-form-group {
+.cgx-form-vertical>.cgx-form-group {
   display: flex;
   flex-direction: column;
-  gap: 4px; /* Tight gap between label and input */
+  gap: 4px;
+  /* Tight gap between label and input */
 }
 
-.cgx-form-vertical > .cgx-form-group > .cgx-label {
-  margin-bottom: 0; /* Reset margin inside flex */
+.cgx-form-vertical>.cgx-form-group>.cgx-label {
+  margin-bottom: 0;
+  /* Reset margin inside flex */
 }
 
 .cgx-form-horizontal {
   display: grid;
   /* Min 120px label, input takes rest */
   grid-template-columns: minmax(120px, max-content) 1fr;
-  align-items: center; /* Align items vertically in the grid row */
-  gap: 16px 20px; /* row, column gap */
+  align-items: center;
+  /* Align items vertically in the grid row */
+  gap: 16px 20px;
+  /* row, column gap */
 }
 
-.cgx-form-horizontal > .cgx-label {
+.cgx-form-horizontal>.cgx-label {
   margin-bottom: 0;
-  text-align: right; /* Standard for horizontal forms */
+  text-align: right;
+  /* Standard for horizontal forms */
   color: var(--cgx-color-white-bright);
 }
 
 /* Stack horizontally on very small screens automatically */
 @media (max-width: 480px) {
   .cgx-form-horizontal {
-    grid-template-columns: 1fr; /* Stack */
+    grid-template-columns: 1fr;
+    /* Stack */
     gap: 4px 0;
   }
-  .cgx-form-horizontal > .cgx-label {
+
+  .cgx-form-horizontal>.cgx-label {
     text-align: left;
     margin-top: 12px;
   }
-  .cgx-form-horizontal > .cgx-label:first-child {
+
+  .cgx-form-horizontal>.cgx-label:first-child {
     margin-top: 0;
   }
 }
@@ -646,7 +745,8 @@ details.cgx-panel:not([open])>summary:focus::before {
 
 /* Inner content area wrapper required for proper padding after summary */
 details.cgx-panel>div {
-  padding: 0 16px; /* Horizontal padding constant */
+  padding: 0 16px;
+  /* Horizontal padding constant */
   max-height: 0;
   opacity: 0;
   overflow: hidden;
@@ -655,8 +755,10 @@ details.cgx-panel>div {
 }
 
 details.cgx-panel[open]>div {
-  padding: 16px; /* Add vertical padding when open */
-  max-height: 2000px; /* Arbitrary large number to allow content to dictate height */
+  padding: 16px;
+  /* Add vertical padding when open */
+  max-height: 2000px;
+  /* Arbitrary large number to allow content to dictate height */
   opacity: 1;
   visibility: visible;
   transition: max-height 0.4s ease-in-out, opacity 0.3s ease 0.1s, padding 0.3s ease;
@@ -752,31 +854,33 @@ details.cgx-hud {
   max-width: 90vw;
 }
 
-details.cgx-hud > summary {
+details.cgx-hud>summary {
   padding: 12px 16px;
   cursor: pointer;
   list-style: none;
   display: flex;
   align-items: center;
-  justify-content: center; /* Centered when closed (just the icon) */
+  justify-content: center;
+  /* Centered when closed (just the icon) */
   gap: 12px;
   transition: background-color 0.2s ease;
 }
 
-details.cgx-hud > summary::-webkit-details-marker {
+details.cgx-hud>summary::-webkit-details-marker {
   display: none;
 }
 
 /* Hide the title when closed */
-details.cgx-hud:not([open]) > summary .cgx-hud-title {
+details.cgx-hud:not([open])>summary .cgx-hud-title {
   display: none;
 }
 
 /* Base icon styling wrapper if we added one, otherwise we attach directly */
 
 /* By default (minimized), we only show the Hamburger icon on the left/center */
-details.cgx-hud > summary::before {
-  content: var(--cgx-hud-icon-closed, '≡'); /* Hamburger icon natively customizable via inline var */
+details.cgx-hud>summary::before {
+  content: var(--cgx-hud-icon-closed, '≡');
+  /* Hamburger icon natively customizable via inline var */
   font-family: var(--cgx-font-mono);
   font-size: 1.5rem;
   line-height: 1;
@@ -784,13 +888,13 @@ details.cgx-hud > summary::before {
 }
 
 /* When open, title is flex-start (left) and the close icon is pushed to the right */
-details.cgx-hud[open] > summary {
+details.cgx-hud[open]>summary {
   border-bottom: 1px solid var(--cgx-color-white-trans-10);
   background-color: var(--cgx-color-white-trans-02);
 }
 
 /* Title takes remaining space pushing icons to the right */
-details.cgx-hud[open] > summary .cgx-hud-title {
+details.cgx-hud[open]>summary .cgx-hud-title {
   display: block;
   flex-grow: 1;
   font-weight: bold;
@@ -800,29 +904,34 @@ details.cgx-hud[open] > summary .cgx-hud-title {
 
 /* When open, the Hamburger icon stays on the right, next to the X */
 /* We can use CSS order to rearrange the ::before and main text content */
-details.cgx-hud[open] > summary::before {
-  order: 2; /* Move hamburger to the right of the title */
-  margin-left: 8px; /* Slight gap from the title */
+details.cgx-hud[open]>summary::before {
+  order: 2;
+  /* Move hamburger to the right of the title */
+  margin-left: 8px;
+  /* Slight gap from the title */
 }
 
 /* Close icon X only exists when open and sits on the far right */
-details.cgx-hud[open] > summary::after {
-  content: var(--cgx-hud-icon-open, '×'); /* Close icon natively customizable via inline var */
+details.cgx-hud[open]>summary::after {
+  content: var(--cgx-hud-icon-open, '×');
+  /* Close icon natively customizable via inline var */
   font-family: var(--cgx-font-mono);
   font-size: 1.6rem;
   line-height: 1;
   color: var(--cgx-color-white-bright);
-  order: 3; /* Ensure it stays rightmost */
+  order: 3;
+  /* Ensure it stays rightmost */
 }
 
-details.cgx-hud > summary:hover,
-details.cgx-hud > summary:focus {
+details.cgx-hud>summary:hover,
+details.cgx-hud>summary:focus {
   background-color: var(--cgx-color-white-trans-05);
 }
 
 /* Inner HUD Content Animation */
-details.cgx-hud > div {
-  padding: 0 16px; /* Horizontal padding constant */
+details.cgx-hud>div {
+  padding: 0 16px;
+  /* Horizontal padding constant */
   max-height: 0;
   opacity: 0;
   overflow: hidden;
@@ -831,16 +940,18 @@ details.cgx-hud > div {
 }
 
 /* Open State (Content is visible) */
-details.cgx-hud[open] > div {
-  padding: 16px; /* Add vertical padding when open */
-  max-height: 2000px; /* Arbitrary large number to allow content to dictate height */
+details.cgx-hud[open]>div {
+  padding: 16px;
+  /* Add vertical padding when open */
+  max-height: 2000px;
+  /* Arbitrary large number to allow content to dictate height */
   opacity: 1;
   visibility: visible;
   transition: max-height 0.4s ease-in-out, opacity 0.3s ease 0.1s, padding 0.3s ease;
 }
 
 /* Closing State (Intercepted by JS, animating out before [open] is removed) */
-details.cgx-hud[open].cgx-is-closing > div {
+details.cgx-hud[open].cgx-is-closing>div {
   padding: 0 16px;
   max-height: 0;
   opacity: 0;
@@ -862,11 +973,12 @@ details.cgx-hud[open].cgx-is-closing > div {
   overflow-y: auto;
   overflow-x: hidden;
   font-family: var(--cgx-font-mono);
-  font-size: 0.85em; /* Slightly smaller for density */
+  font-size: 0.85em;
+  /* Slightly smaller for density */
   display: flex;
   flex-direction: column;
   gap: 2px;
-  
+
   /* Scrollbar Styling for webkit */
   scrollbar-width: thin;
   scrollbar-color: var(--cgx-color-white-trans-30) transparent;
@@ -888,7 +1000,8 @@ details.cgx-hud[open].cgx-is-closing > div {
 /* Base Log Line */
 .cgx-log {
   padding: 2px 6px;
-  border-left: 2px solid transparent; /* Reserve space for severity indicators */
+  border-left: 2px solid transparent;
+  /* Reserve space for severity indicators */
   border-radius: 2px;
   word-wrap: break-word;
 }

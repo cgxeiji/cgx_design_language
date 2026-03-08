@@ -26,29 +26,35 @@
         .color-group {
             margin-bottom: 2rem;
         }
+
         .color-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 1rem;
         }
+
         .swatch-card {
             border: 1px solid var(--cgx-color-white-bright);
             border-radius: var(--cgx-radius);
             overflow: hidden;
             background: var(--cgx-element-bg);
         }
+
         .swatch-color {
             height: 80px;
             width: 100%;
         }
+
         .swatch-info {
             padding: 8px;
             font-size: 0.85em;
         }
+
         .swatch-name {
             font-weight: bold;
             margin-bottom: 4px;
         }
+
         .swatch-var {
             opacity: 0.7;
             font-size: 0.8em;
@@ -80,6 +86,7 @@
             box-sizing: border-box;
             padding: var(--cgx-spacing);
         }
+
         .spacing-demo-content {
             background: var(--cgx-bg);
             border: 1px dashed var(--cgx-color-white);
@@ -95,14 +102,17 @@
 
 <body class="cgx-body">
     <!-- Heads Up Display (HUD) Examples (All 8 Placements) -->
-    
+
     <!-- Main Control Panel Example -->
-    <details id="main-hud" class="cgx-hud cgx-hud-top-left" style="--cgx-hud-icon-closed: '↖'; --cgx-hud-icon-open: '✖';">
+    <details id="main-hud" class="cgx-hud cgx-hud-top-left"
+        style="--cgx-hud-icon-closed: '↖'; --cgx-hud-icon-open: '✖';">
         <summary title="Toggle Control Panel"><span class="cgx-hud-title">Control Panel</span></summary>
         <div>
             <div style="display: flex; gap: 8px; margin-bottom: 20px;">
-                <button class="cgx-button cgx-button-warning" style="flex: 1; padding: 6px 12px; font-size: 0.9em;">Refresh</button>
-                <button class="cgx-button cgx-button-danger" style="flex: 1; padding: 6px 12px; font-size: 0.9em;">Reset</button>
+                <button class="cgx-button cgx-button-warning"
+                    style="flex: 1; padding: 6px 12px; font-size: 0.9em;">Refresh</button>
+                <button class="cgx-button cgx-button-danger"
+                    style="flex: 1; padding: 6px 12px; font-size: 0.9em;">Reset</button>
             </div>
 
             <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px;">
@@ -111,25 +121,44 @@
                     <summary style="font-size: 0.9em; padding: 10px 16px;">Layout controls</summary>
                     <div>
                         <div class="cgx-form-horizontal" style="gap: 8px 12px;">
-                            <label class="cgx-label" for="hud-x">Position X</label>
-                            <input type="text" id="hud-x" class="cgx-input" placeholder="0px" style="font-size: 0.9em;">
-                            
-                            <label class="cgx-label" for="hud-y">Position Y</label>
-                            <input type="text" id="hud-y" class="cgx-input" placeholder="0px" style="font-size: 0.9em;">
+                            <label class="cgx-label" style="margin-top: 2px;">Position</label>
+                            <div class="cgx-drag-group">
+                                <div class="cgx-drag-input">
+                                    <span class="cgx-drag-label" style="color: var(--cgx-color-red);">X</span>
+                                    <input type="number" id="hud-pos-x" class="cgx-drag-field" value="0" step="1"><span class="cgx-drag-unit">px</span>
+                                </div>
+                                <div class="cgx-drag-input">
+                                    <span class="cgx-drag-label" style="color: var(--cgx-color-green);">Y</span>
+                                    <input type="number" id="hud-pos-y" class="cgx-drag-field" value="0" step="1"><span class="cgx-drag-unit">px</span>
+                                </div>
+                                <div class="cgx-drag-input">
+                                    <span class="cgx-drag-label" style="color: var(--cgx-color-blue);">Z</span>
+                                    <input type="number" id="hud-pos-z" class="cgx-drag-field" value="10" step="1"><span class="cgx-drag-unit">px</span>
+                                </div>
+                            </div>
 
                             <label class="cgx-label" style="margin-top: 4px;">Placement</label>
-                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-top: 4px;">
-                                <button class="cgx-button cgx-button-primary placement-btn" data-placement="top-left" style="padding: 4px;">↖</button>
-                                <button class="cgx-button cgx-button-ghost placement-btn" data-placement="top" style="padding: 4px;">↑</button>
-                                <button class="cgx-button cgx-button-ghost placement-btn" data-placement="top-right" style="padding: 4px;">↗</button>
+                            <div
+                                style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-top: 4px;">
+                                <button class="cgx-button cgx-button-primary placement-btn" data-placement="top-left"
+                                    style="padding: 4px;">↖</button>
+                                <button class="cgx-button cgx-button-ghost placement-btn" data-placement="top"
+                                    style="padding: 4px;">↑</button>
+                                <button class="cgx-button cgx-button-ghost placement-btn" data-placement="top-right"
+                                    style="padding: 4px;">↗</button>
 
-                                <button class="cgx-button cgx-button-ghost placement-btn" data-placement="left" style="padding: 4px;">←</button>
+                                <button class="cgx-button cgx-button-ghost placement-btn" data-placement="left"
+                                    style="padding: 4px;">←</button>
                                 <div></div> <!-- Empty Center -->
-                                <button class="cgx-button cgx-button-ghost placement-btn" data-placement="right" style="padding: 4px;">→</button>
+                                <button class="cgx-button cgx-button-ghost placement-btn" data-placement="right"
+                                    style="padding: 4px;">→</button>
 
-                                <button class="cgx-button cgx-button-ghost placement-btn" data-placement="bottom-left" style="padding: 4px;">↙</button>
-                                <button class="cgx-button cgx-button-ghost placement-btn" data-placement="bottom" style="padding: 4px;">↓</button>
-                                <button class="cgx-button cgx-button-ghost placement-btn" data-placement="bottom-right" style="padding: 4px;">↘</button>
+                                <button class="cgx-button cgx-button-ghost placement-btn" data-placement="bottom-left"
+                                    style="padding: 4px;">↙</button>
+                                <button class="cgx-button cgx-button-ghost placement-btn" data-placement="bottom"
+                                    style="padding: 4px;">↓</button>
+                                <button class="cgx-button cgx-button-ghost placement-btn" data-placement="bottom-right"
+                                    style="padding: 4px;">↘</button>
                             </div>
                         </div>
                     </div>
@@ -141,7 +170,8 @@
                     <div>
                         <div class="cgx-form-horizontal" style="gap: 8px 12px;">
                             <label class="cgx-label" for="hud-quality">Quality</label>
-                            <select class="cgx-select" id="hud-quality" style="font-size: 0.9em; padding-top: 4px; padding-bottom: 4px;">
+                            <select class="cgx-select" id="hud-quality"
+                                style="font-size: 0.9em; padding-top: 4px; padding-bottom: 4px;">
                                 <option value="high">High</option>
                                 <option value="medium">Medium</option>
                                 <option value="low">Low</option>
@@ -149,8 +179,10 @@
 
                             <label class="cgx-label" for="hud-scale">Scale</label>
                             <div style="display: flex; align-items: center; gap: 8px; margin-top: 2px;">
-                                <input type="range" class="cgx-range" id="hud-scale" min="50" max="200" value="100" style="flex: 1;">
-                                <input type="number" class="cgx-input" id="hud-scale-num" value="100" style="width: 45px; text-align: right; padding: 0; font-size: 0.9em;">
+                                <input type="range" class="cgx-range" id="hud-scale" min="50" max="200" value="100"
+                                    style="flex: 1;">
+                                <input type="number" class="cgx-input" id="hud-scale-num" value="100"
+                                    style="width: 45px; text-align: right; padding: 0; font-size: 0.9em;">
                             </div>
                         </div>
                     </div>
@@ -185,7 +217,9 @@
                 </details>
             </div>
 
-            <button class="cgx-button cgx-button-primary" style="width: 100%; justify-content: center; padding: 6px 12px; font-size: 0.9em;">Apply Changes</button>
+            <button class="cgx-button cgx-button-primary"
+                style="width: 100%; justify-content: center; padding: 6px 12px; font-size: 0.9em;">Apply
+                Changes</button>
         </div>
     </details>
 
@@ -222,7 +256,7 @@
         <h2>Page Spacing</h2>
         <div class="cgx-panel">
             <p style="margin-top: 0;">Default Page Padding (<code>--cgx-spacing: 12px</code>)</p>
-            
+
             <div class="spacing-demo-container">
                 <div class="spacing-demo-content">
                     Inner Content Area
@@ -234,7 +268,7 @@
     <section>
         <h2>Colors</h2>
         <div class="cgx-panel">
-            
+
             <div class="color-group">
                 <h3>Base Colors</h3>
                 <div class="color-grid">
@@ -285,30 +319,138 @@
             <div class="color-group">
                 <h3>Terminal Colors (Normal)</h3>
                 <div class="color-grid">
-                    <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-black);"></div><div class="swatch-info"><div class="swatch-name">Black</div><div class="swatch-var">--cgx-color-black</div></div></div>
-                    <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-red);"></div><div class="swatch-info"><div class="swatch-name">Red</div><div class="swatch-var">--cgx-color-red</div></div></div>
-                    <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-green);"></div><div class="swatch-info"><div class="swatch-name">Green</div><div class="swatch-var">--cgx-color-green</div></div></div>
-                    <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-yellow);"></div><div class="swatch-info"><div class="swatch-name">Yellow</div><div class="swatch-var">--cgx-color-yellow</div></div></div>
-                    <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-orange);"></div><div class="swatch-info"><div class="swatch-name">Orange</div><div class="swatch-var">--cgx-color-orange</div></div></div>
-                    <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-blue);"></div><div class="swatch-info"><div class="swatch-name">Blue</div><div class="swatch-var">--cgx-color-blue</div></div></div>
-                    <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-magenta);"></div><div class="swatch-info"><div class="swatch-name">Magenta</div><div class="swatch-var">--cgx-color-magenta</div></div></div>
-                    <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-cyan);"></div><div class="swatch-info"><div class="swatch-name">Cyan</div><div class="swatch-var">--cgx-color-cyan</div></div></div>
-                    <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-white);"></div><div class="swatch-info"><div class="swatch-name">White</div><div class="swatch-var">--cgx-color-white</div></div></div>
+                    <div class="swatch-card">
+                        <div class="swatch-color" style="background-color: var(--cgx-color-black);"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Black</div>
+                            <div class="swatch-var">--cgx-color-black</div>
+                        </div>
+                    </div>
+                    <div class="swatch-card">
+                        <div class="swatch-color" style="background-color: var(--cgx-color-red);"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Red</div>
+                            <div class="swatch-var">--cgx-color-red</div>
+                        </div>
+                    </div>
+                    <div class="swatch-card">
+                        <div class="swatch-color" style="background-color: var(--cgx-color-green);"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Green</div>
+                            <div class="swatch-var">--cgx-color-green</div>
+                        </div>
+                    </div>
+                    <div class="swatch-card">
+                        <div class="swatch-color" style="background-color: var(--cgx-color-yellow);"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Yellow</div>
+                            <div class="swatch-var">--cgx-color-yellow</div>
+                        </div>
+                    </div>
+                    <div class="swatch-card">
+                        <div class="swatch-color" style="background-color: var(--cgx-color-orange);"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Orange</div>
+                            <div class="swatch-var">--cgx-color-orange</div>
+                        </div>
+                    </div>
+                    <div class="swatch-card">
+                        <div class="swatch-color" style="background-color: var(--cgx-color-blue);"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Blue</div>
+                            <div class="swatch-var">--cgx-color-blue</div>
+                        </div>
+                    </div>
+                    <div class="swatch-card">
+                        <div class="swatch-color" style="background-color: var(--cgx-color-magenta);"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Magenta</div>
+                            <div class="swatch-var">--cgx-color-magenta</div>
+                        </div>
+                    </div>
+                    <div class="swatch-card">
+                        <div class="swatch-color" style="background-color: var(--cgx-color-cyan);"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Cyan</div>
+                            <div class="swatch-var">--cgx-color-cyan</div>
+                        </div>
+                    </div>
+                    <div class="swatch-card">
+                        <div class="swatch-color" style="background-color: var(--cgx-color-white);"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">White</div>
+                            <div class="swatch-var">--cgx-color-white</div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <div class="color-group">
                 <h3>Terminal Colors (Bright)</h3>
                 <div class="color-grid">
-                    <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-black-bright);"></div><div class="swatch-info"><div class="swatch-name">Bright Black</div><div class="swatch-var">--cgx-color-black-bright</div></div></div>
-                    <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-red-bright);"></div><div class="swatch-info"><div class="swatch-name">Bright Red</div><div class="swatch-var">--cgx-color-red-bright</div></div></div>
-                    <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-green-bright);"></div><div class="swatch-info"><div class="swatch-name">Bright Green</div><div class="swatch-var">--cgx-color-green-bright</div></div></div>
-                    <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-yellow-bright);"></div><div class="swatch-info"><div class="swatch-name">Bright Yellow</div><div class="swatch-var">--cgx-color-yellow-bright</div></div></div>
-                    <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-orange-bright);"></div><div class="swatch-info"><div class="swatch-name">Bright Orange</div><div class="swatch-var">--cgx-color-orange-bright</div></div></div>
-                    <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-blue-bright);"></div><div class="swatch-info"><div class="swatch-name">Bright Blue</div><div class="swatch-var">--cgx-color-blue-bright</div></div></div>
-                    <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-magenta-bright);"></div><div class="swatch-info"><div class="swatch-name">Bright Magenta</div><div class="swatch-var">--cgx-color-magenta-bright</div></div></div>
-                    <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-cyan-bright);"></div><div class="swatch-info"><div class="swatch-name">Bright Cyan</div><div class="swatch-var">--cgx-color-cyan-bright</div></div></div>
-                    <div class="swatch-card"><div class="swatch-color" style="background-color: var(--cgx-color-white-bright);"></div><div class="swatch-info"><div class="swatch-name">Bright White</div><div class="swatch-var">--cgx-color-white-bright</div></div></div>
+                    <div class="swatch-card">
+                        <div class="swatch-color" style="background-color: var(--cgx-color-black-bright);"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Bright Black</div>
+                            <div class="swatch-var">--cgx-color-black-bright</div>
+                        </div>
+                    </div>
+                    <div class="swatch-card">
+                        <div class="swatch-color" style="background-color: var(--cgx-color-red-bright);"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Bright Red</div>
+                            <div class="swatch-var">--cgx-color-red-bright</div>
+                        </div>
+                    </div>
+                    <div class="swatch-card">
+                        <div class="swatch-color" style="background-color: var(--cgx-color-green-bright);"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Bright Green</div>
+                            <div class="swatch-var">--cgx-color-green-bright</div>
+                        </div>
+                    </div>
+                    <div class="swatch-card">
+                        <div class="swatch-color" style="background-color: var(--cgx-color-yellow-bright);"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Bright Yellow</div>
+                            <div class="swatch-var">--cgx-color-yellow-bright</div>
+                        </div>
+                    </div>
+                    <div class="swatch-card">
+                        <div class="swatch-color" style="background-color: var(--cgx-color-orange-bright);"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Bright Orange</div>
+                            <div class="swatch-var">--cgx-color-orange-bright</div>
+                        </div>
+                    </div>
+                    <div class="swatch-card">
+                        <div class="swatch-color" style="background-color: var(--cgx-color-blue-bright);"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Bright Blue</div>
+                            <div class="swatch-var">--cgx-color-blue-bright</div>
+                        </div>
+                    </div>
+                    <div class="swatch-card">
+                        <div class="swatch-color" style="background-color: var(--cgx-color-magenta-bright);"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Bright Magenta</div>
+                            <div class="swatch-var">--cgx-color-magenta-bright</div>
+                        </div>
+                    </div>
+                    <div class="swatch-card">
+                        <div class="swatch-color" style="background-color: var(--cgx-color-cyan-bright);"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Bright Cyan</div>
+                            <div class="swatch-var">--cgx-color-cyan-bright</div>
+                        </div>
+                    </div>
+                    <div class="swatch-card">
+                        <div class="swatch-color" style="background-color: var(--cgx-color-white-bright);"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Bright White</div>
+                            <div class="swatch-var">--cgx-color-white-bright</div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -319,7 +461,7 @@
         <h2>Buttons</h2>
         <div class="cgx-panel">
             <p>Buttons share a base <code>.cgx-button</code> class with specific variant classes for purpose.</p>
-            
+
             <div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: center; margin-bottom: 20px;">
                 <button class="cgx-button">Normal Button</button>
                 <button class="cgx-button cgx-button-primary">Primary (Important)</button>
@@ -346,14 +488,15 @@
         <h2>Cards</h2>
         <div class="cgx-panel">
             <p>Cards are flexible containers used to group related content and actions.</p>
-            
+
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-                
+
                 <!-- Base Card -->
                 <div class="cgx-card">
                     <h3 class="cgx-card-header">Base Card</h3>
                     <div class="cgx-card-body">
-                        The default card uses the <code>--cgx-element-bg</code> and has no visible border. It sits flat on the background.
+                        The default card uses the <code>--cgx-element-bg</code> and has no visible border. It sits flat
+                        on the background.
                     </div>
                 </div>
 
@@ -377,7 +520,8 @@
                 <div class="cgx-card cgx-card-cta" tabindex="0">
                     <h3 class="cgx-card-header">CTA Card</h3>
                     <div class="cgx-card-body">
-                        The ultimate Call-to-Action. Features a slow-rotating, multi-colored border gradient (orange to yellow).
+                        The ultimate Call-to-Action. Features a slow-rotating, multi-colored border gradient (orange to
+                        yellow).
                     </div>
                     <div class="cgx-card-footer">
                         <button class="cgx-button cgx-button-primary">Get Started Now</button>
@@ -391,14 +535,16 @@
     <section>
         <h2>Panels</h2>
         <div class="cgx-panel">
-            <p>Panels are simple, nestable containers used to group UI elements or layout sections without imposing rigid internal structures.</p>
-            
+            <p>Panels are simple, nestable containers used to group UI elements or layout sections without imposing
+                rigid internal structures.</p>
+
             <div style="display: flex; flex-direction: column; gap: 20px;">
-                
+
                 <!-- Base Panel -->
                 <div class="cgx-panel">
                     <h3>Base Panel (Outlined)</h3>
-                    <p>Uses a 30% transparent white border with 16px padding. A simple, flexible container for grouping content.</p>
+                    <p>Uses a 30% transparent white border with 16px padding. A simple, flexible container for grouping
+                        content.</p>
                 </div>
 
                 <!-- Ghost Panel -->
@@ -406,13 +552,15 @@
                     <h3>Ghost Panel</h3>
                     <p>Uses a 30% transparent dashed white border. Excellent for empty states or drop zones.</p>
                 </div>
-                
+
                 <!-- Collapsible Panel Example -->
                 <details class="cgx-panel">
                     <summary>Collapsible Panel</summary>
                     <div>
                         <p>This content is hidden by default. Click the summary header to reveal it.</p>
-                        <p>Because this uses the native HTML <code>&lt;details&gt;</code> and <code>&lt;summary&gt;</code> tags, it requires zero JavaScript to function and maintains perfect accessibility.</p>
+                        <p>Because this uses the native HTML <code>&lt;details&gt;</code> and
+                            <code>&lt;summary&gt;</code> tags, it requires zero JavaScript to function and maintains
+                            perfect accessibility.</p>
                         <button class="cgx-button cgx-button-ghost" style="margin-top: 10px;">Close Settings</button>
                     </div>
                 </details>
@@ -424,21 +572,24 @@
     <section>
         <h2>Inputs</h2>
         <div class="cgx-panel">
-            <p>Inputs provide the basic building blocks for forms. They can be stacked vertically or aligned horizontally using specific container classes to ensure clean label alignment.</p>
-            
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 20px;">
-                
+            <p>Inputs provide the basic building blocks for forms. They can be stacked vertically or aligned
+                horizontally using specific container classes to ensure clean label alignment.</p>
+
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 20px;">
+
                 <!-- Vertical Layout -->
                 <div class="cgx-panel cgx-panel-ghost">
                     <h3>Vertical Form</h3>
-                    <p style="font-size: 0.85em; margin-bottom: 20px;">Uses <code>.cgx-form-vertical</code> for top-aligned stacked inputs.</p>
-                    
+                    <p style="font-size: 0.85em; margin-bottom: 20px;">Uses <code>.cgx-form-vertical</code> for
+                        top-aligned stacked inputs.</p>
+
                     <div class="cgx-form-vertical">
                         <div class="cgx-form-group">
                             <label class="cgx-label" for="v-username">Username</label>
                             <input class="cgx-input" type="text" id="v-username" placeholder="Enter your username">
                         </div>
-                        
+
                         <div class="cgx-form-group">
                             <label class="cgx-label" for="v-password">Password</label>
                             <input class="cgx-input" type="password" id="v-password" placeholder="Enter your password">
@@ -446,7 +597,8 @@
 
                         <div class="cgx-form-group">
                             <label class="cgx-label" for="v-bio">Biography</label>
-                            <textarea class="cgx-textarea" id="v-bio" placeholder="Tell us about yourself..."></textarea>
+                            <textarea class="cgx-textarea" id="v-bio"
+                                placeholder="Tell us about yourself..."></textarea>
                         </div>
 
                         <div class="cgx-form-group">
@@ -461,16 +613,38 @@
                         <div class="cgx-form-group">
                             <label class="cgx-label" for="v-volume">Volume</label>
                             <div style="display: flex; align-items: center; gap: 12px;">
-                                <input type="range" class="cgx-range" id="v-volume" min="0" max="100" value="50" style="flex: 1;">
-                                <span style="font-family: var(--cgx-font-mono); font-size: 0.9em; min-width: 3ch; text-align: right;">50</span>
+                                <input type="range" class="cgx-range" id="v-volume" min="0" max="100" value="50"
+                                    style="flex: 1;">
+                                <span
+                                    style="font-family: var(--cgx-font-mono); font-size: 0.9em; min-width: 3ch; text-align: right;">50</span>
                             </div>
                         </div>
 
                         <div class="cgx-form-group">
                             <label class="cgx-label" for="v-precise">Precise Value</label>
                             <div style="display: flex; align-items: center; gap: 12px;">
-                                <input type="range" class="cgx-range" id="v-precise" min="0" max="100" value="75" style="flex: 1;">
-                                <input type="number" class="cgx-input" id="v-precise-num" value="75" style="width: 60px; text-align: right; padding-right: 0;">
+                                <input type="range" class="cgx-range" id="v-precise" min="0" max="100" value="75"
+                                    style="flex: 1;">
+                                <input type="number" class="cgx-input" id="v-precise-num" value="75"
+                                    style="width: 60px; text-align: right; padding-right: 0;">
+                            </div>
+                        </div>
+
+                        <div class="cgx-form-group">
+                            <label class="cgx-label">Coordinate Group (Draggable)</label>
+                            <div class="cgx-drag-group">
+                                <div class="cgx-drag-input">
+                                    <span class="cgx-drag-label" style="color: var(--cgx-color-red);">X</span>
+                                    <input type="number" id="v-pos-x" class="cgx-drag-field" value="0.0" step="0.1"><span class="cgx-drag-unit">mm</span>
+                                </div>
+                                <div class="cgx-drag-input">
+                                    <span class="cgx-drag-label" style="color: var(--cgx-color-green);">Y</span>
+                                    <input type="number" id="v-pos-y" class="cgx-drag-field" value="0.0" step="0.1"><span class="cgx-drag-unit">mm</span>
+                                </div>
+                                <div class="cgx-drag-input">
+                                    <span class="cgx-drag-label" style="color: var(--cgx-color-blue);">Z</span>
+                                    <input type="number" id="v-pos-z" class="cgx-drag-field" value="10.5" step="0.1"><span class="cgx-drag-unit">mm</span>
+                                </div>
                             </div>
                         </div>
 
@@ -506,8 +680,9 @@
                 <!-- Horizontal Layout -->
                 <div class="cgx-panel cgx-panel-ghost">
                     <h3>Horizontal Form</h3>
-                    <p style="font-size: 0.85em; margin-bottom: 20px;">Uses <code>.cgx-form-horizontal</code> to perfectly align multiple labels and inputs using CSS Grid.</p>
-                    
+                    <p style="font-size: 0.85em; margin-bottom: 20px;">Uses <code>.cgx-form-horizontal</code> to
+                        perfectly align multiple labels and inputs using CSS Grid.</p>
+
                     <div class="cgx-form-horizontal">
                         <label class="cgx-label" for="h-api">API Key</label>
                         <input class="cgx-input" type="text" id="h-api" placeholder="sk_test_123456789">
@@ -527,14 +702,34 @@
 
                         <label class="cgx-label" for="h-volume">Volume</label>
                         <div style="display: flex; align-items: center; gap: 12px; margin-top: 4px;">
-                            <input type="range" class="cgx-range" id="h-volume" min="0" max="100" value="50" style="flex: 1;">
-                            <span style="font-family: var(--cgx-font-mono); font-size: 0.9em; min-width: 3ch; text-align: right;">50</span>
+                            <input type="range" class="cgx-range" id="h-volume" min="0" max="100" value="50"
+                                style="flex: 1;">
+                            <span
+                                style="font-family: var(--cgx-font-mono); font-size: 0.9em; min-width: 3ch; text-align: right;">50</span>
                         </div>
 
                         <label class="cgx-label" for="h-precise">Precise Value</label>
                         <div style="display: flex; align-items: center; gap: 12px; margin-top: 4px;">
-                            <input type="range" class="cgx-range" id="h-precise" min="0" max="100" value="75" style="flex: 1;">
-                            <input type="number" class="cgx-input" id="h-precise-num" value="75" style="width: 60px; text-align: right; padding-right: 0;">
+                            <input type="range" class="cgx-range" id="h-precise" min="0" max="100" value="75"
+                                style="flex: 1;">
+                            <input type="number" class="cgx-input" id="h-precise-num" value="75"
+                                style="width: 60px; text-align: right; padding-right: 0;">
+                        </div>
+
+                        <label class="cgx-label" style="margin-top: 4px;">Coordinate Group</label>
+                        <div class="cgx-drag-group" style="margin-top: 4px;">
+                            <div class="cgx-drag-input">
+                                <span class="cgx-drag-label" style="color: var(--cgx-color-red-bright);">X</span>
+                                <input type="number" id="h-pos-x" class="cgx-drag-field" value="150" step="1"><span class="cgx-drag-unit">mm</span>
+                            </div>
+                            <div class="cgx-drag-input">
+                                <span class="cgx-drag-label" style="color: var(--cgx-color-green-bright);">Y</span>
+                                <input type="number" id="h-pos-y" class="cgx-drag-field" value="300" step="1"><span class="cgx-drag-unit">mm</span>
+                            </div>
+                            <div class="cgx-drag-input">
+                                <span class="cgx-drag-label" style="color: var(--cgx-color-blue-bright);">Z</span>
+                                <input type="number" id="h-pos-z" class="cgx-drag-field" value="0" step="1"><span class="cgx-drag-unit">mm</span>
+                            </div>
                         </div>
 
                         <label class="cgx-label" style="margin-top: 4px;">Preferences</label>
@@ -566,8 +761,10 @@
     <section>
         <h2>Console & Logs</h2>
         <div class="cgx-panel">
-            <p style="font-size: 0.85em; margin-bottom: 20px;">The <code>.cgx-console</code> container provides a fixed-height, scrollable area for displaying log output in various severities. Using JavaScript, it can be styled and automatically scrolled to the bottom based on real-time events.</p>
-            
+            <p style="font-size: 0.85em; margin-bottom: 20px;">The <code>.cgx-console</code> container provides a
+                fixed-height, scrollable area for displaying log output in various severities. Using JavaScript, it can
+                be styled and automatically scrolled to the bottom based on real-time events.</p>
+
             <div class="cgx-console" id="preview-console" style="--cgx-console-height: 200px; margin-bottom: 16px;">
                 <div class="cgx-log cgx-log-info">[22:04:15] System initialized.</div>
                 <div class="cgx-log cgx-log-debug">[22:04:16] Rendering layout grid.</div>
@@ -580,14 +777,15 @@
                 <button class="cgx-button log-btn" data-type="debug">Log Debug</button>
                 <button class="cgx-button log-btn" data-type="warning">Log Warning</button>
                 <button class="cgx-button cgx-button-danger log-btn" data-type="error">Log Error</button>
-                <button class="cgx-button cgx-button-ghost" id="clear-console-btn" style="margin-left: auto;">Clear Console</button>
+                <button class="cgx-button cgx-button-ghost" id="clear-console-btn" style="margin-left: auto;">Clear
+                    Console</button>
             </div>
         </div>
     </section>
 
     <!-- CGx Interactive Component Behaviors -->
     <script src="cgx.js"></script>
-    
+
     <!-- Preview Demo Logic -->
     <script src="preview.js"></script>
 </body>
