@@ -478,6 +478,13 @@ code {
   color: var(--cgx-fg);
 }
 
+/* Grid Layout */
+.cgx-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--cgx-spacing);
+}
+
 /* Form Layouts */
 .cgx-form-vertical {
   display: flex;

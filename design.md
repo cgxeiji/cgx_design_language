@@ -143,6 +143,10 @@ To ensure inputs align seamlessly, standard layout containers must be used:
 1.  **Vertical Layout (`.cgx-form-vertical`)**: A standard flex-column wrapper. Group individual label and input pairs inside a `div.cgx-form-group` which tightly couples them visually.
 2.  **Horizontal Layout (`.cgx-form-horizontal`)**: A grid-based layout container (`display: grid; grid-template-columns: minmax(120px, max-content) 1fr;`). Place `.cgx-label` and `.cgx-input` elements directly inside as children. The grid naturally aligns the labels to the right and stretches the inputs to the left, guaranteeing multiple horizontal inputs stay perfectly aligned regardless of label width. It automatically stacks vertically on screens below 480px.
 
+### Layout Grid
+**Base Class:** `.cgx-grid`
+A responsive multi-panel layout container. It uses `display: grid` with `auto-fit` and a `minmax(280px, 1fr)` column template, so child panels automatically wrap into a new row when the screen is too narrow to fit them. The gap defaults to `--cgx-spacing` to maintain visual consistency with page padding. Place any block-level elements—such as `.cgx-panel` or `.cgx-card`—as direct children.
+
 ### Console
 The Console provides a dedicated container for displaying logs, events, or terminal-like output. It features a configurable fixed height and custom scrollbar styling.
 
