@@ -94,6 +94,33 @@ Panels can be made collapsible by applying the `.cgx-panel` class to a native HT
 **Variants:**
 *   **`.cgx-panel-ghost`**: Uses a dashed border at 30% transparency `1px dashed var(--cgx-color-white-trans-30)`. Ideal for empty states or drop zones.
 
+### Heads Up Display (HUD)
+The HUD represents a fixed-position control panel designed to float globally over the application content, providing immediate access to actions and information regardless of scroll depth.
+
+**Base Class:** `.cgx-hud`
+*   Features a fixed position with a high `z-index` to float above all other elements.
+*   Background uses `--cgx-color-bg-trans-70`, ensuring an exact 70% transparency of the primary background color for readability without fully obscuring content.
+*   Includes a backdrop blur for modern browsers to further enhance text legibility against complex backgrounds.
+*   Includes a deep drop shadow to separate it visually from the underlying content.
+
+**Placement Modifiers:**
+The HUD requires explicit anchor classes to position it correctly on the screen, locked relative to the viewport using the standard `--cgx-spacing`:
+*   **Corners**: `.cgx-hud-top-left`, `.cgx-hud-top-right`, `.cgx-hud-bottom-left`, `.cgx-hud-bottom-right`
+*   **Edges (Centered)**: `.cgx-hud-top`, `.cgx-hud-bottom`, `.cgx-hud-left`, `.cgx-hud-right`
+
+**Minimized State:**
+The HUD can natively minimize into a floating icon button using the `<details>` pattern (similar to Collapsible Panels) without requiring any JavaScript.
+*   Apply the `.cgx-hud` and placement modifier classes to a native `<details>` element.
+*   The `<summary>` acts as the toggle. It natively supports a `.cgx-hud-title` span.
+*   When closed, only a Hamburger icon (`≡`) is visible.
+*   When open, the header expands to show the Hamburger icon on the left, the `.cgx-hud-title` text in the middle, and a Close icon (`×`) on the right.
+*   Wrap the inner control panel content in a standard `<div>` immediately following the `<summary>`.
+
+**Customizing Icons:**
+You can seamlessly customize the open and closed icons for each specific HUD instance directly in your HTML without needing new CSS classes.
+*   Add inline styles to the `<details>` element to override the CSS properties: `style="--cgx-hud-icon-closed: '⚙️'; --cgx-hud-icon-open: '✖';"`.
+*   This relies purely on CSS variables and native content substitution.
+
 ### Inputs & Forms
 Forms dictate the rhythm of user data entry. The design language provides distinct structural classes for aligning text inputs.
 

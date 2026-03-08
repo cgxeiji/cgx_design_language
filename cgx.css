@@ -46,6 +46,8 @@
   --cgx-color-white-trans-10: color-mix(in srgb, var(--cgx-color-white) 10%, transparent);
   --cgx-color-white-trans-30: color-mix(in srgb, var(--cgx-color-white) 30%, transparent);
   --cgx-color-white-trans-50: color-mix(in srgb, var(--cgx-color-white) 50%, transparent);
+  
+  --cgx-color-bg-trans-70: color-mix(in srgb, var(--cgx-bg) 70%, transparent);
 
   /* Typography */
   --cgx-font-mono: 'Noto Sans Mono', monospace;
@@ -495,4 +497,151 @@ details.cgx-panel>div {
 /* Panel Variations */
 .cgx-panel-ghost {
   border: 1px dashed var(--cgx-color-white-trans-30);
+}
+
+/* Heads Up Display (HUD) */
+/* The HUD is a fixed position container that floats above the content */
+.cgx-hud {
+  position: fixed;
+  z-index: 1000;
+  /* Use the requested 70% base background transparency using color-mix */
+  background-color: var(--cgx-color-bg-trans-70);
+  /* Fallback blur for modern browsers to help readability */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  /* Standard panel borders */
+  border: 1px solid var(--cgx-color-white-trans-30);
+  border-radius: var(--cgx-radius);
+  color: var(--cgx-fg);
+  padding: 16px;
+  /* Ensure it doesn't span full width unless requested */
+  max-width: 90vw;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* HUD Placements (Anchors to the viewport corners/edges with standard spacing) */
+/* The HUD relies on exact position resetting to avoid inheriting properties improperly,
+   so we define top/bottom/left/right exclusively for each variation */
+.cgx-hud-top-left {
+  top: var(--cgx-spacing);
+  left: var(--cgx-spacing);
+}
+
+.cgx-hud-top-right {
+  top: var(--cgx-spacing);
+  right: var(--cgx-spacing);
+}
+
+.cgx-hud-bottom-left {
+  bottom: var(--cgx-spacing);
+  left: var(--cgx-spacing);
+}
+
+.cgx-hud-bottom-right {
+  bottom: var(--cgx-spacing);
+  right: var(--cgx-spacing);
+}
+
+.cgx-hud-top {
+  top: var(--cgx-spacing);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.cgx-hud-bottom {
+  bottom: var(--cgx-spacing);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.cgx-hud-left {
+  left: var(--cgx-spacing);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.cgx-hud-right {
+  right: var(--cgx-spacing);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Minimized HUD State (Using <details>) */
+/* Same logic as collapsible panels, but styled to look like a floating icon button when closed */
+details.cgx-hud {
+  padding: 0;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+details.cgx-hud > summary {
+  padding: 12px 16px;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centered when closed (just the icon) */
+  gap: 12px;
+  transition: background-color 0.2s ease;
+}
+
+details.cgx-hud > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Hide the title when closed */
+details.cgx-hud:not([open]) > summary .cgx-hud-title {
+  display: none;
+}
+
+/* Base icon styling wrapper if we added one, otherwise we attach directly */
+
+/* By default (minimized), we only show the Hamburger icon on the left/center */
+details.cgx-hud > summary::before {
+  content: var(--cgx-hud-icon-closed, '≡'); /* Hamburger icon natively customizable via inline var */
+  font-family: var(--cgx-font-mono);
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--cgx-color-white-bright);
+}
+
+/* When open, title is flex-start (left) and the close icon is pushed to the right */
+details.cgx-hud[open] > summary {
+  border-bottom: 1px solid var(--cgx-color-white-trans-10);
+  background-color: var(--cgx-color-white-trans-02);
+}
+
+/* Title takes remaining space pushing icons to the right */
+details.cgx-hud[open] > summary .cgx-hud-title {
+  display: block;
+  flex-grow: 1;
+  font-weight: bold;
+  font-size: 1rem;
+  text-align: left;
+}
+
+/* When open, the Hamburger icon stays on the right, next to the X */
+/* We can use CSS order to rearrange the ::before and main text content */
+details.cgx-hud[open] > summary::before {
+  order: 2; /* Move hamburger to the right of the title */
+  margin-left: 8px; /* Slight gap from the title */
+}
+
+/* Close icon X only exists when open and sits on the far right */
+details.cgx-hud[open] > summary::after {
+  content: var(--cgx-hud-icon-open, '×'); /* Close icon natively customizable via inline var */
+  font-family: var(--cgx-font-mono);
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--cgx-color-white-bright);
+  order: 3; /* Ensure it stays rightmost */
+}
+
+details.cgx-hud > summary:hover,
+details.cgx-hud > summary:focus {
+  background-color: var(--cgx-color-white-trans-05);
+}
+
+details.cgx-hud > div {
+  padding: 16px;
 }
