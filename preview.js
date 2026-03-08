@@ -122,5 +122,36 @@ document.addEventListener('DOMContentLoaded', () => {
                 consoleContainer.innerHTML = '';
             });
         }
+
+        // Handle Console Input Submission
+        const cmdInput = document.getElementById('console-cmd-input');
+        const cmdSendBtn = document.getElementById('console-cmd-send');
+
+        if (cmdInput && cmdSendBtn) {
+            const submitCommand = () => {
+                const text = cmdInput.value.trim();
+                if (!text) return; // Don't send empty commands
+
+                const logEntry = document.createElement('div');
+                logEntry.className = 'cgx-log cgx-log-user';
+                logEntry.textContent = `${getTimeString()} > ${text}`;
+                
+                consoleContainer.appendChild(logEntry);
+                scrollToBottom();
+                
+                cmdInput.value = ''; // Clear input
+            };
+
+            // Submit on button click
+            cmdSendBtn.addEventListener('click', submitCommand);
+
+            // Submit on Enter key
+            cmdInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault(); // Prevent default form submission if wrapped in form
+                    submitCommand();
+                }
+            });
+        }
     }
 });

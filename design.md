@@ -146,10 +146,12 @@ To ensure inputs align seamlessly, standard layout containers must be used:
 ### Console
 The Console provides a dedicated container for displaying logs, events, or terminal-like output. It features a configurable fixed height and custom scrollbar styling.
 
-**Base Class:** `.cgx-console`
-*   Features an internal `overflow-y: auto` with custom slim scrollbar styles.
-*   **Height Config:** The container uses the `--cgx-console-height` CSS variable to allow inline customization (e.g., `style="--cgx-console-height: 120px;"`), defaulting to `150px`.
-*   Uses a highly transparent, dark background (`--cgx-color-bg-trans-90`) and a visible border (`--cgx-color-white-trans-50`) to ensure contrast against page backgrounds.
+**Console Architecture:**
+The Console area can be used as a standalone display window, or it can be combined with an input bar to create an interactive terminal.
+*   **`.cgx-console-wrapper`**: Use this `<div>` as the main outer container if you are pairing the console with an input bar. It applies the main background, borders, and rounded corners, unifying the log window and input area into a single block. 
+*   **`.cgx-console`**: The essential internal scrollable area that holds the logs. If used standalone, it applies its own borders and background. If placed inside a `.cgx-console-wrapper`, it seamlessly drops its external styling to fit flush inside the wrapper. Control its height via inline CSS: `style="--cgx-console-height: 120px;"` (defaults to `150px`).
+*   **`.cgx-console-input-bar`**: A flex container placed *below* the `.cgx-console` (inside the wrapper) to hold the input layout.
+*   **`.cgx-console-input-field`**: A specialized `<input type="text">` designed exclusively for the input bar. It drops all default browser styles, matching the font and colors of the console.
 
 **Log Lines:** `.cgx-log`
 A base class applied to individual `<div>` log elements inside the console. It applies mono-spaced fonts, breaking words where necessary, and reserves space for an indicator border.
@@ -161,3 +163,4 @@ Combine with `.cgx-log` to apply visually distinct colors and background tones b
 *   `.cgx-log-info`: White output (`--cgx-color-white`).
 *   `.cgx-log-warning`: Orange coloring (`--cgx-color-orange`) with a subtle 10% tinted background and solid left border.
 *   `.cgx-log-error`: Red coloring (`--cgx-color-red`) with a subtle 10% tinted background and solid left border.
+*   `.cgx-log-user`: Green color (`--cgx-color-green`), reserved for highlighting user-submitted commands or inputs.
