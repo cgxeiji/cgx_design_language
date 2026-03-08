@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Handle Console Input Submission
+        // Handle Console Input Submission (Main Console)
         const cmdInput = document.getElementById('console-cmd-input');
         const cmdSendBtn = document.getElementById('console-cmd-send');
 
@@ -150,6 +150,36 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (e.key === 'Enter') {
                     e.preventDefault(); // Prevent default form submission if wrapped in form
                     submitCommand();
+                }
+            });
+        }
+
+        // Handle Console Input Submission (HUD Console)
+        const hudConsole = document.getElementById('hud-console');
+        const hudCmdInput = document.getElementById('hud-cmd-input');
+        const hudCmdSendBtn = document.getElementById('hud-cmd-send');
+
+        if (hudConsole && hudCmdInput && hudCmdSendBtn) {
+            const submitHudCommand = () => {
+                const text = hudCmdInput.value.trim();
+                if (!text) return;
+
+                const logEntry = document.createElement('div');
+                logEntry.className = 'cgx-log cgx-log-user';
+                logEntry.textContent = `${getTimeString()} > ${text}`;
+                
+                hudConsole.appendChild(logEntry);
+                hudConsole.scrollTop = hudConsole.scrollHeight;
+                
+                hudCmdInput.value = '';
+            };
+
+            hudCmdSendBtn.addEventListener('click', submitHudCommand);
+
+            hudCmdInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    submitHudCommand();
                 }
             });
         }
