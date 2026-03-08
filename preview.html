@@ -427,10 +427,18 @@
                         </div>
 
                         <div class="cgx-form-group">
-                            <label class="cgx-label" for="v-volume">Volume / Value</label>
+                            <label class="cgx-label" for="v-volume">Volume</label>
                             <div style="display: flex; align-items: center; gap: 12px;">
                                 <input type="range" class="cgx-range" id="v-volume" min="0" max="100" value="50" style="flex: 1;">
                                 <span style="font-family: var(--cgx-font-mono); font-size: 0.9em; min-width: 3ch; text-align: right;">50</span>
+                            </div>
+                        </div>
+
+                        <div class="cgx-form-group">
+                            <label class="cgx-label" for="v-precise">Precise Value</label>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <input type="range" class="cgx-range" id="v-precise" min="0" max="100" value="75" style="flex: 1;">
+                                <input type="number" class="cgx-input" id="v-precise-num" value="75" style="width: 60px; text-align: right; padding-right: 0;">
                             </div>
                         </div>
 
@@ -489,6 +497,12 @@
                         <div style="display: flex; align-items: center; gap: 12px; margin-top: 4px;">
                             <input type="range" class="cgx-range" id="h-volume" min="0" max="100" value="50" style="flex: 1;">
                             <span style="font-family: var(--cgx-font-mono); font-size: 0.9em; min-width: 3ch; text-align: right;">50</span>
+                        </div>
+
+                        <label class="cgx-label" for="h-precise">Precise Value</label>
+                        <div style="display: flex; align-items: center; gap: 12px; margin-top: 4px;">
+                            <input type="range" class="cgx-range" id="h-precise" min="0" max="100" value="75" style="flex: 1;">
+                            <input type="number" class="cgx-input" id="h-precise-num" value="75" style="width: 60px; text-align: right; padding-right: 0;">
                         </div>
 
                         <label class="cgx-label" style="margin-top: 4px;">Preferences</label>
