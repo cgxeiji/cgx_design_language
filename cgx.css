@@ -984,6 +984,18 @@ details.cgx-panel[open].cgx-is-closing>div {
   border: 1px dashed var(--cgx-color-white-trans-30);
 }
 
+.cgx-panel-with-status {
+  padding: 0;
+  /* Status bar acts as the header flush with the border */
+  overflow: hidden;
+  /* Ensure status bar conforms to border radius */
+}
+
+.cgx-panel-with-status-body {
+  padding: 16px;
+  /* Restore the internal padding for the rest of the panel */
+}
+
 /* Heads Up Display (HUD) */
 /* The HUD is a fixed position container that floats above the content */
 .cgx-hud {
@@ -1241,8 +1253,12 @@ details.cgx-hud[open].cgx-is-closing>div {
   border-radius: 0;
 }
 
-/* Console Status Bar — optional, place above the console log inside .cgx-console-wrapper */
-.cgx-console-status {
+/* =========================================
+   XX. Status Bar
+   ========================================= */
+
+/* A generic status bar for panels, HUDs, or consoles */
+.cgx-status-bar {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -1256,7 +1272,7 @@ details.cgx-hud[open].cgx-is-closing>div {
 }
 
 /* Status dot */
-.cgx-console-status::before {
+.cgx-status-bar::before {
   content: '';
   display: inline-block;
   width: 6px;
@@ -1267,37 +1283,37 @@ details.cgx-hud[open].cgx-is-closing>div {
 }
 
 /* Right-side slot (e.g. timestamp, endpoint URL) */
-.cgx-console-status-info {
+.cgx-status-info {
   margin-left: auto;
   opacity: 0.6;
   font-size: 0.9em;
 }
 
 /* State: Connected */
-.cgx-console-status.cgx-status-connected {
+.cgx-status-bar.cgx-status-connected {
   color: var(--cgx-color-green);
 }
 
-.cgx-console-status.cgx-status-connected::before {
+.cgx-status-bar.cgx-status-connected::before {
   background-color: var(--cgx-color-green);
 }
 
 /* State: Connecting (pulsing dot) */
-.cgx-console-status.cgx-status-connecting {
+.cgx-status-bar.cgx-status-connecting {
   color: var(--cgx-color-yellow);
 }
 
-.cgx-console-status.cgx-status-connecting::before {
+.cgx-status-bar.cgx-status-connecting::before {
   background-color: var(--cgx-color-yellow);
   animation: cgx-pulse 1.2s ease-in-out infinite;
 }
 
 /* State: Disconnected */
-.cgx-console-status.cgx-status-disconnected {
+.cgx-status-bar.cgx-status-disconnected {
   color: var(--cgx-color-red);
 }
 
-.cgx-console-status.cgx-status-disconnected::before {
+.cgx-status-bar.cgx-status-disconnected::before {
   background-color: var(--cgx-color-red);
 }
 

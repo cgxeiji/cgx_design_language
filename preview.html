@@ -822,9 +822,9 @@
                 be styled and automatically scrolled to the bottom based on real-time events.</p>
 
             <div class="cgx-console-wrapper" style="margin-bottom: 16px;">
-                <div class="cgx-console-status cgx-status-connected">
+                <div class="cgx-status-bar cgx-status-connected">
                     Connected
-                    <span class="cgx-console-status-info">ws://localhost:8080/log</span>
+                    <span class="cgx-status-info">ws://localhost:8080/log</span>
                 </div>
                 <div class="cgx-console" id="preview-console" style="--cgx-console-height: 200px;">
                     <div class="cgx-log cgx-log-info">[22:04:15] System initialized.</div>
@@ -842,18 +842,18 @@
             <!-- Status bar state variants -->
             <div class="cgx-grid" style="margin-bottom: 16px;">
                 <div class="cgx-console-wrapper">
-                    <div class="cgx-console-status cgx-status-connecting">
+                    <div class="cgx-status-bar cgx-status-connecting">
                         Connecting...
-                        <span class="cgx-console-status-info">Retry 3/5</span>
+                        <span class="cgx-status-info">Retry 3/5</span>
                     </div>
                     <div class="cgx-console" style="--cgx-console-height: 60px;">
                         <div class="cgx-log cgx-log-trace">[SYS] Attempting to reconnect...</div>
                     </div>
                 </div>
                 <div class="cgx-console-wrapper">
-                    <div class="cgx-console-status cgx-status-disconnected">
+                    <div class="cgx-status-bar cgx-status-disconnected">
                         Disconnected
-                        <span class="cgx-console-status-info">Last seen 12s ago</span>
+                        <span class="cgx-status-info">Last seen 12s ago</span>
                     </div>
                     <div class="cgx-console" style="--cgx-console-height: 60px;">
                         <div class="cgx-log cgx-log-error">[ERR] Connection lost.</div>
@@ -987,6 +987,19 @@
                     <div
                         style="height: 6px; background: var(--cgx-color-white-trans-10); border-radius: 3px; overflow: hidden;">
                         <div style="width: 52%; height: 100%; background: var(--cgx-primary);"></div>
+                    </div>
+                </div>
+
+                <!-- Generic Status Panel Example -->
+                <div class="cgx-panel cgx-panel-ghost cgx-panel-with-status">
+                    <div class="cgx-status-bar cgx-status-connected">
+                        System Online
+                        <span class="cgx-status-info">All services operational</span>
+                    </div>
+                    <div class="cgx-panel-with-status-body">
+                        <h3 style="margin-top: 0; margin-bottom: 8px;">Database Node</h3>
+                        <p style="font-size: 0.85em; color: var(--cgx-color-white-trans-50); margin: 0;">Running
+                            securely on cluster Alpha. Metrics are looking healthy.</p>
                     </div>
                 </div>
 

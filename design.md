@@ -99,6 +99,7 @@ Panels can be made collapsible by applying the `.cgx-panel` class to a native HT
 
 **Variants:**
 *   **`.cgx-panel-ghost`**: Uses a dashed border at 30% transparency `1px dashed var(--cgx-color-white-trans-30)`. Ideal for empty states or drop zones.
+*   **`.cgx-panel-with-status`**: A helper class that removes the default internal padding and enforces `overflow: hidden`, allowing a `.cgx-status-bar` placed as the first child to span flush against the top rounded corners. Must be used in conjunction with a `.cgx-panel-with-status-body` wrapper for the inner content to restore the standard `16px` padding.
 
 ### Heads Up Display (HUD)
 The HUD represents a fixed-position control panel designed to float globally over the application content, providing immediate access to actions and information regardless of scroll depth.
@@ -158,13 +159,23 @@ To ensure inputs align seamlessly, standard layout containers must be used:
 **Base Class:** `.cgx-grid`
 A responsive multi-panel layout container. It uses `display: grid` with `auto-fit` and a `minmax(280px, 1fr)` column template, so child panels automatically wrap into a new row when the screen is too narrow to fit them. The gap defaults to `--cgx-spacing` to maintain visual consistency with page padding. Place any block-level elements—such as `.cgx-panel` or `.cgx-card`—as direct children.
 
+### Status Bar
+The Status Bar provides a standard, horizontal visual indicator for system states, designed to be placed inside Panels, Consoles, or HUDs.
+
+**Base Class:** `.cgx-status-bar`
+*   A flex container displaying a colored dot indicator, a primary status label, and an optional right-aligned detail slot (`.cgx-status-info` span). 
+*   It applies a subtle bottom border (`1px solid var(--cgx-color-white-trans-10)`) and a dim `5%` transparent background, making it ideal as a header bar inside `cgx-panel` or `cgx-console-wrapper` containers.
+*   **State Modifiers:** Apply one of three state classes to the main `.cgx-status-bar` to drive the colors and animations:
+    *   `.cgx-status-connected` (Green dot and text)
+    *   `.cgx-status-connecting` (Yellow text, pulsing yellow dot)
+    *   `.cgx-status-disconnected` (Red dot and text)
+
 ### Console
 The Console provides a dedicated container for displaying logs, events, or terminal-like output. It features a configurable fixed height and custom scrollbar styling.
 
 **Console Architecture:**
 The Console area can be used as a standalone display window, or it can be combined with an input bar to create an interactive terminal.
 *   **`.cgx-console-wrapper`**: Use this `<div>` as the main outer container if you are pairing the console with an input bar. It applies the main background, borders, and rounded corners, unifying the log window and input area into a single block. 
-*   **`.cgx-console-status`**: An optional status bar placed as the **first child** inside `.cgx-console-wrapper`, above the log area. It displays a colored dot indicator, a status label, and an optional right-side info slot (`.cgx-console-status-info` span). Apply one of three state modifier classes: `.cgx-status-connected` (green), `.cgx-status-connecting` (yellow, pulsing dot), or `.cgx-status-disconnected` (red). Without a modifier the bar renders in a neutral dim style.
 *   **`.cgx-console`**: The essential internal scrollable area that holds the logs. If used standalone, it applies its own borders and background. If placed inside a `.cgx-console-wrapper`, it seamlessly drops its external styling to fit flush inside the wrapper. Control its height via inline CSS: `style="--cgx-console-height: 120px;"` (defaults to `150px`).
 *   **`.cgx-console-input-bar`**: A flex container placed *below* the `.cgx-console` (inside the wrapper) to hold the input layout.
 *   **`.cgx-console-input-field`**: A specialized `<input type="text">` designed exclusively for the input bar. It drops all default browser styles, matching the font and colors of the console.
