@@ -108,6 +108,7 @@ The HUD represents a fixed-position control panel designed to float globally ove
 *   Background uses `--cgx-color-bg-trans-70`, ensuring an exact 70% transparency of the primary background color for readability without fully obscuring content.
 *   Includes a backdrop blur for modern browsers to further enhance text legibility against complex backgrounds.
 *   Includes a deep drop shadow to separate it visually from the underlying content.
+*   **Internal Spacing:** Adjacent block elements inside a HUD (or its collapsible `<div>` body) automatically receive vertical spacing (`margin-top: var(--cgx-spacing);`).
 
 **Placement Modifiers:**
 The HUD requires explicit anchor classes to position it correctly on the screen, locked relative to the viewport using the standard `--cgx-spacing`:

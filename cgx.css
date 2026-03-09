@@ -94,7 +94,18 @@ code {
 
 /* Layout */
 
+/* Container Default Spacing
+   Automatically apply standard vertical spacing between consecutive block elements
+   inside Panels and HUD wrappers, saving the need for explicit margin classes. */
+div.cgx-panel > * + *,
+details.cgx-panel > div > * + *,
+div.cgx-hud > * + *,
+details.cgx-hud > div > * + * {
+  margin-top: var(--cgx-spacing);
+}
+
 /* Components */
+
 
 /* Buttons */
 .cgx-button {
