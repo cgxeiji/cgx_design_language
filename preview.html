@@ -923,6 +923,93 @@
         </div>
     </section>
 
+    <section>
+        <h2>Dashboard Widgets</h2>
+        <div class="cgx-panel">
+            <p style="font-size: 0.85em; margin-bottom: 20px;">Common dashboard layouts can be built entirely by combining existing
+                <code>.cgx-grid</code>, <code>.cgx-panel</code>, and Flexbox utilities without writing new CSS. Here are a few examples.</p>
+
+            <!-- Stat Cards Row -->
+            <div class="cgx-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); margin-bottom: var(--cgx-spacing);">
+                <div class="cgx-panel cgx-panel-ghost" style="display: flex; flex-direction: column; gap: 4px; padding: 16px;">
+                    <span style="font-size: 0.8em; color: var(--cgx-color-white-trans-50); text-transform: uppercase; letter-spacing: 1px;">Active Users</span>
+                    <div style="font-size: 2em; font-family: var(--cgx-font-mono); color: var(--cgx-color-green-bright); line-height: 1;">1,284</div>
+                    <span style="font-size: 0.75em; color: var(--cgx-color-green);">▲ 12% vs last week</span>
+                </div>
+                
+                <div class="cgx-panel cgx-panel-ghost" style="display: flex; flex-direction: column; gap: 4px; padding: 16px;">
+                    <span style="font-size: 0.8em; color: var(--cgx-color-white-trans-50); text-transform: uppercase; letter-spacing: 1px;">Avg Response Time</span>
+                    <div style="font-size: 2em; font-family: var(--cgx-font-mono); color: var(--cgx-color-blue-bright); line-height: 1;">42ms</div>
+                    <span style="font-size: 0.75em; color: var(--cgx-color-white-trans-30);">Stable within 24h</span>
+                </div>
+
+                <div class="cgx-panel cgx-panel-ghost" style="display: flex; flex-direction: column; gap: 4px; padding: 16px;">
+                    <span style="font-size: 0.8em; color: var(--cgx-color-white-trans-50); text-transform: uppercase; letter-spacing: 1px;">Error Rate</span>
+                    <div style="font-size: 2em; font-family: var(--cgx-font-mono); color: var(--cgx-color-red-bright); line-height: 1;">0.8%</div>
+                    <span style="font-size: 0.75em; color: var(--cgx-color-white-trans-30);">Threshold: 2.0%</span>
+                </div>
+            </div>
+
+            <div class="cgx-grid">
+                <!-- System Load Meter -->
+                <div class="cgx-panel cgx-panel-ghost">
+                    <h3 style="margin-top: 0; margin-bottom: 16px;">System Load</h3>
+                    
+                    <div style="display: flex; justify-content: space-between; font-size: 0.85em; margin-bottom: 8px;">
+                        <span>CPU Utilization</span>
+                        <span style="font-family: var(--cgx-font-mono); color: var(--cgx-color-orange);">78%</span>
+                    </div>
+                    <!-- Custom progress bar using just div borders/bg -->
+                    <div style="height: 6px; background: var(--cgx-color-white-trans-10); border-radius: 3px; overflow: hidden; margin-bottom: 20px;">
+                        <div style="width: 78%; height: 100%; background: var(--cgx-color-orange);"></div>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; font-size: 0.85em; margin-bottom: 8px;">
+                        <span>Memory Usage</span>
+                        <span style="font-family: var(--cgx-font-mono); color: var(--cgx-primary);">4.2 / 8.0 GB</span>
+                    </div>
+                    <!-- Custom progress bar using just div borders/bg -->
+                    <div style="height: 6px; background: var(--cgx-color-white-trans-10); border-radius: 3px; overflow: hidden;">
+                        <div style="width: 52%; height: 100%; background: var(--cgx-primary);"></div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity List -->
+                <div class="cgx-panel cgx-panel-ghost">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                        <h3 style="margin: 0;">Recent Activity</h3>
+                        <a href="#" style="font-size: 0.8em;">View All</a>
+                    </div>
+                    
+                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px;">
+                        <li style="display: flex; gap: 12px; align-items: flex-start; padding-bottom: 12px; border-bottom: 1px solid var(--cgx-color-white-trans-10);">
+                            <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--cgx-color-green); margin-top: 6px;"></div>
+                            <div style="flex-grow: 1;">
+                                <div style="font-size: 0.9em; margin-bottom: 2px;">Deployment successful</div>
+                                <div style="font-size: 0.75em; color: var(--cgx-color-white-trans-30); font-family: var(--cgx-font-mono);">prod-cluster-us-east · 2 mins ago</div>
+                            </div>
+                        </li>
+                        <li style="display: flex; gap: 12px; align-items: flex-start; padding-bottom: 12px; border-bottom: 1px solid var(--cgx-color-white-trans-10);">
+                            <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--cgx-color-yellow); margin-top: 6px;"></div>
+                            <div style="flex-grow: 1;">
+                                <div style="font-size: 0.9em; margin-bottom: 2px;">High latency warning</div>
+                                <div style="font-size: 0.75em; color: var(--cgx-color-white-trans-30); font-family: var(--cgx-font-mono);">db-replica-02 · 15 mins ago</div>
+                            </div>
+                        </li>
+                        <li style="display: flex; gap: 12px; align-items: flex-start;">
+                            <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--cgx-color-blue); margin-top: 6px;"></div>
+                            <div style="flex-grow: 1;">
+                                <div style="font-size: 0.9em; margin-bottom: 2px;">Automated backup completed</div>
+                                <div style="font-size: 0.75em; color: var(--cgx-color-white-trans-30); font-family: var(--cgx-font-mono);">storage-bucket-eu · 1 hr ago</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
     <!-- CGx Interactive Component Behaviors -->
     <script src="cgx.js"></script>
 

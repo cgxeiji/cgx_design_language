@@ -39,6 +39,10 @@ The design language uses a monospaced font as its base to pair with the terminal
 *   **Inline Code (`<code>`)**:
     *   Uses `--cgx-element-bg` for a slight pill background.
     *   Text is explicitly colored using `--cgx-primary` to pop against standard paragraphs.
+*   **Link (`<a>`)**:
+    *   Uses `--cgx-primary` color.
+    *   A subtle bottom border via `color-mix` is applied instead of a standard `text-decoration: underline`.
+    *   On hover, the text and border transition to `--cgx-primary-bright`.
 
 ## Spacing, Layout & Shapes
 

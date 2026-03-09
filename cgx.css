@@ -70,6 +70,19 @@
 }
 
 /* Typography */
+a {
+  color: var(--cgx-primary);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--cgx-primary) 30%, transparent);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+a:hover, a:focus-visible {
+  color: var(--cgx-primary-bright);
+  border-bottom-color: var(--cgx-primary-bright);
+  outline: none;
+}
+
 code {
   font-family: var(--cgx-font-mono);
   background-color: var(--cgx-element-bg);
