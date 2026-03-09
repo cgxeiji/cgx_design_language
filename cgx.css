@@ -577,6 +577,22 @@ details.cgx-hud > div > * + * {
   transform: scale(0.9);
 }
 
+/* Range Value Displays */
+.cgx-range-value {
+  font-family: var(--cgx-font-mono);
+  font-size: 0.9em;
+  min-width: 3ch;
+  text-align: right;
+  color: var(--cgx-fg);
+}
+
+.cgx-range-input {
+  width: 60px;
+  text-align: right;
+  padding-right: 0;
+  /* Override default input padding to bring the number closer to the unit suffix */
+}
+
 /* Draggable Number Inputs */
 .cgx-drag-group {
   display: flex;
