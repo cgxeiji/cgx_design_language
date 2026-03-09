@@ -310,6 +310,15 @@ details.cgx-hud > div > * + * {
   /* Default for loose usage */
 }
 
+/* Generalized Unit Suffix (for numbers and sliders) */
+.cgx-unit {
+  font-family: var(--cgx-font-default);
+  font-size: 0.75em;
+  color: var(--cgx-color-white-trans-30);
+  margin-left: 4px;
+  pointer-events: none;
+}
+
 .cgx-input,
 .cgx-textarea,
 .cgx-select {
