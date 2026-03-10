@@ -57,63 +57,83 @@ document.addEventListener('DOMContentLoaded', () => {
         let isDragging = false;
         let startX = 0;
         let startVal = 0;
-        
+
         // Grab step from HTML, default to 1 if not provided
         let step = parseFloat(input.getAttribute('step')) || 1;
-        
+
         // Ensure sensible float fixing based on the step increment
         const decimals = (step.toString().split('.')[1] || '').length;
 
-        container.addEventListener('mousedown', (e) => {
-            // Do not initiate drag if user is explicitly inside the text field trying to type
-            if (document.activeElement === input) return;
+        // Prevent native touch scrolling when dragging the input
+        container.style.touchAction = 'none';
+
+        const handlePointerDown = (e) => {
+            // Only react to left clicks and primary touch
+            if (e.pointerType === 'mouse' && e.button !== 0) return;
 
             isDragging = true;
+            hasMoved = false;
             startX = e.clientX;
             startVal = parseFloat(input.value) || 0;
-            
-            // Prevent text highlighting while dragging
-            e.preventDefault(); 
-            
-            // Force cursor on body so it doesn't flicker when leaving the box
-            document.body.style.cursor = 'ew-resize';
-        });
 
-        window.addEventListener('mousemove', (e) => {
+            if (document.activeElement !== input && e.cancelable) {
+                e.preventDefault();
+            }
+        };
+
+        const handlePointerMove = (e) => {
             if (!isDragging) return;
 
             const deltaX = e.clientX - startX;
-            // Configurable sensitivity (pixels of mouse drag required per 1 numerical step)
-            const sensitivity = 2; 
-            
+
+            if (!hasMoved) {
+                if (Math.abs(deltaX) > 2) {
+                    hasMoved = true;
+                    if (document.activeElement === input) {
+                        input.blur();
+                    }
+                    document.body.style.cursor = 'ew-resize';
+                } else {
+                    return;
+                }
+            }
+
+            if (e.cancelable) {
+                e.preventDefault();
+            }
+
+            const sensitivity = 2;
             const stepsToMove = Math.floor(deltaX / sensitivity);
             let newVal = startVal + (stepsToMove * step);
-            
-            // Boundary clamping based on min/max html attributes
+
             const min = input.hasAttribute('min') ? parseFloat(input.getAttribute('min')) : -Infinity;
             const max = input.hasAttribute('max') ? parseFloat(input.getAttribute('max')) : Infinity;
             newVal = Math.max(min, Math.min(max, newVal));
-            
-            input.value = newVal.toFixed(decimals);
-            
-            // Dispatch native input event so other scripts (like preview.js) can react
-            input.dispatchEvent(new Event('input'));
-        });
 
-        window.addEventListener('mouseup', () => {
+            input.value = newVal.toFixed(decimals);
+
+            input.dispatchEvent(new Event('input'));
+        };
+
+        const handlePointerUp = () => {
             if (isDragging) {
                 isDragging = false;
                 document.body.style.cursor = '';
-            }
-        });
 
-        // Fallback: If they just click, pop them into precise text-entry mode
-        container.addEventListener('click', () => {
-            if (document.activeElement !== input) {
-                input.focus();
+                if (!hasMoved) {
+                    if (document.activeElement !== input) {
+                        input.focus();
+                        input.select();
+                    }
+                }
             }
-        });
-        
+        };
+
+        container.addEventListener('pointerdown', handlePointerDown);
+        window.addEventListener('pointermove', handlePointerMove, { passive: false });
+        window.addEventListener('pointerup', handlePointerUp);
+        window.addEventListener('pointercancel', handlePointerUp);
+
         // Auto-resize logic so the input grows if values get extremely large
         const updateWidth = () => {
             // Set width based on character count, ensuring a minimum of 5ch
@@ -132,12 +152,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Toggles the [data-active] attribute and swaps the button label text
     // between [data-label-active] and [data-label-inactive] on click.
     document.querySelectorAll('.cgx-button-toggle').forEach(btn => {
-        const labelActive   = btn.dataset.labelActive   || 'Stop';
+        const labelActive = btn.dataset.labelActive || 'Stop';
         const labelInactive = btn.dataset.labelInactive || 'Start';
-        const iconActive    = btn.dataset.iconActive    || '';
-        const iconInactive  = btn.dataset.iconInactive  || '';
+        const iconActive = btn.dataset.iconActive || '';
+        const iconInactive = btn.dataset.iconInactive || '';
 
-        const fullActive   = iconActive   ? `${iconActive} ${labelActive}`   : labelActive;
+        const fullActive = iconActive ? `${iconActive} ${labelActive}` : labelActive;
         const fullInactive = iconInactive ? `${iconInactive} ${labelInactive}` : labelInactive;
 
         const isInitiallyActive = btn.dataset.active === 'true';
@@ -184,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Match internal canvas resolution to CSS size
         const rect = canvas.getBoundingClientRect();
-        canvas.width  = rect.width  * dpr;
+        canvas.width = rect.width * dpr;
         canvas.height = rect.height * dpr;
         ctx.scale(dpr, dpr);
 
@@ -193,26 +213,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Parse options
         let seriesData = [];
-        try { seriesData = JSON.parse(canvas.dataset.series || '[]'); } catch (_) {}
+        try { seriesData = JSON.parse(canvas.dataset.series || '[]'); } catch (_) { }
         if (!Array.isArray(seriesData[0])) seriesData = [seriesData];
         if (!seriesData.length || !seriesData[0].length) return;
 
         // Parse X values — if absent, fall back to 0-based index
         const maxLen = Math.max(...seriesData.map(s => s.length));
         let xValues = [];
-        try { xValues = JSON.parse(canvas.dataset.x || 'null'); } catch (_) {}
+        try { xValues = JSON.parse(canvas.dataset.x || 'null'); } catch (_) { }
         if (!Array.isArray(xValues) || xValues.length !== maxLen) {
             xValues = Array.from({ length: maxLen }, (_, i) => i);
         }
-        const xMin   = xValues[0];
-        const xMax   = xValues[xValues.length - 1];
+        const xMin = xValues[0];
+        const xMax = xValues[xValues.length - 1];
         const xRange = xMax - xMin || 1;
 
         // Map an x-value to a canvas pixel x coordinate
         const xToCanvas = xv => PAD.left + ((xv - xMin) / xRange) * innerW;
 
         let labels = [];
-        try { labels = JSON.parse(canvas.dataset.labels || '[]'); } catch (_) {}
+        try { labels = JSON.parse(canvas.dataset.labels || '[]'); } catch (_) { }
 
         const xlabel = canvas.dataset.xlabel || '';
         const ylabel = canvas.dataset.ylabel || '';
@@ -220,18 +240,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const labelColor = style.getPropertyValue('--cgx-color-white-trans-50').trim();
 
         // Dynamic padding based on active features
-        const LEGEND_H  = labels.length ? 22 : 0;
-        const XLABEL_H  = xlabel ? 16 : 0;
-        const YLABEL_W  = ylabel ? 14 : 0;
+        const LEGEND_H = labels.length ? 22 : 0;
+        const XLABEL_H = xlabel ? 16 : 0;
+        const YLABEL_W = ylabel ? 14 : 0;
 
         const PAD = {
-            top:    12,
-            right:  12,
+            top: 12,
+            right: 12,
             bottom: 24 + XLABEL_H + LEGEND_H,
-            left:   36 + YLABEL_W,
+            left: 36 + YLABEL_W,
         };
         const innerW = W - PAD.left - PAD.right;
-        const innerH = H - PAD.top  - PAD.bottom;
+        const innerH = H - PAD.top - PAD.bottom;
 
         // Clear
         ctx.clearRect(0, 0, W, H);
@@ -270,8 +290,8 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.fillStyle = labelColor;
         const tickStep = Math.ceil(maxLen / 6);
         for (let i = 0; i < maxLen; i += tickStep) {
-            const xv  = xValues[i];
-            const cx  = xToCanvas(xv);
+            const xv = xValues[i];
+            const cx = xToCanvas(xv);
             // Format: if floats detected show 1 decimal, otherwise integer
             const lbl = Number.isInteger(xv) ? xv : xv.toFixed(2);
             ctx.fillText(lbl, cx, PAD.top + innerH + 14);
