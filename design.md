@@ -159,6 +159,13 @@ To ensure inputs align seamlessly, standard layout containers must be used:
 **Base Class:** `.cgx-grid`
 A responsive multi-panel layout container. It uses `display: grid` with `auto-fit` and a `minmax(280px, 1fr)` column template, so child panels automatically wrap into a new row when the screen is too narrow to fit them. The gap defaults to `--cgx-spacing` to maintain visual consistency with page padding. Place any block-level elements—such as `.cgx-panel` or `.cgx-card`—as direct children.
 
+### Loaders
+Simple, lightweight CSS-only animations for indicating activity or background rendering.
+
+**Base Class:** `.cgx-loader`
+*   A solid primary-colored square that continuously rotates and subtly scales via the `cgx-spin-square` keyframe animation.
+*   **Easing:** It uses a custom cubic-bezier timing function (`cubic-bezier(0.68, -0.55, 0.265, 1.55)`) to create a satisfying, elastic "bouncing snap" effect during its rotation, over-shooting slightly before snapping into 90-degree and 180-degree states.
+
 ### Status Bar
 The Status Bar provides a standard, horizontal visual indicator for system states, designed to be placed inside Panels, Consoles, or HUDs.
 

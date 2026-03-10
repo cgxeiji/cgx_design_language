@@ -594,6 +594,38 @@ details.cgx-hud>div>*+* {
   /* Override default input padding to bring the number closer to the unit suffix */
 }
 
+/* Loaders */
+@keyframes cgx-spin-square {
+  0% {
+    transform: rotate(0deg) scale(1);
+    border-radius: 2px;
+  }
+
+  50% {
+    transform: rotate(90deg) scale(0.8);
+    border-radius: 3px;
+  }
+
+  100% {
+    transform: rotate(180deg) scale(1);
+    border-radius: 2px;
+  }
+}
+
+.cgx-loader {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-color: var(--cgx-primary);
+  border-radius: 2px;
+  animation: cgx-spin-square 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+  -webkit-transform: translateZ(0);
+  /* Anti-alias bleeding fix */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  /* Prevent clipping artifacts */
+}
+
 /* Draggable Number Inputs */
 .cgx-drag-group {
   display: flex;
