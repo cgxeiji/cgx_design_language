@@ -201,4 +201,14 @@ Combine with `.cgx-log` to apply visually distinct colors and background tones b
 
 ### Charts & Plots
 **Base Class:** `.cgx-plot`
-A `<canvas>` element that renders smooth bezier line charts using the CGx color palette. Data is supplied via the `data-series` attribute as a JSON array. A single array (e.g. `[10, 40, 25]`) draws one series; a nested array (e.g. `[[...], [...]]`) renders multiple overlapping series. Colors are automatically assigned by cycling through the CGx palette in this order: `--cgx-primary`, `--cgx-color-green`, `--cgx-color-blue`, `--cgx-color-cyan`, `--cgx-color-magenta`, `--cgx-color-yellow`, `--cgx-color-red`. The chart includes Y-axis grid lines with value labels, X-axis tick labels, smooth bezier curves, a subtle fill under each line, and dot markers at data points. It is fully responsive via `ResizeObserver`. Requires `cgx.js`.
+A `<canvas>` element that renders smooth bezier line charts (drawn with sharp linear connections by default unless modified) using the CGx color palette. Data is supplied via the `data-series` attribute as a JSON array. A single array (e.g. `[10, 40, 25]`) draws one series; a nested array (e.g. `[[...], [...]]`) renders multiple overlapping series. Colors are automatically assigned by cycling through the CGx palette.
+
+**Customization Attributes:**
+*   `data-x` / `data-labels`: Provide JSON arrays of X points and series labels.
+*   `data-x-min` / `data-x-max`: Force specific minimum and maximum values for the X-axis bounds.
+*   `data-y-min` / `data-y-max`: Force specific minimum and maximum values for the Y-axis bounds.
+*   `data-x-range` / `data-y-range`: Set a fixed numerical range for the rendering constraints (e.g. `data-x-range="100"` ensures exactly 100 units of data are visible). If paired with a single min or max, the missing constraint is inferred. If used alone without min or max constraints, the range automatically anchors to the current data minimum or maximum.
+*   `data-grid-x` / `data-grid-y`: Define specific interval spacing for grid lines (e.g., `data-grid-y="10"`).
+*   `data-fixed-digits` / `data-fixed-digits-x` / `data-fixed-digits-y`: Force consistent floating point formatting on tick labels to prevent text jitter. Can be applied to both axes globally or overridden per-axis independently (e.g., `data-fixed-digits-y="2"`).
+
+It is fully responsive via `ResizeObserver` and will redraw itself automatically. You can also manually call `_cgxRedraw()` on the canvas element. Requires `cgx.js`.

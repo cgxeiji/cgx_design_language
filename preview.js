@@ -207,7 +207,9 @@ document.addEventListener('DOMContentLoaded', () => {
         function tick() {
             if (!running) return;
 
-            t = parseFloat((t + 0.08).toFixed(3)); // advance real time, 3dp
+            // Advance real time by a variable amount to test non-constant updates
+            const dt = 0.02 + Math.random() * 0.12; 
+            t = parseFloat((t + dt).toFixed(3));
 
             // Push new sample + time value into ring buffers
             CHANNELS.forEach((ch, i) => {

@@ -217,6 +217,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!Array.isArray(seriesData[0])) seriesData = [seriesData];
         if (!seriesData.length || !seriesData[0].length) return;
 
+        // Parse Options
+        const fixedDigitsX = canvas.hasAttribute('data-fixed-digits-x') ? parseInt(canvas.dataset.fixedDigitsX, 10) : (canvas.hasAttribute('data-fixed-digits') ? parseInt(canvas.dataset.fixedDigits, 10) : null);
+        const fixedDigitsY = canvas.hasAttribute('data-fixed-digits-y') ? parseInt(canvas.dataset.fixedDigitsY, 10) : (canvas.hasAttribute('data-fixed-digits') ? parseInt(canvas.dataset.fixedDigits, 10) : null);
+        const gridX = canvas.hasAttribute('data-grid-x') ? parseFloat(canvas.dataset.gridX) : null;
+        const gridY = canvas.hasAttribute('data-grid-y') ? parseFloat(canvas.dataset.gridY) : null;
+
         // Parse X values — if absent, fall back to 0-based index
         const maxLen = Math.max(...seriesData.map(s => s.length));
         let xValues = [];
@@ -224,8 +230,31 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!Array.isArray(xValues) || xValues.length !== maxLen) {
             xValues = Array.from({ length: maxLen }, (_, i) => i);
         }
-        const xMin = xValues[0];
-        const xMax = xValues[xValues.length - 1];
+        
+        let xMin, xMax;
+        const actualXMin = Math.min(...xValues);
+        const actualXMax = Math.max(...xValues);
+
+        if (canvas.hasAttribute('data-x-min') && canvas.hasAttribute('data-x-max')) {
+            xMin = parseFloat(canvas.dataset.xMin);
+            xMax = parseFloat(canvas.dataset.xMax);
+        } else if (canvas.hasAttribute('data-x-range')) {
+            const range = parseFloat(canvas.dataset.xRange);
+            if (canvas.hasAttribute('data-x-min')) {
+                xMin = parseFloat(canvas.dataset.xMin);
+                xMax = xMin + range;
+            } else if (canvas.hasAttribute('data-x-max')) {
+                xMax = parseFloat(canvas.dataset.xMax);
+                xMin = xMax - range;
+            } else {
+                xMax = actualXMax;
+                xMin = xMax - range;
+            }
+        } else {
+            xMin = canvas.hasAttribute('data-x-min') ? parseFloat(canvas.dataset.xMin) : actualXMin;
+            xMax = canvas.hasAttribute('data-x-max') ? parseFloat(canvas.dataset.xMax) : actualXMax;
+        }
+        
         const xRange = xMax - xMin || 1;
 
         // Map an x-value to a canvas pixel x coordinate
@@ -258,8 +287,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Global Y min/max
         const allVals = seriesData.flat();
-        const dataMin = Math.min(...allVals);
-        const dataMax = Math.max(...allVals);
+        const actualYMin = Math.min(...allVals);
+        const actualYMax = Math.max(...allVals);
+        let dataMin, dataMax;
+
+        if (canvas.hasAttribute('data-y-min') && canvas.hasAttribute('data-y-max')) {
+            dataMin = parseFloat(canvas.dataset.yMin);
+            dataMax = parseFloat(canvas.dataset.yMax);
+        } else if (canvas.hasAttribute('data-y-range')) {
+            const range = parseFloat(canvas.dataset.yRange);
+            if (canvas.hasAttribute('data-y-min')) {
+                dataMin = parseFloat(canvas.dataset.yMin);
+                dataMax = dataMin + range;
+            } else if (canvas.hasAttribute('data-y-max')) {
+                dataMax = parseFloat(canvas.dataset.yMax);
+                dataMin = dataMax - range;
+            } else {
+                const mid = (actualYMin + actualYMax) / 2;
+                dataMin = mid - range / 2;
+                dataMax = mid + range / 2;
+            }
+        } else {
+            dataMin = canvas.hasAttribute('data-y-min') ? parseFloat(canvas.dataset.yMin) : actualYMin;
+            dataMax = canvas.hasAttribute('data-y-max') ? parseFloat(canvas.dataset.yMax) : actualYMax;
+        }
+
         const dataRange = dataMax - dataMin || 1;
 
         const gridColor = style.getPropertyValue('--cgx-color-white-trans-10').trim();
@@ -268,33 +320,86 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.font = `10px ${monoFont}`;
         ctx.fillStyle = labelColor;
         ctx.textAlign = 'right';
-        const gridLines = 4;
-        for (let i = 0; i <= gridLines; i++) {
-            const t = i / gridLines;
-            const y = PAD.top + innerH * (1 - t);
-            const val = dataMin + dataRange * t;
+        
+        if (gridY !== null && gridY > 0) {
+            const startY = Math.ceil(dataMin / gridY) * gridY;
+            for (let val = startY; val <= dataMax; val += gridY) {
+                const t = (val - dataMin) / dataRange;
+                const y = PAD.top + innerH * (1 - t);
+                
+                ctx.strokeStyle = gridColor;
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(PAD.left, y);
+                ctx.lineTo(PAD.left + innerW, y);
+                ctx.stroke();
 
-            ctx.strokeStyle = gridColor;
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(PAD.left, y);
-            ctx.lineTo(PAD.left + innerW, y);
-            ctx.stroke();
+                const lbl = fixedDigitsY !== null ? val.toFixed(fixedDigitsY) : val.toFixed(1);
+                ctx.fillStyle = labelColor;
+                ctx.fillText(lbl, PAD.left - 4, y + 3.5);
+            }
+        } else {
+            const gridLines = 4;
+            for (let i = 0; i <= gridLines; i++) {
+                const t = i / gridLines;
+                const y = PAD.top + innerH * (1 - t);
+                const val = dataMin + dataRange * t;
 
-            ctx.fillStyle = labelColor;
-            ctx.fillText(val.toFixed(1), PAD.left - 4, y + 3.5);
+                ctx.strokeStyle = gridColor;
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(PAD.left, y);
+                ctx.lineTo(PAD.left + innerW, y);
+                ctx.stroke();
+
+                const lbl = fixedDigitsY !== null ? val.toFixed(fixedDigitsY) : val.toFixed(1);
+                ctx.fillStyle = labelColor;
+                ctx.fillText(lbl, PAD.left - 4, y + 3.5);
+            }
         }
 
         // X-axis tick labels from xValues
         ctx.textAlign = 'center';
         ctx.fillStyle = labelColor;
-        const tickStep = Math.ceil(maxLen / 6);
-        for (let i = 0; i < maxLen; i += tickStep) {
-            const xv = xValues[i];
-            const cx = xToCanvas(xv);
-            // Format: if floats detected show 1 decimal, otherwise integer
-            const lbl = Number.isInteger(xv) ? xv : xv.toFixed(2);
-            ctx.fillText(lbl, cx, PAD.top + innerH + 14);
+
+        if (gridX !== null && gridX > 0) {
+            const startX = Math.ceil(xMin / gridX) * gridX;
+            for (let val = startX; val <= xMax; val += gridX) {
+                const cx = xToCanvas(val);
+                
+                // Draw vertical grid line
+                ctx.strokeStyle = gridColor;
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(cx, PAD.top);
+                ctx.lineTo(cx, PAD.top + innerH);
+                ctx.stroke();
+
+                const lbl = fixedDigitsX !== null ? val.toFixed(fixedDigitsX) : (Number.isInteger(val) ? val : val.toFixed(2));
+                ctx.fillText(lbl, cx, PAD.top + innerH + 14);
+            }
+        } else {
+            // Dynamic value-based ticks to prevent label jitter natives
+            const targetTicks = 6;
+            const roughStep = xRange / targetTicks;
+            const magnitude = Math.pow(10, Math.floor(Math.log10(roughStep || 1)));
+            const normalizedStep = roughStep / magnitude;
+            
+            let stepMult = 1;
+            if (normalizedStep < 1.5) stepMult = 1;
+            else if (normalizedStep < 3) stepMult = 2;
+            else if (normalizedStep < 7) stepMult = 5;
+            else stepMult = 10;
+            
+            const stepX = stepMult * Math.max(magnitude, Number.EPSILON);
+            const startX = Math.ceil(xMin / stepX) * stepX;
+            
+            for (let val = startX; val <= xMax + stepX * 0.01; val += stepX) {
+                const cx = xToCanvas(val);
+                const autoDecimals = stepX < 1 ? Math.max(0, -Math.floor(Math.log10(stepX))) : 0;
+                const lbl = fixedDigitsX !== null ? val.toFixed(fixedDigitsX) : val.toFixed(autoDecimals);
+                ctx.fillText(lbl, cx, PAD.top + innerH + 14);
+            }
         }
 
         // X-axis title
@@ -318,6 +423,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Draw each series (linear)
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(PAD.left, PAD.top, innerW, innerH);
+        ctx.clip();
+
         seriesData.forEach((series, si) => {
             const cssVar = CGX_PLOT_PALETTE[si % CGX_PLOT_PALETTE.length];
             const color = style.getPropertyValue(cssVar).trim();
@@ -352,6 +462,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 ctx.fill();
             });
         });
+        
+        ctx.restore();
 
         // Legend
         if (labels.length) {

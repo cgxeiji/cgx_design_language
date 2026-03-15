@@ -921,8 +921,11 @@
                         data-label-inactive="Start Stream" data-label-active="Stop Stream"
                         style="font-size: 0.85em; padding: 4px 12px;">Start Stream</button>
                 </div>
-                <canvas id="live-plot" class="cgx-plot" data-series="[[0],[0],[0]]" data-xlabel="Samples"
+                <canvas id="live-plot" class="cgx-plot" data-series="[[0],[0],[0]]" data-xlabel="Time (s)"
                     data-ylabel="Amplitude" data-labels='["sin(t)", "sin(1.7t + φ)", "sin(0.6t + φ)"]'
+                    data-y-min="-1.5" data-y-max="1.5" 
+                    data-x-range="100" data-grid-x="10"
+                    data-fixed-digits-y="2" data-fixed-digits-x="0"
                     style="height: 200px;">
                 </canvas>
             </div>
