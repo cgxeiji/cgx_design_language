@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const liveToggle = document.getElementById('live-plot-toggle');
 
     if (liveCanvas && liveToggle) {
-        const BUFFER = 60;          // number of visible samples
+        const BUFFER = 1000;          // number of visible samples
         const CHANNELS = [
             { freq: 1.0, phase: 0,              amp: 1.0  },
             { freq: 1.7, phase: Math.PI / 3,    amp: 0.7  },
