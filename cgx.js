@@ -334,10 +334,6 @@ document.addEventListener('DOMContentLoaded', () => {
             points.slice(1).forEach(p => ctx.lineTo(p.x, p.y));
             ctx.lineTo(points[points.length - 1].x, PAD.top + innerH);
             ctx.closePath();
-            ctx.fillStyle = color.startsWith('#') || color.startsWith('rgb')
-                ? `${color}22`
-                : 'rgba(255,255,255,0.04)';
-            ctx.fill();
 
             // Line (linear)
             ctx.beginPath();
