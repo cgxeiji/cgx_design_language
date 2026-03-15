@@ -4,6 +4,8 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+    'use strict';
+
     // 1. Smooth `<details>` Animation Handler for HUDs
     // Intercepts the click on the summary to allow CSS closing animations to play
     // before the `open` attribute is removed by the browser.
@@ -55,6 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!input) return;
 
         let isDragging = false;
+        let hasMoved = false;
         let startX = 0;
         let startVal = 0;
 
