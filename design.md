@@ -212,3 +212,43 @@ A `<canvas>` element that renders smooth bezier line charts (drawn with sharp li
 *   `data-fixed-digits` / `data-fixed-digits-x` / `data-fixed-digits-y`: Force consistent floating point formatting on tick labels to prevent text jitter. Can be applied to both axes globally or overridden per-axis independently (e.g., `data-fixed-digits-y="2"`).
 
 It is fully responsive via `ResizeObserver` and will redraw itself automatically. You can also manually call `_cgxRedraw()` on the canvas element. Requires `cgx.js`.
+
+### Mindmap
+**Base Class:** `.cgx-mmap`
+An interactive, canvas-based flowchart / mindmap editor for building and editing hierarchical node trees. Entries are rendered as draggable, resizable boxes connected by arrows from parent to child.
+
+**CSS Variables:**
+*   `--cgx-mmap-grid`: Grid snap size in pixels (default: `20`).
+*   `--cgx-mmap-default-w`: Default width for new entries (default: `160`).
+*   `--cgx-mmap-default-h`: Default height for new entries (default: `80`).
+
+**Interactions:**
+*   **Click + drag** a box to move it (snaps to grid).
+*   **Double-click** a box to edit its text inline.
+*   **Right-click** a box to open a context menu: remove the entry or set its parent from the list of existing entries (hovering a candidate highlights it on the canvas).
+*   **Drag edges** of the active (selected) box to resize it (snaps to grid).
+*   **Right-click** empty space to add a new entry or download YAML.
+*   **Click + drag** empty space to pan the camera.
+*   **Scroll wheel** to zoom in/out (centered on cursor).
+*   **Double-click** empty space to reset the camera to fit all entries.
+
+**Toolbar:** An integrated top bar with an editable title input, an upload button for importing `.yaml` files, and a download button for exporting.
+
+**Arrows:** Automatically connect parent to child at the midpoint of the closest side of each box.
+
+**YAML Export Format:**
+```yaml
+mmap:
+  name: Name of mindmap
+  entries:
+    - uid: unique_id
+      text: Entry text
+      position:
+        x: 0
+        y: 0
+        w: 160
+        h: 80
+      parent: parent_uid_or_empty
+```
+
+An entry with no parent is considered a root node. Requires `cgx-mmap-yaml.js` and `cgx-mmap.js`.

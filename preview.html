@@ -1063,14 +1063,29 @@
                             </div>
                         </li>
                     </ul>
-                </div>
             </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Mindmap</h2>
+        <div class="cgx-panel">
+            <p style="font-size: 0.85em; margin-bottom: 20px;">An interactive flowchart / mindmap canvas.
+                Right-click empty space to add entries or download YAML. Right-click a box to remove it or set its
+                parent. Double-click a box to edit text. Drag to move boxes, drag edges to resize. Scroll to zoom, drag
+                empty space to pan, double-click empty space to fit all.</p>
+
+            <div class="cgx-mmap" style="height: 500px;"></div>
         </div>
     </section>
 
 
     <!-- CGx Interactive Component Behaviors -->
     <script src="cgx.js"></script>
+
+    <!-- Mindmap Component -->
+    <script src="cgx-mmap-yaml.js"></script>
+    <script src="cgx-mmap.js"></script>
 
     <!-- Preview Demo Logic -->
     <script src="preview.js"></script>
