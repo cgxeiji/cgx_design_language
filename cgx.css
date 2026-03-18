@@ -1533,6 +1533,21 @@ details.cgx-hud[open].cgx-is-closing>div {
   max-height: 160px;
   overflow-y: auto;
   padding: 2px 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--cgx-color-white-trans-30) transparent;
+}
+
+.cgx-mmap-ctx-sub::-webkit-scrollbar {
+  width: 5px;
+}
+
+.cgx-mmap-ctx-sub::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.cgx-mmap-ctx-sub::-webkit-scrollbar-thumb {
+  background-color: var(--cgx-color-white-trans-30);
+  border-radius: 10px;
 }
 
 .cgx-mmap-ctx-sub .cgx-mmap-ctx-item {

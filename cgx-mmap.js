@@ -476,11 +476,8 @@ function cgxInitMmap(container) {
 
         const hit = hitTest(e.clientX, e.clientY);
         const rect = container.getBoundingClientRect();
-        const menuX = e.clientX - rect.left;
-        const menuY = e.clientY - rect.top;
-
-        ctxMenu.style.left = menuX + 'px';
-        ctxMenu.style.top = menuY + 'px';
+        let menuX = e.clientX - rect.left;
+        let menuY = e.clientY - rect.top;
         ctxMenu.innerHTML = '';
 
         if (hit.type === 'node') {
@@ -587,6 +584,22 @@ function cgxInitMmap(container) {
         }
 
         ctxMenu.classList.add('cgx-mmap-ctx-visible');
+
+        // Clamp menu position to stay within the container
+        const menuW = ctxMenu.offsetWidth;
+        const menuH = ctxMenu.offsetHeight;
+        const containerW = rect.width;
+        const containerH = rect.height;
+        const pad = 4;
+
+        if (menuX + menuW > containerW - pad) menuX = containerW - menuW - pad;
+        if (menuY + menuH > containerH - pad) menuY = containerH - menuH - pad;
+        if (menuX < pad) menuX = pad;
+        if (menuY < pad) menuY = pad;
+
+        ctxMenu.style.left = menuX + 'px';
+        ctxMenu.style.top = menuY + 'px';
+
         state.interaction = 'context';
     });
 
