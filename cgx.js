@@ -22,9 +22,30 @@ document.addEventListener('DOMContentLoaded', () => {
             // Prevent native instant toggle
             e.preventDefault();
 
+            // Ignore click if it was on a button/restore icon, or if we just finished dragging
+            if (e.target.closest('button, .cgx-hud-restore')) return;
+            if (hud.hasAttribute('data-is-dragging')) return;
+
             if (hud.hasAttribute('open')) {
                 // Closing
                 hud.classList.add('cgx-is-closing');
+
+                // If draggable, remove custom position styles during close so it animates back to original anchor
+                if (hud.hasAttribute('data-draggable')) {
+                    // We don't clear the cache, just the inline styles holding it in place
+                    hud.style.left = '';
+                    hud.style.top = '';
+                    hud.style.right = '';
+                    hud.style.bottom = '';
+                    hud.style.transform = '';
+                    
+                    // Hide restore button during collapse
+                    let restoreBtn = summary.querySelector('.cgx-hud-restore');
+                    if (restoreBtn) {
+                        restoreBtn.style.display = 'none';
+                    }
+                }
+
                 setTimeout(() => {
                     hud.classList.remove('cgx-is-closing');
                     hud.removeAttribute('open');
@@ -32,6 +53,29 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 // Opening - force a browser reflow to guarantee CSS transition on first click
                 hud.setAttribute('open', '');
+
+                // Restore cached position if draggable
+                if (hud.hasAttribute('data-draggable') && hud.id) {
+                    const cacheKey = `cgx-hud-pos-${hud.id}`;
+                    const cached = localStorage.getItem(cacheKey);
+                    if (cached) {
+                        try {
+                            const pos = JSON.parse(cached);
+                            // Apply exact position and clear conflicting anchor classes implicitly
+                            hud.style.left = pos.left + 'px';
+                            hud.style.top = pos.top + 'px';
+                            hud.style.right = 'auto';
+                            hud.style.bottom = 'auto';
+                            hud.style.transform = 'none';
+                            
+                            // Show restore button
+                            let restoreBtn = summary.querySelector('.cgx-hud-restore');
+                            if (restoreBtn) {
+                                restoreBtn.style.display = '';
+                            }
+                        } catch(e) {}
+                    }
+                }
 
                 // Set initial state for transition
                 content.style.maxHeight = '0';
@@ -47,7 +91,154 @@ document.addEventListener('DOMContentLoaded', () => {
                 content.style.padding = '';
             }
         });
+        
+        // Setup Draggable HUDs
+        if (hud.classList.contains('cgx-hud') && hud.hasAttribute('data-draggable') && hud.id) {
+            setupDraggableHud(hud, summary);
+        }
     });
+
+    // Extract Draggable HUD logic
+
+    // Extract Draggable HUD logic
+    function setupDraggableHud(hud, summary) {
+        let isDragging = false;
+        let hasDragged = false; // Add flag to track if actual movement occurred
+        let startX, startY, initialLeft, initialTop;
+        const cacheKey = `cgx-hud-pos-${hud.id}`;
+
+        // Inject Restore Button
+        let restoreBtn = document.createElement('span');
+        restoreBtn.className = 'cgx-hud-restore';
+        restoreBtn.title = 'Restore Default Position';
+        restoreBtn.innerHTML = '⌂';
+        restoreBtn.style.display = 'none'; // Hidden by default
+        
+        // Prevent details toggle when clicking restore
+        restoreBtn.addEventListener('click', (e) => {
+            e.preventDefault(); // Stop native details toggle
+            e.stopPropagation(); // Stop our custom toggler
+            localStorage.removeItem(cacheKey);
+            hud.style.left = '';
+            hud.style.top = '';
+            hud.style.right = '';
+            hud.style.bottom = '';
+            hud.style.transform = '';
+            restoreBtn.style.display = 'none';
+        });
+        
+        summary.appendChild(restoreBtn);
+
+        // Check if cached position exists on load
+        const cached = localStorage.getItem(cacheKey);
+        if (cached && hud.hasAttribute('open')) {
+            try {
+                const pos = JSON.parse(cached);
+                hud.style.left = pos.left + 'px';
+                hud.style.top = pos.top + 'px';
+                hud.style.right = 'auto';
+                hud.style.bottom = 'auto';
+                hud.style.transform = 'none';
+                restoreBtn.style.display = '';
+            } catch(e) {}
+        }
+
+        // Pointer Events for Dragging
+        // Prevent native touch scrolling when touching the summary
+        summary.style.touchAction = 'none';
+
+        const handlePointerMove = (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+
+            const deltaX = e.clientX - startX;
+            const deltaY = e.clientY - startY;
+            
+            // Only consider it a drag if moved more than a couple pixels
+            if (Math.abs(deltaX) > 2 || Math.abs(deltaY) > 2) {
+                hasDragged = true;
+            }
+
+            let newLeft = initialLeft + deltaX;
+            let newTop = initialTop + deltaY;
+
+            // Viewport clamping
+            const rect = hud.getBoundingClientRect();
+            const maxLeft = window.innerWidth - rect.width;
+            const maxTop = window.innerHeight - rect.height;
+
+            newLeft = Math.max(0, Math.min(newLeft, maxLeft));
+            newTop = Math.max(0, Math.min(newTop, maxTop));
+
+            hud.style.left = newLeft + 'px';
+            hud.style.top = newTop + 'px';
+        };
+
+        const handlePointerUp = (e) => {
+            if (!isDragging) return;
+            isDragging = false;
+            hud.classList.remove('cgx-hud-dragging');
+            document.body.style.cursor = '';
+            
+            // Remove window listeners when drag ends
+            window.removeEventListener('pointermove', handlePointerMove);
+            window.removeEventListener('pointerup', handlePointerUp);
+            window.removeEventListener('pointercancel', handlePointerUp);
+
+            if (hasDragged) {
+                // Save new position
+                const rect = hud.getBoundingClientRect();
+                localStorage.setItem(cacheKey, JSON.stringify({
+                    left: rect.left,
+                    top: rect.top
+                }));
+                
+                // Show restore button
+                restoreBtn.style.display = '';
+
+                // Tell main click handler to ignore the subsequent click
+                hud.setAttribute('data-is-dragging', 'true');
+                setTimeout(() => hud.removeAttribute('data-is-dragging'), 100);
+                
+                hasDragged = false;
+            }
+        };
+
+        summary.addEventListener('pointerdown', (e) => {
+            // Only drag when open
+            if (!hud.hasAttribute('open')) return;
+            // Only allow left click / primary touch
+            if (e.pointerType === 'mouse' && e.button !== 0) return;
+            // Don't drag if clicking buttons within summary
+            if (e.target.closest('button, .cgx-hud-restore')) return;
+
+            // Prevent default to stop text selection during drag
+            if (e.cancelable) e.preventDefault();
+
+            isDragging = true;
+            hasDragged = false;
+            startX = e.clientX;
+            startY = e.clientY;
+
+            // Get current computed position
+            const rect = hud.getBoundingClientRect();
+            initialLeft = rect.left;
+            initialTop = rect.top;
+
+            // Clear anchor classes via inline override
+            hud.style.right = 'auto';
+            hud.style.bottom = 'auto';
+            hud.style.transform = 'none';
+
+            hud.classList.add('cgx-hud-dragging');
+            document.body.style.cursor = 'grabbing';
+            
+            // Attach to window during drag so we don't lose the cursor
+            window.addEventListener('pointermove', handlePointerMove, { passive: false });
+            window.addEventListener('pointerup', handlePointerUp);
+            window.addEventListener('pointercancel', handlePointerUp);
+        });
+    }
 
     // 2. Draggable Number Inputs Logic
     const dragInputs = document.querySelectorAll('.cgx-drag-input');

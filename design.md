@@ -124,8 +124,16 @@ The HUD can natively minimize into a floating icon button using the `<details>` 
 *   When open, the header expands to show the Hamburger icon on the left, the `.cgx-hud-title` text in the middle, and a Close icon (`×`) on the right.
 *   Wrap the inner control panel content in a standard `<div>` immediately following the `<summary>`.
 
+**Draggable & Persistent Positioning:**
+HUDs can be made freely repositionable and persistent by adding the `data-draggable` attribute and a unique `id`.
+*   **Opt-in:** Add `<details id="unique-hud-id" class="cgx-hud ..." data-draggable>`. Both attributes are required.
+*   **Dragging:** When the HUD is open, clicking and dragging the `<summary>` bar allows you to move the panel anywhere within the viewport bounds.
+*   **Persistence:** The new position is automatically saved to browser `localStorage` keyed by the HUD's `id`.
+*   **Minimize/Expand Behavior:** When the HUD is minimized (closed), it ignores the dragged position and snaps back to its original placement anchor (e.g., the top-left corner) so it acts as a neat layout button. When re-opened, it expands at the last dragged position.
+*   **Restore Button:** Once a HUD has been dragged, a small Restore icon (`⌂`) is automatically injected into the summary bar (visible only when open). Clicking it resets the HUD to its original anchor and clears the `localStorage` cache.
+
 **Animation & Interactivity (`cgx.js`):**
-*   While the HUD opens natively, the closing animation requires the inclusion of `cgx.js`.
+*   While the HUD opens natively, the closing animation and draggable interactions require the inclusion of `cgx.js`.
 *   This lightweight script intercepts the `<summary>` click event on open HUDs, adds a `.cgx-is-closing` class to trigger the CSS shrinking animation, and removes the `open` attribute only after the animation completes. Without `cgx.js`, the HUD will snap closed instantly.
 
 **Customizing Icons:**
