@@ -10,6 +10,33 @@ document.addEventListener('DOMContentLoaded', () => {
     // Intercepts the click on the summary to allow CSS closing animations to play
     // before the `open` attribute is removed by the browser.
 
+    // Helper: Determine anchor corner from HUD placement class
+    function getAnchorCorner(hud) {
+        const cl = hud.classList;
+        if (cl.contains('cgx-hud-top-right')) return 'tr';
+        if (cl.contains('cgx-hud-bottom-left')) return 'bl';
+        if (cl.contains('cgx-hud-bottom-right')) return 'br';
+        if (cl.contains('cgx-hud-top')) return 'tc';
+        if (cl.contains('cgx-hud-bottom')) return 'bc';
+        if (cl.contains('cgx-hud-left')) return 'ml';
+        if (cl.contains('cgx-hud-right')) return 'mr';
+        return 'tl'; // default, including cgx-hud-top-left
+    }
+
+    // Helper: Compute minimized icon position from expanded rect and anchor corner
+    function getMinimizedPos(expRect, iconW, iconH, anchor) {
+        switch (anchor) {
+            case 'tr': return { left: expRect.right - iconW, top: expRect.top };
+            case 'bl': return { left: expRect.left, top: expRect.bottom - iconH };
+            case 'br': return { left: expRect.right - iconW, top: expRect.bottom - iconH };
+            case 'tc': return { left: expRect.left + expRect.width / 2 - iconW / 2, top: expRect.top };
+            case 'bc': return { left: expRect.left + expRect.width / 2 - iconW / 2, top: expRect.bottom - iconH };
+            case 'ml': return { left: expRect.left, top: expRect.top + expRect.height / 2 - iconH / 2 };
+            case 'mr': return { left: expRect.right - iconW, top: expRect.top + expRect.height / 2 - iconH / 2 };
+            default:   return { left: expRect.left, top: expRect.top }; // 'tl'
+        }
+    }
+
     const huds = document.querySelectorAll('details.cgx-hud, details.cgx-panel');
 
     huds.forEach(hud => {
@@ -28,28 +55,58 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (hud.hasAttribute('open')) {
                 // Closing
-                hud.classList.add('cgx-is-closing');
+                const isDraggable = hud.hasAttribute('data-draggable') && hud.id;
+                const cacheKey = isDraggable ? `cgx-hud-pos-${hud.id}` : null;
+                const hasCachedPos = isDraggable && !!localStorage.getItem(cacheKey);
+                let expandedRect = null;
 
-                // If draggable, remove custom position styles during close so it animates back to original anchor
-                if (hud.hasAttribute('data-draggable')) {
-                    // We don't clear the cache, just the inline styles holding it in place
+                if (isDraggable && hasCachedPos) {
+                    // Capture expanded rect before animation starts
+                    expandedRect = hud.getBoundingClientRect();
+                } else if (isDraggable) {
+                    // No cached position - clear inline styles to snap back to CSS anchor
                     hud.style.left = '';
                     hud.style.top = '';
                     hud.style.right = '';
                     hud.style.bottom = '';
                     hud.style.transform = '';
-                    
-                    // Hide restore button during collapse
-                    let restoreBtn = summary.querySelector('.cgx-hud-restore');
-                    if (restoreBtn) {
-                        restoreBtn.style.display = 'none';
-                    }
                 }
+
+                // Hide restore button during collapse
+                if (isDraggable) {
+                    let restoreBtn = summary.querySelector('.cgx-hud-restore');
+                    if (restoreBtn) restoreBtn.style.display = 'none';
+                }
+
+                hud.classList.add('cgx-is-closing');
 
                 setTimeout(() => {
                     hud.classList.remove('cgx-is-closing');
                     hud.removeAttribute('open');
-                }, 400); // 400ms matches the transition duration in cgx.css
+
+                    // Position minimized icon at anchor corner of expanded rect
+                    if (expandedRect) {
+                        hud.style.transition = 'none';
+                        const iconRect = hud.getBoundingClientRect();
+                        const anchor = getAnchorCorner(hud);
+                        const pos = getMinimizedPos(expandedRect, iconRect.width, iconRect.height, anchor);
+                        hud.style.left = pos.left + 'px';
+                        hud.style.top = pos.top + 'px';
+                        hud.style.right = 'auto';
+                        hud.style.bottom = 'auto';
+                        hud.style.transform = 'none';
+                        void hud.offsetWidth;
+                        hud.style.transition = '';
+
+                        // Persist minimized position in cache
+                        try {
+                            const cachedData = JSON.parse(localStorage.getItem(cacheKey));
+                            cachedData.minLeft = pos.left;
+                            cachedData.minTop = pos.top;
+                            localStorage.setItem(cacheKey, JSON.stringify(cachedData));
+                        } catch(ex) {}
+                    }
+                }, 400);
             } else {
                 // Opening - force a browser reflow to guarantee CSS transition on first click
                 hud.setAttribute('open', '');
@@ -61,19 +118,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (cached) {
                         try {
                             const pos = JSON.parse(cached);
-                            // Apply exact position and clear conflicting anchor classes implicitly
                             hud.style.left = pos.left + 'px';
                             hud.style.top = pos.top + 'px';
                             hud.style.right = 'auto';
                             hud.style.bottom = 'auto';
                             hud.style.transform = 'none';
-                            
-                            // Show restore button
+
                             let restoreBtn = summary.querySelector('.cgx-hud-restore');
-                            if (restoreBtn) {
-                                restoreBtn.style.display = '';
-                            }
+                            if (restoreBtn) restoreBtn.style.display = '';
                         } catch(e) {}
+                    } else {
+                        // No cache — clear any leftover inline position from minimized drag
+                        hud.style.left = '';
+                        hud.style.top = '';
+                        hud.style.right = '';
+                        hud.style.bottom = '';
+                        hud.style.transform = '';
                     }
                 }
 
@@ -91,19 +151,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 content.style.padding = '';
             }
         });
-        
+
         // Setup Draggable HUDs
         if (hud.classList.contains('cgx-hud') && hud.hasAttribute('data-draggable') && hud.id) {
             setupDraggableHud(hud, summary);
         }
     });
 
-    // Extract Draggable HUD logic
-
-    // Extract Draggable HUD logic
+    // Draggable HUD logic
     function setupDraggableHud(hud, summary) {
         let isDragging = false;
-        let hasDragged = false; // Add flag to track if actual movement occurred
+        let hasDragged = false;
         let startX, startY, initialLeft, initialTop;
         const cacheKey = `cgx-hud-pos-${hud.id}`;
 
@@ -112,12 +170,11 @@ document.addEventListener('DOMContentLoaded', () => {
         restoreBtn.className = 'cgx-hud-restore';
         restoreBtn.title = 'Restore Default Position';
         restoreBtn.innerHTML = '⌂';
-        restoreBtn.style.display = 'none'; // Hidden by default
-        
-        // Prevent details toggle when clicking restore
+        restoreBtn.style.display = 'none';
+
         restoreBtn.addEventListener('click', (e) => {
-            e.preventDefault(); // Stop native details toggle
-            e.stopPropagation(); // Stop our custom toggler
+            e.preventDefault();
+            e.stopPropagation();
             localStorage.removeItem(cacheKey);
             hud.style.left = '';
             hud.style.top = '';
@@ -126,25 +183,37 @@ document.addEventListener('DOMContentLoaded', () => {
             hud.style.transform = '';
             restoreBtn.style.display = 'none';
         });
-        
+
         summary.appendChild(restoreBtn);
 
-        // Check if cached position exists on load
+        // On load: restore position if cached
         const cached = localStorage.getItem(cacheKey);
-        if (cached && hud.hasAttribute('open')) {
+        if (cached) {
             try {
                 const pos = JSON.parse(cached);
-                hud.style.left = pos.left + 'px';
-                hud.style.top = pos.top + 'px';
-                hud.style.right = 'auto';
-                hud.style.bottom = 'auto';
-                hud.style.transform = 'none';
-                restoreBtn.style.display = '';
+                if (hud.hasAttribute('open')) {
+                    // Expanded: set to cached expanded position
+                    hud.style.left = pos.left + 'px';
+                    hud.style.top = pos.top + 'px';
+                    hud.style.right = 'auto';
+                    hud.style.bottom = 'auto';
+                    hud.style.transform = 'none';
+                    restoreBtn.style.display = '';
+                } else if (pos.minLeft != null) {
+                    // Minimized: set to cached minimized position
+                    hud.style.transition = 'none';
+                    hud.style.left = pos.minLeft + 'px';
+                    hud.style.top = pos.minTop + 'px';
+                    hud.style.right = 'auto';
+                    hud.style.bottom = 'auto';
+                    hud.style.transform = 'none';
+                    void hud.offsetWidth;
+                    hud.style.transition = '';
+                }
             } catch(e) {}
         }
 
-        // Pointer Events for Dragging
-        // Prevent native touch scrolling when touching the summary
+        // Pointer Events for Dragging (works both open and minimized)
         summary.style.touchAction = 'none';
 
         const handlePointerMove = (e) => {
@@ -153,11 +222,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const deltaX = e.clientX - startX;
             const deltaY = e.clientY - startY;
-            
-            // Only consider it a drag if moved more than a couple pixels
-            if (Math.abs(deltaX) > 2 || Math.abs(deltaY) > 2) {
+
+            if (!hasDragged && (Math.abs(deltaX) > 3 || Math.abs(deltaY) > 3)) {
                 hasDragged = true;
+                // Override anchoring once drag is confirmed
+                hud.style.right = 'auto';
+                hud.style.bottom = 'auto';
+                hud.style.transform = 'none';
             }
+
+            if (!hasDragged) return;
 
             let newLeft = initialLeft + deltaX;
             let newTop = initialTop + deltaY;
@@ -179,61 +253,70 @@ document.addEventListener('DOMContentLoaded', () => {
             isDragging = false;
             hud.classList.remove('cgx-hud-dragging');
             document.body.style.cursor = '';
-            
-            // Remove window listeners when drag ends
+
             window.removeEventListener('pointermove', handlePointerMove);
             window.removeEventListener('pointerup', handlePointerUp);
             window.removeEventListener('pointercancel', handlePointerUp);
 
             if (hasDragged) {
-                // Save new position
                 const rect = hud.getBoundingClientRect();
-                localStorage.setItem(cacheKey, JSON.stringify({
-                    left: rect.left,
-                    top: rect.top
-                }));
-                
-                // Show restore button
-                restoreBtn.style.display = '';
+                const deltaX = rect.left - initialLeft;
+                const deltaY = rect.top - initialTop;
 
-                // Tell main click handler to ignore the subsequent click
+                if (hud.hasAttribute('open')) {
+                    // Expanded drag: save expanded position
+                    localStorage.setItem(cacheKey, JSON.stringify({
+                        left: rect.left,
+                        top: rect.top
+                    }));
+                    restoreBtn.style.display = '';
+                } else {
+                    // Minimized drag: shift cached expanded position by delta
+                    const existing = localStorage.getItem(cacheKey);
+                    if (existing) {
+                        try {
+                            const pos = JSON.parse(existing);
+                            pos.left += deltaX;
+                            pos.top += deltaY;
+                            // Also update the minimized position
+                            pos.minLeft = rect.left;
+                            pos.minTop = rect.top;
+                            localStorage.setItem(cacheKey, JSON.stringify(pos));
+                        } catch(ex) {}
+                    } else {
+                        // No previous cache: store icon position as expanded position
+                        localStorage.setItem(cacheKey, JSON.stringify({
+                            left: rect.left,
+                            top: rect.top,
+                            minLeft: rect.left,
+                            minTop: rect.top
+                        }));
+                    }
+                }
+
                 hud.setAttribute('data-is-dragging', 'true');
                 setTimeout(() => hud.removeAttribute('data-is-dragging'), 100);
-                
                 hasDragged = false;
             }
         };
 
         summary.addEventListener('pointerdown', (e) => {
-            // Only drag when open
-            if (!hud.hasAttribute('open')) return;
-            // Only allow left click / primary touch
+            // Allow drag in both open and closed states
             if (e.pointerType === 'mouse' && e.button !== 0) return;
-            // Don't drag if clicking buttons within summary
             if (e.target.closest('button, .cgx-hud-restore')) return;
-
-            // Prevent default to stop text selection during drag
-            if (e.cancelable) e.preventDefault();
 
             isDragging = true;
             hasDragged = false;
             startX = e.clientX;
             startY = e.clientY;
 
-            // Get current computed position
             const rect = hud.getBoundingClientRect();
             initialLeft = rect.left;
             initialTop = rect.top;
 
-            // Clear anchor classes via inline override
-            hud.style.right = 'auto';
-            hud.style.bottom = 'auto';
-            hud.style.transform = 'none';
-
             hud.classList.add('cgx-hud-dragging');
             document.body.style.cursor = 'grabbing';
-            
-            // Attach to window during drag so we don't lose the cursor
+
             window.addEventListener('pointermove', handlePointerMove, { passive: false });
             window.addEventListener('pointerup', handlePointerUp);
             window.addEventListener('pointercancel', handlePointerUp);

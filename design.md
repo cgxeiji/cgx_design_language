@@ -127,10 +127,11 @@ The HUD can natively minimize into a floating icon button using the `<details>` 
 **Draggable & Persistent Positioning:**
 HUDs can be made freely repositionable and persistent by adding the `data-draggable` attribute and a unique `id`.
 *   **Opt-in:** Add `<details id="unique-hud-id" class="cgx-hud ..." data-draggable>`. Both attributes are required.
-*   **Dragging:** When the HUD is open, clicking and dragging the `<summary>` bar allows you to move the panel anywhere within the viewport bounds.
-*   **Persistence:** The new position is automatically saved to browser `localStorage` keyed by the HUD's `id`.
-*   **Minimize/Expand Behavior:** When the HUD is minimized (closed), it ignores the dragged position and snaps back to its original placement anchor (e.g., the top-left corner) so it acts as a neat layout button. When re-opened, it expands at the last dragged position.
-*   **Restore Button:** Once a HUD has been dragged, a small Restore icon (`⌂`) is automatically injected into the summary bar (visible only when open). Clicking it resets the HUD to its original anchor and clears the `localStorage` cache.
+*   **Dragging (Expanded):** When the HUD is open, clicking and dragging the `<summary>` bar moves the panel anywhere within the viewport bounds.
+*   **Dragging (Minimized):** The minimized icon can also be dragged. Dragging the icon updates the cached expanded position by the same offset, so re-opening places the panel correctly relative to the moved icon.
+*   **Persistence:** The position is automatically saved to browser `localStorage` keyed by the HUD's `id`, including both expanded and minimized coordinates.
+*   **Minimize/Expand Behavior:** When closed, the minimized icon appears at the anchor corner of the expanded panel's bounding box relative to the HUD's placement class (e.g., `cgx-hud-top-left` → icon at the panel's top-left corner; `cgx-hud-bottom-right` → icon at the panel's bottom-right corner). When re-opened, the panel expands at its last cached expanded position.
+*   **Restore Button:** Once a HUD has been dragged, a small Restore icon (`⌂`) is automatically injected into the summary bar (visible only when open). Clicking it resets the HUD to its original CSS-defined anchor and clears the `localStorage` cache.
 
 **Animation & Interactivity (`cgx.js`):**
 *   While the HUD opens natively, the closing animation and draggable interactions require the inclusion of `cgx.js`.
