@@ -1028,6 +1028,153 @@ details.cgx-panel[open].cgx-is-closing>div {
   /* Restore the internal padding for the rest of the panel */
 }
 
+/* Tabbed Panels */
+/* A panel variant that organizes content into switchable tabs.
+   Default: horizontal tabs on top. Override tab width via --cgx-panel-tab-width. */
+.cgx-panel-tabbed {
+  --cgx-panel-tab-width: auto;
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+  border: 1px solid var(--cgx-color-white-trans-30);
+  border-radius: var(--cgx-radius);
+  color: var(--cgx-fg);
+  overflow: hidden;
+}
+
+/* Tab bar — horizontal by default */
+.cgx-panel-tabs {
+  display: flex;
+  flex-shrink: 0;
+  background-color: var(--cgx-color-white-trans-02);
+}
+
+/* Individual tab button */
+.cgx-panel-tab {
+  appearance: none;
+  background: transparent;
+  border: none;
+  font-family: var(--cgx-font-default);
+  font-size: 0.85em;
+  color: var(--cgx-color-white-trans-50);
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: color 0.2s ease, background-color 0.2s ease;
+  user-select: none;
+  white-space: nowrap;
+  width: var(--cgx-panel-tab-width);
+  position: relative;
+}
+
+.cgx-panel-tab:hover {
+  color: var(--cgx-fg);
+  background-color: var(--cgx-color-white-trans-05);
+}
+
+.cgx-panel-tab-active {
+  color: var(--cgx-fg);
+  font-weight: bold;
+}
+
+/* Content area */
+.cgx-panel-tab-content {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  padding: 16px;
+}
+
+/* Individual pane */
+.cgx-panel-tab-pane {
+  display: none;
+}
+
+.cgx-panel-tab-pane-active {
+  display: block;
+}
+
+/* ── Default (top) — active indicator on bottom edge ── */
+.cgx-panel-tabbed:not(.cgx-panel-tabbed-left):not(.cgx-panel-tabbed-right):not(.cgx-panel-tabbed-bottom) > .cgx-panel-tabs {
+  border-bottom: 1px solid var(--cgx-color-white-trans-10);
+}
+
+.cgx-panel-tabbed:not(.cgx-panel-tabbed-left):not(.cgx-panel-tabbed-right):not(.cgx-panel-tabbed-bottom) > .cgx-panel-tabs > .cgx-panel-tab-active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--cgx-primary);
+}
+
+/* ── Bottom variant ── */
+.cgx-panel-tabbed-bottom {
+  flex-direction: column-reverse;
+}
+
+.cgx-panel-tabbed-bottom > .cgx-panel-tabs {
+  border-top: 1px solid var(--cgx-color-white-trans-10);
+}
+
+.cgx-panel-tabbed-bottom > .cgx-panel-tabs > .cgx-panel-tab-active::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--cgx-primary);
+}
+
+/* ── Left variant ── */
+.cgx-panel-tabbed-left {
+  flex-direction: row;
+}
+
+.cgx-panel-tabbed-left > .cgx-panel-tabs {
+  flex-direction: column;
+  border-right: 1px solid var(--cgx-color-white-trans-10);
+}
+
+.cgx-panel-tabbed-left > .cgx-panel-tabs > .cgx-panel-tab {
+  text-align: left;
+}
+
+.cgx-panel-tabbed-left > .cgx-panel-tabs > .cgx-panel-tab-active::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: var(--cgx-primary);
+}
+
+/* ── Right variant ── */
+.cgx-panel-tabbed-right {
+  flex-direction: row-reverse;
+}
+
+.cgx-panel-tabbed-right > .cgx-panel-tabs {
+  flex-direction: column;
+  border-left: 1px solid var(--cgx-color-white-trans-10);
+}
+
+.cgx-panel-tabbed-right > .cgx-panel-tabs > .cgx-panel-tab {
+  text-align: left;
+}
+
+.cgx-panel-tabbed-right > .cgx-panel-tabs > .cgx-panel-tab-active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: var(--cgx-primary);
+}
+
 /* Heads Up Display (HUD) */
 /* The HUD is a fixed position container that floats above the content */
 .cgx-hud {

@@ -101,6 +101,18 @@ Panels can be made collapsible by applying the `.cgx-panel` class to a native HT
 *   **`.cgx-panel-ghost`**: Uses a dashed border at 30% transparency `1px dashed var(--cgx-color-white-trans-30)`. Ideal for empty states or drop zones.
 *   **`.cgx-panel-with-status`**: A helper class that removes the default internal padding and enforces `overflow: hidden`, allowing a `.cgx-status-bar` placed as the first child to span flush against the top rounded corners. Must be used in conjunction with a `.cgx-panel-with-status-body` wrapper for the inner content to restore the standard `16px` padding.
 
+**Tabbed Panels (`.cgx-panel-tabbed`):**
+A panel variant that organizes content into switchable tab panes. Tabs switch active content on click. Requires `cgx-tabs.js`.
+
+*   **CSS Variable:** `--cgx-panel-tab-width` (default: `auto`). Set on `.cgx-panel-tabbed` to override individual tab button widths (e.g., `--cgx-panel-tab-width: 120px`).
+*   **Structure:** `div.cgx-panel-tabbed` wraps a `div.cgx-panel-tabs` (tab bar) and a `div.cgx-panel-tab-content` (body). Each tab is a `<button class="cgx-panel-tab">`. Each content pane is a `<div class="cgx-panel-tab-pane">`. Mark the initially active tab and pane with `cgx-panel-tab-active` and `cgx-panel-tab-pane-active` respectively.
+*   **Active Indicator:** The active tab displays a `2px` primary-colored bar on the edge touching the content area.
+*   **Variants:**
+    *   *Default (top)*: Horizontal tabs above content.
+    *   `.cgx-panel-tabbed-left`: Vertical tabs on the left side.
+    *   `.cgx-panel-tabbed-bottom`: Horizontal tabs below content.
+    *   `.cgx-panel-tabbed-right`: Vertical tabs on the right side.
+
 ### Heads Up Display (HUD)
 The HUD represents a fixed-position control panel designed to float globally over the application content, providing immediate access to actions and information regardless of scroll depth.
 

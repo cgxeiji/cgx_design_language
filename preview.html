@@ -595,6 +595,119 @@
     </section>
 
     <section>
+        <h2>Tabbed Panels</h2>
+        <div class="cgx-panel">
+            <p>Tabbed panels organize content into switchable panes. The tab bar can be placed on any edge using
+                directional variant classes. Override tab width with
+                <code>--cgx-panel-tab-width</code>.</p>
+
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+
+                <!-- Default (Top Tabs) -->
+                <h3 style="margin-bottom: 0;">Default (Top Tabs)</h3>
+                <div class="cgx-panel-tabbed">
+                    <div class="cgx-panel-tabs">
+                        <button class="cgx-panel-tab cgx-panel-tab-active">Overview</button>
+                        <button class="cgx-panel-tab">Settings</button>
+                        <button class="cgx-panel-tab">Logs</button>
+                    </div>
+                    <div class="cgx-panel-tab-content">
+                        <div class="cgx-panel-tab-pane cgx-panel-tab-pane-active">
+                            <p>This is the <strong>Overview</strong> pane. Tabbed panels can hold any nested content
+                                like buttons, other panels, or forms.</p>
+                            <button class="cgx-button cgx-button-primary">Action</button>
+                        </div>
+                        <div class="cgx-panel-tab-pane">
+                            <p>Settings content goes here.</p>
+                            <label class="cgx-toggle">
+                                <input type="checkbox" checked>
+                                <span class="cgx-toggle-track"></span>
+                                Enable notifications
+                            </label>
+                        </div>
+                        <div class="cgx-panel-tab-pane">
+                            <div class="cgx-console" style="--cgx-console-height: 80px;">
+                                <div class="cgx-log cgx-log-info">[SYS] All systems operational.</div>
+                                <div class="cgx-log cgx-log-debug">[DBG] Heartbeat OK.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cgx-grid">
+                    <!-- Left Tabs -->
+                    <div>
+                        <h3 style="margin-top: 0;">Left Tabs</h3>
+                        <div class="cgx-panel-tabbed cgx-panel-tabbed-left">
+                            <div class="cgx-panel-tabs">
+                                <button class="cgx-panel-tab cgx-panel-tab-active">General</button>
+                                <button class="cgx-panel-tab">Display</button>
+                                <button class="cgx-panel-tab">Audio</button>
+                            </div>
+                            <div class="cgx-panel-tab-content">
+                                <div class="cgx-panel-tab-pane cgx-panel-tab-pane-active">
+                                    <p>General settings pane with vertical tabs on the left.</p>
+                                </div>
+                                <div class="cgx-panel-tab-pane">
+                                    <p>Display preferences.</p>
+                                </div>
+                                <div class="cgx-panel-tab-pane">
+                                    <p>Audio configuration.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Tabs -->
+                    <div>
+                        <h3 style="margin-top: 0;">Right Tabs</h3>
+                        <div class="cgx-panel-tabbed cgx-panel-tabbed-right">
+                            <div class="cgx-panel-tabs">
+                                <button class="cgx-panel-tab cgx-panel-tab-active">Info</button>
+                                <button class="cgx-panel-tab">History</button>
+                                <button class="cgx-panel-tab">Export</button>
+                            </div>
+                            <div class="cgx-panel-tab-content">
+                                <div class="cgx-panel-tab-pane cgx-panel-tab-pane-active">
+                                    <p>Information pane with vertical tabs on the right.</p>
+                                </div>
+                                <div class="cgx-panel-tab-pane">
+                                    <p>History log.</p>
+                                </div>
+                                <div class="cgx-panel-tab-pane">
+                                    <p>Export options.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Tabs -->
+                <h3 style="margin-bottom: 0;">Bottom Tabs</h3>
+                <div class="cgx-panel-tabbed cgx-panel-tabbed-bottom">
+                    <div class="cgx-panel-tabs">
+                        <button class="cgx-panel-tab cgx-panel-tab-active">Console</button>
+                        <button class="cgx-panel-tab">Output</button>
+                        <button class="cgx-panel-tab">Errors</button>
+                    </div>
+                    <div class="cgx-panel-tab-content">
+                        <div class="cgx-panel-tab-pane cgx-panel-tab-pane-active">
+                            <p>Console output with tabs placed at the bottom.</p>
+                        </div>
+                        <div class="cgx-panel-tab-pane">
+                            <p>Standard output stream.</p>
+                        </div>
+                        <div class="cgx-panel-tab-pane">
+                            <p>Error output stream.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
         <h2>Loaders</h2>
         <div class="cgx-panel">
             <p>A simple animated loading indicator using a satisfying elastic rotation on a solid square.</p>
@@ -1083,6 +1196,7 @@
     <!-- CGx Interactive Component Behaviors -->
     <script src="cgx-hud.js"></script>
     <script src="cgx.js"></script>
+    <script src="cgx-tabs.js"></script>
 
     <!-- Mindmap Component -->
     <script src="cgx-mmap-yaml.js"></script>
