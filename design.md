@@ -187,6 +187,35 @@ Simple, lightweight CSS-only animations for indicating activity or background re
 *   A solid primary-colored square that continuously rotates and subtly scales via the `cgx-spin-square` keyframe animation.
 *   **Easing:** It uses a custom cubic-bezier timing function (`cubic-bezier(0.68, -0.55, 0.265, 1.55)`) to create a satisfying, elastic "bouncing snap" effect during its rotation, over-shooting slightly before snapping into 90-degree and 180-degree states.
 
+### Loading Bar
+A CSS-only progress indicator for displaying current progress against a total. All variants share the `.cgx-load-bar` base class and are driven entirely by CSS custom properties set via inline `style` attributes.
+
+**Base Class:** `.cgx-load-bar`
+*   A flex container that wraps a `.cgx-load-bar-track` (the background rail) and a `.cgx-load-bar-fill` (the colored progress fill) inside it.
+*   By default renders a horizontal bar that fills left-to-right, consistent with the range slider direction.
+
+**CSS Variables (set on `.cgx-load-bar` via inline style):**
+*   `--cgx-load-value` (required): The current progress value.
+*   `--cgx-load-total` (required): The maximum/total value. The fill percentage is computed internally as `value / total * 100%`.
+*   `--cgx-load-color` (optional): Override the fill color. Defaults to `--cgx-primary`.
+*   `--cgx-load-align` (optional, circle only): Starting angle in degrees. `0` = right (3 o'clock), `90` = up (12 o'clock), `180` = left (9 o'clock), `270` = down (6 o'clock). Default: `0`. Arc increases clockwise.
+
+**Structure:**
+```html
+<div class="cgx-load-bar" style="--cgx-load-value: 75; --cgx-load-total: 100">
+  <div class="cgx-load-bar-track"><div class="cgx-load-bar-fill"></div></div>
+  <span class="cgx-load-value-label">75<span class="cgx-unit">%</span></span>
+</div>
+```
+
+**Value Display:**
+*   **`.cgx-load-value-label`**: Optional monospaced value text placed after the track, following the same pattern as `.cgx-range-value`. Pair with `.cgx-unit` for a unit suffix. Uses a fixed `3ch` width to prevent layout jitter during value updates.
+
+**Variants:**
+*   **`.cgx-load-bar-vertical`**: Renders the bar vertically. The fill grows bottom-to-top. Track height defaults to `120px` (overridable via inline style).
+*   **`.cgx-load-bar-circle`**: Renders a circular donut ring using `conic-gradient`. The `.cgx-load-bar-fill` child acts as a center mask to create the donut hole. Use `--cgx-load-align` to control the arc start angle. The `.cgx-load-value-label` is centered inside the ring.
+*   **`.cgx-load-bar-circle-small`**: A compact circle variant sized to match label text height (`1.4em`). The label is placed to the right of the ring instead of inside it. Requires both `.cgx-load-bar-circle` and `.cgx-load-bar-circle-small` classes.
+
 ### Status Bar
 The Status Bar provides a standard, horizontal visual indicator for system states, designed to be placed inside Panels, Consoles, or HUDs.
 

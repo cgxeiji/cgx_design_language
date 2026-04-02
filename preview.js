@@ -241,4 +241,36 @@ document.addEventListener('DOMContentLoaded', () => {
         // (small delay to ensure _cgxRedraw is ready)
         setTimeout(() => liveCanvas._cgxRedraw?.(), 0);
     }
+
+    // Synced Loading Bar Animation Demo
+    const syncH = document.getElementById('sync-load-h');
+    const syncV = document.getElementById('sync-load-v');
+    const syncC = document.getElementById('sync-load-c');
+
+    if (syncH && syncV && syncC) {
+        const CYCLE_MS = 3000; // full 0→100→0 cycle duration
+
+        function updateLoadBars() {
+            // Sine-based easing: 0→1→0 over one full cycle
+            const progress = (Math.sin(Date.now() / CYCLE_MS * Math.PI * 2 - Math.PI / 2) + 1) / 2;
+            const val = Math.round(progress * 100);
+
+            [syncH, syncV, syncC].forEach(el => {
+                el.style.setProperty('--cgx-load-value', val);
+            });
+
+            // Update labels
+            syncH.querySelector('.cgx-load-value-label').textContent = val;
+
+            const vLabel = syncV.querySelector('.cgx-load-value-label');
+            vLabel.childNodes[0].textContent = val;
+
+            const cLabel = syncC.querySelector('.cgx-load-value-label');
+            cLabel.childNodes[0].textContent = val;
+
+            requestAnimationFrame(updateLoadBars);
+        }
+
+        requestAnimationFrame(updateLoadBars);
+    }
 });

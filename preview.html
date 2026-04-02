@@ -718,6 +718,113 @@
     </section>
 
     <section>
+        <h2>Loading Bar</h2>
+        <div class="cgx-panel">
+            <p>A CSS-only progress indicator driven by <code>--cgx-load-value</code> and
+                <code>--cgx-load-total</code>. Defaults to primary color, overridable with
+                <code>--cgx-load-color</code>.</p>
+
+            <!-- Horizontal Bars -->
+            <h3 style="margin-bottom: 8px;">Horizontal (Default)</h3>
+            <div style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px;">
+                <div class="cgx-load-bar" style="--cgx-load-value: 78; --cgx-load-total: 100">
+                    <div class="cgx-load-bar-track"><div class="cgx-load-bar-fill"></div></div>
+                    <span class="cgx-load-value-label">78</span><span class="cgx-unit">%</span>
+                </div>
+                <div class="cgx-load-bar" style="--cgx-load-value: 45; --cgx-load-total: 100; --cgx-load-color: var(--cgx-color-green)">
+                    <div class="cgx-load-bar-track"><div class="cgx-load-bar-fill"></div></div>
+                    <span class="cgx-load-value-label">45</span><span class="cgx-unit">%</span>
+                </div>
+                <div class="cgx-load-bar" style="--cgx-load-value: 90; --cgx-load-total: 100; --cgx-load-color: var(--cgx-color-red)">
+                    <div class="cgx-load-bar-track"><div class="cgx-load-bar-fill"></div></div>
+                    <span class="cgx-load-value-label">90</span><span class="cgx-unit">%</span>
+                </div>
+                <div class="cgx-load-bar" style="--cgx-load-value: 3; --cgx-load-total: 8">
+                    <div class="cgx-load-bar-track"><div class="cgx-load-bar-fill"></div></div>
+                    <span class="cgx-load-value-label">3</span><span class="cgx-unit">/ 8</span>
+                </div>
+            </div>
+
+            <div class="cgx-grid">
+                <!-- Vertical Bars -->
+                <div>
+                    <h3 style="margin-top: 0; margin-bottom: 8px;">Vertical</h3>
+                    <div style="display: flex; gap: 24px; align-items: flex-end; padding: 20px 0;">
+                        <div class="cgx-load-bar cgx-load-bar-vertical" style="--cgx-load-value: 25; --cgx-load-total: 100">
+                            <div class="cgx-load-bar-track"><div class="cgx-load-bar-fill"></div></div>
+                            <span class="cgx-load-value-label">25<span class="cgx-unit">%</span></span>
+                        </div>
+                        <div class="cgx-load-bar cgx-load-bar-vertical" style="--cgx-load-value: 60; --cgx-load-total: 100; --cgx-load-color: var(--cgx-color-cyan)">
+                            <div class="cgx-load-bar-track"><div class="cgx-load-bar-fill"></div></div>
+                            <span class="cgx-load-value-label">60<span class="cgx-unit">%</span></span>
+                        </div>
+                        <div class="cgx-load-bar cgx-load-bar-vertical" style="--cgx-load-value: 88; --cgx-load-total: 100; --cgx-load-color: var(--cgx-color-magenta)">
+                            <div class="cgx-load-bar-track"><div class="cgx-load-bar-fill"></div></div>
+                            <span class="cgx-load-value-label">88<span class="cgx-unit">%</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Circle Variants -->
+                <div>
+                    <h3 style="margin-top: 0; margin-bottom: 8px;">Circle</h3>
+                    <div style="display: flex; gap: 24px; flex-wrap: wrap; align-items: center; padding: 20px 0;">
+                        <!-- Default align (0° = 3 o'clock) -->
+                        <div class="cgx-load-bar cgx-load-bar-circle" style="--cgx-load-value: 65; --cgx-load-total: 100">
+                            <div class="cgx-load-bar-track"><div class="cgx-load-bar-fill"></div>
+                                <span class="cgx-load-value-label">65<span class="cgx-unit">%</span></span>
+                            </div>
+                        </div>
+                        <!-- Align 180° (starts at left / 9 o'clock) -->
+                        <div class="cgx-load-bar cgx-load-bar-circle" style="--cgx-load-value: 40; --cgx-load-total: 100; --cgx-load-color: var(--cgx-color-blue); --cgx-load-align: 180">
+                            <div class="cgx-load-bar-track"><div class="cgx-load-bar-fill"></div>
+                                <span class="cgx-load-value-label">40<span class="cgx-unit">%</span></span>
+                            </div>
+                        </div>
+                        <!-- Align 270° (starts at bottom / 6 o'clock) -->
+                        <div class="cgx-load-bar cgx-load-bar-circle" style="--cgx-load-value: 80; --cgx-load-total: 100; --cgx-load-color: var(--cgx-color-green); --cgx-load-align: 270">
+                            <div class="cgx-load-bar-track"><div class="cgx-load-bar-fill"></div>
+                                <span class="cgx-load-value-label">80<span class="cgx-unit">%</span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 style="margin-top: 0; margin-bottom: 8px;">Circle (Small)</h3>
+                    <div style="display: flex; flex-direction: column; gap: 12px; padding: 8px 0;">
+                        <div class="cgx-load-bar cgx-load-bar-circle cgx-load-bar-circle-small" style="--cgx-load-value: 72; --cgx-load-total: 100">
+                            <div class="cgx-load-bar-track"><div class="cgx-load-bar-fill"></div></div>
+                            <span class="cgx-load-value-label">72<span class="cgx-unit">%</span></span>
+                        </div>
+                        <div class="cgx-load-bar cgx-load-bar-circle cgx-load-bar-circle-small" style="--cgx-load-value: 35; --cgx-load-total: 100; --cgx-load-color: var(--cgx-color-cyan)">
+                            <div class="cgx-load-bar-track"><div class="cgx-load-bar-fill"></div></div>
+                            <span class="cgx-load-value-label">35<span class="cgx-unit">%</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Synced Animated Demo -->
+            <h3 style="margin-bottom: 8px;">Synced Animation Demo</h3>
+            <p style="font-size: 0.85em; margin-bottom: 16px;">All three variants cycling 0% → 100% → 0% in sync.</p>
+            <div style="display: flex; gap: 32px; align-items: center; flex-wrap: wrap;">
+                <div id="sync-load-h" class="cgx-load-bar" style="--cgx-load-value: 0; --cgx-load-total: 100; flex: 1; min-width: 200px;">
+                    <div class="cgx-load-bar-track"><div class="cgx-load-bar-fill"></div></div>
+                    <span class="cgx-load-value-label">0</span><span class="cgx-unit">%</span>
+                </div>
+                <div id="sync-load-v" class="cgx-load-bar cgx-load-bar-vertical" style="--cgx-load-value: 0; --cgx-load-total: 100">
+                    <div class="cgx-load-bar-track"><div class="cgx-load-bar-fill"></div></div>
+                    <span class="cgx-load-value-label">0<span class="cgx-unit">%</span></span>
+                </div>
+                <div id="sync-load-c" class="cgx-load-bar cgx-load-bar-circle" style="--cgx-load-value: 0; --cgx-load-total: 100">
+                    <div class="cgx-load-bar-track"><div class="cgx-load-bar-fill"></div>
+                        <span class="cgx-load-value-label">0<span class="cgx-unit">%</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
         <h2>Inputs</h2>
         <div class="cgx-panel">
             <p>Inputs provide the basic building blocks for forms. They can be stacked vertically or aligned

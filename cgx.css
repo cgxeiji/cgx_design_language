@@ -626,6 +626,141 @@ details.cgx-hud>div>*+* {
   /* Prevent clipping artifacts */
 }
 
+/* Loading Bar */
+/* CSS-only progress bar driven by custom properties:
+   --cgx-load-value  : current progress value (required)
+   --cgx-load-total  : maximum value (required)
+   --cgx-load-color  : bar fill color (default: --cgx-primary)
+   --cgx-load-align  : circle start angle in degrees (default: 0, 3 o'clock)
+                        0° = right, 90° = up, 180° = left, 270° = down */
+
+.cgx-load-bar {
+  --_cgx-load-color: var(--cgx-load-color, var(--cgx-primary));
+  --_cgx-load-pct: calc(var(--cgx-load-value) / var(--cgx-load-total) * 100%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Track */
+.cgx-load-bar-track {
+  flex: 1;
+  height: 6px;
+  background: var(--cgx-color-white-trans-10);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+/* Fill — child div of the track */
+.cgx-load-bar-fill {
+  height: 100%;
+  width: var(--_cgx-load-pct);
+  background: var(--_cgx-load-color);
+  border-radius: 3px;
+}
+
+/* Value label (optional) */
+.cgx-load-value-label {
+  font-family: var(--cgx-font-mono);
+  font-size: 0.9em;
+  width: 3ch;
+  flex-shrink: 0;
+  text-align: right;
+  color: var(--cgx-fg);
+}
+
+/* --- Vertical Variant --- */
+.cgx-load-bar-vertical {
+  flex-direction: column;
+  align-items: center;
+  width: auto;
+  display: inline-flex;
+}
+
+.cgx-load-bar-vertical .cgx-load-bar-track {
+  flex: none;
+  width: 6px;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.cgx-load-bar-vertical .cgx-load-bar-fill {
+  width: 100%;
+  height: var(--_cgx-load-pct);
+}
+
+.cgx-load-bar-vertical .cgx-load-value-label {
+  text-align: center;
+  min-width: auto;
+}
+
+/* --- Circle Variant --- */
+.cgx-load-bar-circle {
+  --_cgx-load-align: var(--cgx-load-align, 0);
+  flex-direction: column;
+  align-items: center;
+  width: auto;
+  display: inline-flex;
+  gap: 0;
+}
+
+.cgx-load-bar-circle .cgx-load-bar-track {
+  flex: none;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: visible;
+  background: conic-gradient(
+    from calc((90 - var(--_cgx-load-align)) * 1deg),
+    var(--_cgx-load-color) var(--_cgx-load-pct),
+    var(--cgx-color-white-trans-10) var(--_cgx-load-pct)
+  );
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Donut mask — punches out the center */
+.cgx-load-bar-circle .cgx-load-bar-fill {
+  width: calc(100% - 12px);
+  height: calc(100% - 12px);
+  border-radius: 50%;
+  background: var(--cgx-bg);
+  transition: none;
+}
+
+.cgx-load-bar-circle .cgx-load-value-label {
+  position: absolute;
+  width: auto;
+  min-width: auto;
+  text-align: center;
+  font-size: 0.8em;
+}
+
+/* --- Small Circle Variant --- */
+.cgx-load-bar-circle-small {
+  flex-direction: row;
+  gap: 8px;
+}
+
+.cgx-load-bar-circle-small .cgx-load-bar-track {
+  width: 1.4em;
+  height: 1.4em;
+}
+
+.cgx-load-bar-circle-small .cgx-load-bar-fill {
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+}
+
+.cgx-load-bar-circle-small .cgx-load-value-label {
+  position: static;
+  font-size: 0.9em;
+}
+
 /* Draggable Number Inputs */
 .cgx-drag-group {
   display: flex;
