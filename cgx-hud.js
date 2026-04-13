@@ -17,13 +17,25 @@ document.addEventListener('DOMContentLoaded', () => {
         el.style.transform = '';
     }
 
-    /** Apply an absolute pixel position and override CSS anchoring. */
+    /** Apply an absolute pixel position, clamp to viewport, and override CSS anchoring. */
     function applyPosition(el, left, top) {
+        // Apply position first to get true dimensions
         el.style.left = left + 'px';
         el.style.top = top + 'px';
         el.style.right = 'auto';
         el.style.bottom = 'auto';
         el.style.transform = 'none';
+
+        // Clamp to viewport
+        const rect = el.getBoundingClientRect();
+        const maxLeft = Math.max(0, window.innerWidth - rect.width);
+        const maxTop = Math.max(0, window.innerHeight - rect.height);
+        
+        const clampedLeft = Math.max(0, Math.min(left, maxLeft));
+        const clampedTop = Math.max(0, Math.min(top, maxTop));
+        
+        el.style.left = clampedLeft + 'px';
+        el.style.top = clampedTop + 'px';
     }
 
     /** Build the localStorage key for a draggable HUD. */
@@ -69,7 +81,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const isDraggable = hud.classList.contains('cgx-hud')
             && hud.hasAttribute('data-draggable') && hud.id;
-        const key = isDraggable ? cacheKeyFor(hud.id) : null;
+        const key = hud.id ? cacheKeyFor(hud.id) : null;
+
+        // Restore cached open state on load
+        if (key) {
+            try {
+                const cached = localStorage.getItem(key);
+                if (cached) {
+                    const data = JSON.parse(cached);
+                    if (typeof data.isOpen === 'boolean') {
+                        if (data.isOpen) hud.setAttribute('open', '');
+                        else hud.removeAttribute('open');
+                    }
+                }
+            } catch (_) {}
+        }
 
         summary.addEventListener('click', (e) => {
             e.preventDefault();
@@ -122,9 +148,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 hud.style.transition = '';
 
                 try {
-                    const data = JSON.parse(localStorage.getItem(key));
+                    const data = JSON.parse(localStorage.getItem(key)) || {};
                     data.minLeft = pos.left;
                     data.minTop = pos.top;
+                    data.isOpen = false;
+                    localStorage.setItem(key, JSON.stringify(data));
+                } catch (_) {}
+            } else if (key) {
+                try {
+                    const data = JSON.parse(localStorage.getItem(key)) || {};
+                    data.isOpen = false;
                     localStorage.setItem(key, JSON.stringify(data));
                 } catch (_) {}
             }
@@ -136,14 +169,26 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleOpen(hud, summary, content, isDraggable, key) {
         hud.setAttribute('open', '');
 
+        if (key) {
+            try {
+                const data = JSON.parse(localStorage.getItem(key)) || {};
+                data.isOpen = true;
+                localStorage.setItem(key, JSON.stringify(data));
+            } catch (_) {}
+        }
+
         if (isDraggable) {
             const cached = localStorage.getItem(key);
             if (cached) {
                 try {
                     const pos = JSON.parse(cached);
-                    applyPosition(hud, pos.left, pos.top);
-                    const btn = summary.querySelector('.cgx-hud-restore');
-                    if (btn) btn.style.display = '';
+                    if (pos.left != null) {
+                        applyPosition(hud, pos.left, pos.top);
+                        const btn = summary.querySelector('.cgx-hud-restore');
+                        if (btn) btn.style.display = '';
+                    } else {
+                        clearPosition(hud);
+                    }
                 } catch (_) {}
             } else {
                 clearPosition(hud);
@@ -191,10 +236,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (cached) {
             try {
                 const pos = JSON.parse(cached);
-                if (hud.hasAttribute('open')) {
+                if (hud.hasAttribute('open') && pos.left != null) {
                     applyPosition(hud, pos.left, pos.top);
                     restoreBtn.style.display = '';
-                } else if (pos.minLeft != null) {
+                } else if (!hud.hasAttribute('open') && pos.minLeft != null) {
                     hud.style.transition = 'none';
                     applyPosition(hud, pos.minLeft, pos.minTop);
                     void hud.offsetWidth;
@@ -244,29 +289,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 const dx = rect.left - initialLeft;
                 const dy = rect.top - initialTop;
 
+                const existing = localStorage.getItem(key);
+                let pos = {};
+                if (existing) {
+                    try { pos = JSON.parse(existing) || {}; } catch (_) {}
+                }
+
                 if (hud.hasAttribute('open')) {
-                    localStorage.setItem(key, JSON.stringify({
-                        left: rect.left, top: rect.top
-                    }));
+                    pos.left = rect.left;
+                    pos.top = rect.top;
                     restoreBtn.style.display = '';
                 } else {
-                    const existing = localStorage.getItem(key);
-                    if (existing) {
-                        try {
-                            const pos = JSON.parse(existing);
-                            pos.left += dx;
-                            pos.top += dy;
-                            pos.minLeft = rect.left;
-                            pos.minTop = rect.top;
-                            localStorage.setItem(key, JSON.stringify(pos));
-                        } catch (_) {}
-                    } else {
-                        localStorage.setItem(key, JSON.stringify({
-                            left: rect.left, top: rect.top,
-                            minLeft: rect.left, minTop: rect.top
-                        }));
-                    }
+                    if (pos.left != null) pos.left += dx;
+                    if (pos.top != null) pos.top += dy;
+                    pos.minLeft = rect.left;
+                    pos.minTop = rect.top;
                 }
+                localStorage.setItem(key, JSON.stringify(pos));
 
                 hud.setAttribute('data-is-dragging', 'true');
                 setTimeout(() => hud.removeAttribute('data-is-dragging'), 100);
@@ -295,4 +334,21 @@ document.addEventListener('DOMContentLoaded', () => {
             window.addEventListener('pointercancel', handlePointerUp);
         });
     }
+
+    // ── Window Resize Clamping ───────────────────────────────────────
+
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            const draggableHuds = document.querySelectorAll('details.cgx-hud[data-draggable]');
+            draggableHuds.forEach(hud => {
+                if (hud.style.left || hud.style.top) {
+                    const left = parseFloat(hud.style.left) || 0;
+                    const top = parseFloat(hud.style.top) || 0;
+                    applyPosition(hud, left, top);
+                }
+            });
+        }, 100);
+    });
 });
